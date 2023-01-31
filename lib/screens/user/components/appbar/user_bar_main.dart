@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
+import 'package:outq_new_app/screens/user/notifications/user_notifications.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 
 class UserAppBar extends StatelessWidget {
@@ -18,10 +18,9 @@ class UserAppBar extends StatelessWidget {
         IconButton(
             icon: const Icon(
               Icons.notifications,
-              // color: Colors.white,
             ),
             onPressed: () {
-              Get.to(() => const WelcomeScreen());
+              Get.to(() => const UserNotifications());
             })
       ],
     );

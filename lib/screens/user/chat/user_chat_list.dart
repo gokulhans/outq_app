@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class UserMyProfilePage extends StatelessWidget {
-  const UserMyProfilePage({super.key});
+class UserChatListPage extends StatelessWidget {
+  const UserChatListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("My Profile"),
+        child: Text("Messages"),
       ),
     );
   }

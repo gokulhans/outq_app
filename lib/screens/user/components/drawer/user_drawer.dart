@@ -1,24 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/drawer/gf_drawer.dart';
+import 'package:get/get.dart';
+import 'package:outq_new_app/screens/shared/drawer_pages/feedback_screen.dart';
+import 'package:outq_new_app/screens/shared/drawer_pages/help_screen.dart';
+import 'package:outq_new_app/screens/shared/drawer_pages/invite_friend_screen.dart';
+import 'package:outq_new_app/utils/image_strings.dart';
+
 
 class UserDrawer extends StatelessWidget {
-  const UserDrawer({super.key});
+  const UserDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GFDrawer(
+      child: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const [
-            ListTile(
-              title: Text('Item 1'),
-              onTap: null,
+          children: <Widget>[
+            DrawerHeader(
+              child: Center(
+                child: Container(
+                  height: 150,
+                  width: 150,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                    fit: BoxFit.fitWidth,
+                    image: AssetImage(tWelcomeTopImage),
+                  )),
+                ),
+              ),
             ),
             ListTile(
-              title: Text('Item 2'),
-              onTap: null,
+              leading: const Icon(Icons.input),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             ),
+            ListTile(
+              leading: const Icon(Icons.support_agent_rounded),
+              title: const Text('Help'),
+              onTap: () => {Get.to(()=> const HelpScreen())},
+            ),
+            ListTile(
+              leading: const Icon(Icons.help),
+              title: const Text('Feedback'),
+              onTap: () => {Get.to(()=> const FeedbackScreen())},
+            ),
+            ListTile(
+              leading: const Icon(Icons.people),
+              title: const Text('Invite Friend'),
+              onTap: () => {Get.to(()=> const InviteFriend())},
+            ),
+            const ListTile(
+              leading: Icon(Icons.share),
+              title: Text('Rate the app'),
+              // onTap: () => {Get.to(()=> InviteFriend())},
+            ),
+            const ListTile(
+              leading: Icon(Icons.info
+              ),
+              title: Text('About Us'),
+              // onTap: () => {Get.to(()=> InviteFriend())},
+            ),
+            
           ],
         ),
       ),

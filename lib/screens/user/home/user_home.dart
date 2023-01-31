@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:getwidget/components/search_bar/gf_search_bar.dart';
+import 'package:outq_new_app/screens/user/chat/user_chat_list.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
 import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
+import 'package:outq_new_app/screens/user/profile/myprofile.dart';
+import 'package:outq_new_app/screens/user/service/user_service_search.dart';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -12,10 +16,10 @@ class UserHomePage extends StatefulWidget {
 class _UserHomePageState extends State<UserHomePage> {
   int currentIndex = 0;
   List tabScreens = const [
-    Center(child: Text("Out 1")),
-    Center(child: Text("Out 2")),
-    Center(child: Text("Out 3")),
-    Center(child: Text("Out 4")),
+    Center(child: UserHomeScreen()),
+    Center(child: UserServiceSearchPage()),
+    Center(child: UserChatListPage()),
+    Center(child: UserMyProfilePage()),
   ];
   @override
   Widget build(BuildContext context) {
@@ -53,19 +57,33 @@ class _UserHomePageState extends State<UserHomePage> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.store),
-              label: 'Store',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.design_services_outlined),
               label: 'Services',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
+              icon: Icon(Icons.chat),
+              label: 'Messages',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
             ),
           ]),
       body: tabScreens.elementAt(currentIndex),
+    );
+  }
+}
+
+class UserHomeScreen extends StatelessWidget {
+  const UserHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Center(child: Text("All Services")),
+      ],
     );
   }
 }

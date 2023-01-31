@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
+import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 
-class UserNotifications extends StatelessWidget {
-  const UserNotifications({super.key});
+class OwnerNotifications extends StatelessWidget {
+  const OwnerNotifications({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(55),
-        child: UserAppBarWithBack(
+        child: OwnerAppBarWithBack(
           title: "Notifications",
         ),
       ),
       body: Center(
-        child: Text("User Notifications"),
+        child: Text("Owner Notifications"),
       ),
     );
   }
