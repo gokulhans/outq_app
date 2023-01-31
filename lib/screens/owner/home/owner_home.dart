@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:outq_new_app/screens/owner/components/appbar/owner_bar_main.dart';
+import 'package:outq_new_app/screens/owner/components/drawer/owner_drawer.dart';
 import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
 
 class OwnerHomePage extends StatefulWidget {
@@ -9,7 +11,7 @@ class OwnerHomePage extends StatefulWidget {
 }
 
 class _OwnerHomePageState extends State<OwnerHomePage> {
-    int currentIndex = 0;
+  int currentIndex = 0;
   List tabScreens = [
     Center(child: Text("Out 1")),
     Center(child: Text("Out 2")),
@@ -19,8 +21,13 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      drawer: const UserDrawer(),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(55),
+        child: OwnerAppBar(
+          title: "Owner Home",
+        ),
+      ),
+      drawer: const OwnerDrawer(),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (index) => setState(() => currentIndex = index),
