@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/screens/owner/auth/signup/signup.dart';
+import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -91,7 +92,7 @@ class OwnerLoginPage extends StatelessWidget {
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
-                                    Get.to(() => const WelcomeScreen());
+                                    Get.to(() => const OwnerHomePage());
                                   },
                                 ),
                               ),

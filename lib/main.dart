@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/shared/splash/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:getwidget/getwidget.dart';
@@ -16,8 +17,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: TextTheme(
+          primarySwatch: Colors.blue,
+          textTheme: TextTheme(
             headline1: GoogleFonts.poppins(
               color: Colors.black87,
               fontSize: 30.0,
@@ -37,8 +38,7 @@ class MyApp extends StatelessWidget {
               color: Colors.black54,
               fontSize: 16,
             ),
-          )
-      ),
+          )),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -58,23 +58,31 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            "Home",
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Get.to(() => const SplashScreen());
-            },
-            child: const Text("Splash"),
-          ),
-        ],
-      )),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(55),
+        child: OwnerAppBarWithBack(
+          title: "Notifications",
+        ),
+      ),
+      body: SafeArea(
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Home",
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Get.to(() => const SplashScreen());
+              },
+              child: const Text("Splash"),
+            ),
+          ],
+        )),
+      ),
     );
   }
 }
