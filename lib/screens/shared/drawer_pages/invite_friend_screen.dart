@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/app_theme.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
+import 'package:outq_new_app/utils/color_constants.dart';
 
 class InviteFriend extends StatefulWidget {
   const InviteFriend({super.key});
@@ -44,10 +45,8 @@ class _InviteFriendState extends State<InviteFriend> {
               ),
               Container(
                 padding: const EdgeInsets.only(top: 8),
-                child: Text(
-                  'Invite Your Friends',
-                  style: Theme.of(context).textTheme.headline4
-                ),
+                child: Text('Invite Your Friends',
+                    style: Theme.of(context).textTheme.headline4),
               ),
               Container(
                 padding: const EdgeInsets.only(top: 16),
@@ -68,7 +67,7 @@ class _InviteFriendState extends State<InviteFriend> {
                       width: 120,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: isLightMode ? Colors.blue : Colors.white,
+                        color: isLightMode ? ColorConstants.blue : Colors.white,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(4.0)),
                         boxShadow: <BoxShadow>[

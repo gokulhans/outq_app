@@ -5,6 +5,7 @@ import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
 import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
 import 'package:outq_new_app/screens/user/profile/myprofile.dart';
 import 'package:outq_new_app/screens/user/service/user_service_search.dart';
+import 'package:outq_new_app/utils/color_constants.dart';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -37,11 +38,11 @@ class _UserHomePageState extends State<UserHomePage> {
           unselectedLabelStyle: TextStyle(
             color: Colors.blueGrey[50],
           ),
-          selectedIconTheme: const IconThemeData(
-            color: Colors.blue,
+          selectedIconTheme: IconThemeData(
+            color: ColorConstants.blue,
           ),
-          selectedLabelStyle: const TextStyle(
-            color: Colors.blue,
+          selectedLabelStyle: TextStyle(
+            color: ColorConstants.blue,
           ),
           unselectedIconTheme: IconThemeData(
             color: Colors.blueGrey[200],

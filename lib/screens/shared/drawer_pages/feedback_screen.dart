@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/app_theme.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
+import 'package:outq_new_app/utils/color_constants.dart';
 
 class FeedbackScreen extends StatefulWidget {
   const FeedbackScreen({super.key});
@@ -35,7 +36,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              
               Column(
                 children: [
                   Container(
@@ -53,7 +53,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         width: 120,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: isLightMode ? Colors.blue : Colors.white,
+                          color:
+                              isLightMode ? ColorConstants.blue : Colors.white,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(4.0)),
                           boxShadow: <BoxShadow>[
@@ -136,7 +137,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   fontSize: 16,
                   color: AppTheme.dark_grey,
                 ),
-                cursorColor: Colors.blue,
+                cursorColor: ColorConstants.blue,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Enter your feedback...'),

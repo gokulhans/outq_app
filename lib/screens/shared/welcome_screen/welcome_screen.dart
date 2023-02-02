@@ -27,7 +27,7 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Text(
                   tWelcomeTitle,
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline1,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),

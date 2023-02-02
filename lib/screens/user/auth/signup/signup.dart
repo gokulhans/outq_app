@@ -71,7 +71,7 @@ class UserSignUpPage extends StatelessWidget {
                                 borderSide: BorderSide(color: Colors.green))),
                         obscureText: true,
                       ),
-                      
+
                       const SizedBox(height: 50.0),
                       // ignore: sized_box_for_whitespace
                       Container(
@@ -87,7 +87,7 @@ class UserSignUpPage extends StatelessWidget {
                                 child: TextButton(
                                   child: const Text(
                                     tSignUp,
-                                    style: TextStyle(color:Colors.white),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
                                     Navigator.of(context).pop();
@@ -134,14 +134,14 @@ class UserSignUpPage extends StatelessWidget {
                     tLoginQuestion,
                   ),
                   TextButton(
-                    child:Text(tLogin,
-                      style: TextStyle(
-                        color: ColorConstants.blue,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                      )),
-                      onPressed: () => Get.to(()=> const UserLoginPage()),
-                      )
+                    child: Text(tLogin,
+                        style: TextStyle(
+                          color: ColorConstants.blue,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                        )),
+                    onPressed: () => Get.to(() => const UserLoginPage()),
+                  )
                 ],
               )
             ]),

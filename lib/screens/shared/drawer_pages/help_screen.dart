@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/app_theme.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
+import 'package:outq_new_app/utils/color_constants.dart';
 
 class HelpScreen extends StatefulWidget {
   const HelpScreen({super.key});
@@ -44,18 +45,15 @@ class _HelpScreenState extends State<HelpScreen> {
               ),
               Container(
                 padding: const EdgeInsets.only(top: 8),
-                child: Text(
-                  'How can we help you?',
-                  style: Theme.of(context).textTheme.headline4
-                ),
+                child: Text('How can we help you?',
+                    style: Theme.of(context).textTheme.headline4),
               ),
               Container(
                 padding: const EdgeInsets.only(top: 16),
                 child: Text(
-                  'It looks like you are experiencing problems\nwith our sign up process. We are here to\nhelp so please get in touch with us',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle2
-                ),
+                    'It looks like you are experiencing problems\nwith our sign up process. We are here to\nhelp so please get in touch with us',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle2),
               ),
               Expanded(
                 child: Padding(
@@ -65,7 +63,7 @@ class _HelpScreenState extends State<HelpScreen> {
                       width: 140,
                       height: 40,
                       decoration: BoxDecoration(
-                        color: isLightMode ? Colors.blue : Colors.white,
+                        color: isLightMode ? ColorConstants.blue : Colors.white,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(4.0)),
                         boxShadow: <BoxShadow>[
