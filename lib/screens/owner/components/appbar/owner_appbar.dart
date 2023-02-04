@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 
 class OwnerAppBarWithBack extends StatelessWidget {
@@ -8,9 +9,15 @@ class OwnerAppBarWithBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+          // systemNavigationBarColor: Colors.white, // navigation bar color
+          systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light),
       title: Text(title),
-      elevation: 3,
-      backgroundColor: ColorConstants.blue,
+      elevation: 0,
+      backgroundColor: ColorConstants.white,
+      foregroundColor: Colors.black,
       // centerTitle: true,
       leading: IconButton(
           icon: const Icon(

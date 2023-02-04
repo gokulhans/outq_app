@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/screens/user/notifications/user_notifications.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
@@ -10,6 +11,11 @@ class UserAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+          // systemNavigationBarColor: Colors.white, // navigation bar color
+          systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light),
       title: Text(title),
       elevation: 0,
       backgroundColor: ColorConstants.blue,

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_bar_main.dart';
 import 'package:outq_new_app/screens/owner/components/drawer/owner_drawer.dart';
 import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
-import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
+import 'package:get/get.dart';
+import 'package:outq_new_app/screens/owner/service/create/create_service.dart';
+import 'package:outq_new_app/screens/owner/service/edit/edit_service.dart';
+import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 
 class OwnerHomePage extends StatefulWidget {
   const OwnerHomePage({super.key});
@@ -14,7 +17,7 @@ class OwnerHomePage extends StatefulWidget {
 class _OwnerHomePageState extends State<OwnerHomePage> {
   int currentIndex = 0;
   List tabScreens = const [
-    CreateStorePage(),
+    OwnerHomeScreen(),
     Center(child: Text("Out 2")),
     Center(child: Text("Out 3")),
     Center(child: Text("Out 4")),
@@ -68,6 +71,62 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
             ),
           ]),
       body: tabScreens.elementAt(currentIndex),
+    );
+  }
+}
+
+
+class OwnerHomeScreen extends StatelessWidget {
+  const OwnerHomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const CreateStorePage());
+                },
+                child: const Text("Create Store"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const EditStorePage());
+                },
+                child: const Text("Edit Store"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const CreateServicePage());
+                },
+                child: const Text("Create Service"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const EditServicePage());
+                },
+                child: const Text("Edit Service"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const EditServicePage());
+                },
+                child: const Text("View Service"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const EditServicePage());
+                },
+                child: const Text("View Store"),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

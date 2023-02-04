@@ -12,7 +12,6 @@ class CreateStorePage extends StatefulWidget {
 class _CreateStorePageState extends State<CreateStorePage> {
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(55),
@@ -20,9 +19,40 @@ class _CreateStorePageState extends State<CreateStorePage> {
           title: "Create Store",
         ),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(tDefaultSize),
-          child: Form(
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(right: 60, left: 8.0),
+              child: Text('Book Your Favorite Shop',
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.headline3),
+            ),
+            const CreateStoreForm(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CreateStoreForm extends StatefulWidget {
+  const CreateStoreForm({super.key});
+
+  @override
+  State<CreateStoreForm> createState() => _CreateStoreFormState();
+}
+
+class _CreateStoreFormState extends State<CreateStoreForm> {
+  @override
+  Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    return Padding(
+      padding: const EdgeInsets.all(tDefaultSize),
+      child: Column(
+        children: [
+          Form(
             key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +86,9 @@ class _CreateStorePageState extends State<CreateStorePage> {
                     )),
               ],
             ),
-          )),
+          ),
+        ],
+      ),
     );
   }
 }

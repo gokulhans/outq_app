@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/shared/splash/splash_screen.dart';
@@ -6,6 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:getwidget/getwidget.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      // systemNavigationBarColor: Colors.white, // navigation bar color
+      systemNavigationBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light
+    ),
+  );
   runApp(const MyApp());
 }
 

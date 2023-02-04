@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/components/search_bar/gf_search_bar.dart';
-import 'package:outq_new_app/screens/owner/service/create/create_service.dart';
 import 'package:outq_new_app/screens/owner/service/edit/edit_service.dart';
-import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
-import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 import 'package:outq_new_app/screens/user/chat/user_chat_list.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
 import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
 import 'package:outq_new_app/screens/user/profile/myprofile.dart';
 import 'package:outq_new_app/screens/user/service/user_service_search.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
-import 'package:outq_new_app/utils/sizes.dart';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -92,27 +87,15 @@ class UserHomeScreen extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () {
-              Get.to(() => const CreateStorePage());
+              Get.to(() => const EditServicePage());
             },
-            child: const Text("Create Store"),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.to(() => const EditStorePage());
-            },
-            child: const Text("Edit Store"),
-          ),
-          TextButton(
-            onPressed: () {
-              Get.to(() => const CreateServicePage());
-            },
-            child: const Text("Create Service"),
+            child: const Text("View Service"),
           ),
           TextButton(
             onPressed: () {
               Get.to(() => const EditServicePage());
             },
-            child: const Text("Edit Service"),
+            child: const Text("View Store"),
           ),
         ],
       ),
