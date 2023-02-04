@@ -15,8 +15,9 @@ class UserAppBarWithBack extends StatelessWidget {
           statusBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.light),
       title: Text(title),
-      elevation: 3,
-      backgroundColor: ColorConstants.blue,
+      elevation: 0,
+      backgroundColor: ColorConstants.white,
+      foregroundColor: Colors.black,
       // centerTitle: true,
       leading: IconButton(
           icon: const Icon(

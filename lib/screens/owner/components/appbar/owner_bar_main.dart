@@ -19,7 +19,8 @@ class OwnerAppBar extends StatelessWidget {
           statusBarBrightness: Brightness.light),
       title: Text(title),
       elevation: 0,
-      backgroundColor: ColorConstants.blue,
+      backgroundColor: ColorConstants.white,
+      foregroundColor: Colors.black,
       centerTitle: true,
       actions: [
         IconButton(
