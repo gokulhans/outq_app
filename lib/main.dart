@@ -29,14 +29,29 @@ class MyApp extends StatelessWidget {
               fontSize: 30,
               fontWeight: FontWeight.w700,
             ),
+            headline3: GoogleFonts.poppins(
+              color: Colors.black87,
+              fontSize: 32,
+              fontWeight: FontWeight.w700,
+            ),
             headline4: GoogleFonts.poppins(
               color: Colors.black87,
               fontSize: 20,
               fontWeight: FontWeight.w700,
             ),
+            headline5: GoogleFonts.poppins(
+              color: Colors.blue,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            subtitle1: GoogleFonts.poppins(
+              color: Colors.black87,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
             subtitle2: GoogleFonts.poppins(
               color: Colors.black54,
-              fontSize: 16,
+              fontSize: 14,
             ),
           )),
       debugShowCheckedModeBanner: false,

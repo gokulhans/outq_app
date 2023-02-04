@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/components/search_bar/gf_search_bar.dart';
+import 'package:outq_new_app/screens/owner/service/create/create_service.dart';
+import 'package:outq_new_app/screens/owner/service/edit/edit_service.dart';
+import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
+import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 import 'package:outq_new_app/screens/user/chat/user_chat_list.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
 import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
@@ -82,62 +87,32 @@ class UserHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(tDefaultSize),
       physics: const BouncingScrollPhysics(),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            height: 100,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              boxShadow: [
-                BoxShadow(
-                    color: Color.fromRGBO(90, 108, 234, 0.07000000029802322),
-                    offset: Offset(0, 0),
-                    blurRadius: 50)
-              ],
-              color: Colors.green,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.red,
-                    child:
-                        Image(image: AssetImage('assets/images/Menuphoto.png')),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Herbal Pancake',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                          Text(
-                            'Herbal Pancake',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context).textTheme.subtitle1,
-                          ),
-                        ]),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Text('\$7',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.headline2),
-                )
-              ],
-            ),
+          TextButton(
+            onPressed: () {
+              Get.to(() => const CreateStorePage());
+            },
+            child: const Text("Create Store"),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.to(() => const EditStorePage());
+            },
+            child: const Text("Edit Store"),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.to(() => const CreateServicePage());
+            },
+            child: const Text("Create Service"),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.to(() => const EditServicePage());
+            },
+            child: const Text("Edit Service"),
           ),
         ],
       ),
