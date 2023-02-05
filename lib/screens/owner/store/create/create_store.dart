@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
+import 'package:outq_new_app/utils/widget_functions.dart';
 
 class CreateStorePage extends StatefulWidget {
   const CreateStorePage({super.key});
@@ -16,14 +17,14 @@ class _CreateStorePageState extends State<CreateStorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(55),
+        preferredSize: Size.fromHeight(60),
         child: OwnerAppBarWithBack(
           title: "",
         ),
       ),
       floatingActionButton: Container(
         width: 150,
-        height: 50,
+        height: tButtonHeight,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -45,14 +46,16 @@ class _CreateStorePageState extends State<CreateStorePage> {
       body: Container(
         padding: const EdgeInsets.all(tDefaultSize),
         color: Colors.white,
+        height: double.infinity,
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
+                height: 150,
                 padding: const EdgeInsets.only(right: 60),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Fill Your Shop Details',
@@ -67,99 +70,7 @@ class _CreateStorePageState extends State<CreateStorePage> {
                   ],
                 ),
               ),
-              Container(
-                height: 60,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x115A6CEA),
-                      spreadRadius: 0,
-                      offset: Offset(0, 0),
-                      blurRadius: 50,
-                    )
-                  ],
-                ),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Enter your name',
-                    labelText: 'Name',
-                  ),
-                ),
-              ),
-              Container(
-                height: 60,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x115A6CEA),
-                      spreadRadius: 0,
-                      offset: Offset(0, 0),
-                      blurRadius: 50,
-                    )
-                  ],
-                ),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Enter your name',
-                    labelText: 'Name',
-                  ),
-                ),
-              ),
-              Container(
-                height: 60,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x115A6CEA),
-                      spreadRadius: 0,
-                      offset: Offset(0, 0),
-                      blurRadius: 50,
-                    )
-                  ],
-                ),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Enter your name',
-                    labelText: 'Name',
-                  ),
-                ),
-              ),
-              Container(
-                height: 60,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x115A6CEA),
-                      spreadRadius: 0,
-                      offset: Offset(0, 0),
-                      blurRadius: 50,
-                    )
-                  ],
-                ),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Enter your name',
-                    labelText: 'Name',
-                  ),
-                ),
-              ),
-              // const CreateStoreForm(),
+              const CreateStoreForm(),
             ],
           ),
         ),
@@ -179,41 +90,94 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    return Padding(
-      padding: const EdgeInsets.all(tDefaultSize),
-      child: Column(
-        children: [
-          Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Enter your name',
-                    labelText: 'Name',
-                  ),
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.phone),
-                    hintText: 'Enter a phone number',
-                    labelText: 'Phone',
-                  ),
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.calendar_today),
-                    hintText: 'Enter your date of birth',
-                    labelText: 'Dob',
-                  ),
-                ),
-              ],
-            ),
+    return Form(
+        key: formKey,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 12.0,
           ),
-        ],
-      ),
-    );
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Shop Name',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Shop Name',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Shop Name',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Shop Name',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              addVerticalSpace(100)
+            ],
+          ),
+        ));
   }
 }
