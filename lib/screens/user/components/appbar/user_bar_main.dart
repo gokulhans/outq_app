@@ -12,7 +12,7 @@ class UserAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       systemOverlayStyle: const SystemUiOverlayStyle(
-          // systemNavigationBarColor: Colors.white, // navigation bar color
+          systemNavigationBarColor: Colors.white, // navigation bar color
           systemNavigationBarIconBrightness: Brightness.dark,
           statusBarColor: Colors.white,
           statusBarIconBrightness: Brightness.dark,

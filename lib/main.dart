@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      // systemNavigationBarColor: Colors.white, // navigation bar color
+      systemNavigationBarColor: Colors.white, // navigation bar color
       systemNavigationBarIconBrightness: Brightness.dark,
       statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
