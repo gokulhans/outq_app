@@ -29,7 +29,7 @@ class _UserHomePageState extends State<UserHomePage> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(55),
         child: UserAppBar(
-          title: "User Home",
+          title: "",
         ),
       ),
       drawer: const UserDrawer(),

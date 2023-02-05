@@ -12,6 +12,7 @@ class UserAppBarWithBack extends StatelessWidget {
       systemOverlayStyle: const SystemUiOverlayStyle(
           // systemNavigationBarColor: Colors.white, // navigation bar color
           systemNavigationBarIconBrightness: Brightness.dark,
+          statusBarColor: Colors.white,
           statusBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.light),
       title: Text(title),
