@@ -24,7 +24,7 @@ class _CreateServicePageState extends State<CreateServicePage> {
       ),
       floatingActionButton: Container(
         width: 150,
-        height: tButtonHeight,
+        height: 50,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),

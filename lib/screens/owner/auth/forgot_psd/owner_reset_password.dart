@@ -1,18 +1,19 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 
-class CreateStorePage extends StatefulWidget {
-  const CreateStorePage({super.key});
+class OwnerResetPsdPage extends StatefulWidget {
+  const OwnerResetPsdPage({super.key});
 
   @override
-  State<CreateStorePage> createState() => _CreateStorePageState();
+  State<OwnerResetPsdPage> createState() => _OwnerResetPsdPageState();
 }
 
-class _CreateStorePageState extends State<CreateStorePage> {
+class _OwnerResetPsdPageState extends State<OwnerResetPsdPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,7 @@ class _CreateStorePageState extends State<CreateStorePage> {
         ),
         child: Center(
             child: Text(
-          "Save",
+          "Continue",
           style: Theme.of(context).textTheme.headline6,
         )),
       ),
@@ -53,131 +54,68 @@ class _CreateStorePageState extends State<CreateStorePage> {
             children: [
               Container(
                 height: 150,
-                padding: const EdgeInsets.only(right: 60),
+                padding: const EdgeInsets.only(right: 80),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Fill Your Shop Details',
+                      'Reset Your Password Here',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headline3,
                     ),
                     Text(
-                      'This data will be displayed in your account profile.',
+                      'Enter your new password here carefully.',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                   ],
                 ),
               ),
-              const CreateStoreForm(),
+              addVerticalSpace(20),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Shop Name',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              addVerticalSpace(20),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Shop Name',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              addVerticalSpace(100),
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-class CreateStoreForm extends StatefulWidget {
-  const CreateStoreForm({super.key});
-
-  @override
-  State<CreateStoreForm> createState() => _CreateStoreFormState();
-}
-
-class _CreateStoreFormState extends State<CreateStoreForm> {
-  @override
-  Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-    return Form(
-        key: formKey,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 12.0,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Shop Name',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    // hintText: 'myshop..',
-                  ),
-                ),
-              ),
-              Container(
-                height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Shop Name',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    // hintText: 'myshop..',
-                  ),
-                ),
-              ),
-              Container(
-                height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Shop Name',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    // hintText: 'myshop..',
-                  ),
-                ),
-              ),
-              Container(
-                height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Shop Name',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    // hintText: 'myshop..',
-                  ),
-                ),
-              ),
-              addVerticalSpace(100)
-            ],
-          ),
-        ));
   }
 }

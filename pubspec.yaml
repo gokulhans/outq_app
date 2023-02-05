@@ -39,6 +39,7 @@ dependencies:
   get: ^4.6.5
   getwidget: ^2.0.4
   google_fonts: ^4.0.1
+  pinput: ^2.2.21
 
   
 

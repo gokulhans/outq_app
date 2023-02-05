@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_forgot_psd.dart';
+import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_reset_password.dart';
+import 'package:outq_new_app/screens/owner/auth/otp/owner_otp.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_bar_main.dart';
 import 'package:outq_new_app/screens/owner/components/drawer/owner_drawer.dart';
 import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
@@ -6,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:outq_new_app/screens/owner/service/create/create_service.dart';
 import 'package:outq_new_app/screens/owner/service/edit/edit_service.dart';
 import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
+import 'package:outq_new_app/screens/owner/success/success.dart';
 
 class OwnerHomePage extends StatefulWidget {
   const OwnerHomePage({super.key});
@@ -122,6 +126,30 @@ class OwnerHomeScreen extends StatelessWidget {
                   Get.to(() => const EditServicePage());
                 },
                 child: const Text("View Store"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const SuccessPage());
+                },
+                child: const Text("Success"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const OwnerOtpPage());
+                },
+                child: const Text("OwnerOtpPage"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const OwnerForgotPsdPage());
+                },
+                child: const Text("OwnerForgotPsdPage"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.to(() => const OwnerResetPsdPage());
+                },
+                child: const Text("OwnerResetPsdPage"),
               ),
             ],
           ),

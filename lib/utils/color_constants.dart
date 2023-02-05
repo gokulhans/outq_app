@@ -21,4 +21,6 @@ class ColorConstants {
   static Color white = Colors.white;
   static Color bluegradient1 = const Color.fromARGB(255, 83, 164, 231) ;
   static Color bluegradient2 = const Color.fromARGB(255, 20, 128, 190);
+  static Color greengradient1 = const Color(0xFF53E78B) ;
+  static Color greengradient2 = const Color(0xFF14BE77);
 }
