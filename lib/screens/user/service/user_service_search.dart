@@ -15,7 +15,7 @@ class _UserServiceSearchPageState extends State<UserServiceSearchPage> {
     return Container(
       color: Colors.white,
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(tDefaultSize),
+        padding: const EdgeInsets.symmetric(horizontal:tDefaultSize),
         physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
