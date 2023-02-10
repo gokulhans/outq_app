@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:outq_new_app/Backend/api/api.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/shared/splash/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,12 +9,11 @@ import 'package:google_fonts/google_fonts.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      systemNavigationBarColor: Colors.white, // navigation bar color
-      systemNavigationBarIconBrightness: Brightness.dark,
-      statusBarColor: Colors.white,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light
-    ),
+        systemNavigationBarColor: Colors.white, // navigation bar color
+        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light),
   );
   runApp(const MyApp());
 }
@@ -69,7 +69,69 @@ class MyApp extends StatelessWidget {
             ),
           )),
       debugShowCheckedModeBanner: false,
+      // home: Display(),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class Display extends StatefulWidget {
+  const Display({super.key});
+
+  @override
+  State<Display> createState() => _DisplayState();
+}
+
+class _DisplayState extends State<Display> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Display Users'),
+        elevation: 0.0,
+        backgroundColor: Colors.indigo[700],
+      ),
+      body: Container(
+        child: Center(
+          child: FutureBuilder(
+            future: getUsers(),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return const Center(
+                  child: Placeholder(
+                    color: Colors.green,
+                  ),
+                );
+              } else {
+                if (snapshot.data.length == 0) {
+                  return const Center(
+                      child: Text(
+                    'No Content is available right now.\nWe will Update it with in august 31.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ));
+                } else {
+                  return Container(
+                      child: ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, i) {
+                            return Container(
+                              child: Text(
+                                snapshot.data[i].name,
+                                style: const TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16),
+                              ),
+                            );
+                          }));
+                }
+              }
+            },
+          ),
+        ),
+      ),
     );
   }
 }

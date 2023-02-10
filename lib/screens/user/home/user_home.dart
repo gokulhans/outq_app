@@ -6,7 +6,7 @@ import 'package:outq_new_app/screens/user/chat/user_chat_list.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
 import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
 import 'package:outq_new_app/screens/user/profile/myprofile.dart';
-import 'package:outq_new_app/screens/user/service/user_service_search.dart';
+import 'package:outq_new_app/screens/user/service/all_service/user_service_search.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';

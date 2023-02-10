@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:outq_new_app/screens/user/service/view_service/user_view_service.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 
 class UserServiceSearchPage extends StatefulWidget {
@@ -14,8 +16,9 @@ class _UserServiceSearchPageState extends State<UserServiceSearchPage> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
+      height: double.infinity,
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal:tDefaultSize),
+        padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
         physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,11 +51,44 @@ class _UserServiceSearchPageState extends State<UserServiceSearchPage> {
                 ),
               ),
             ),
-            const SearchListView(),
-            const SearchListView(),
-            const SearchListView(),
-            const SearchListView(),
-            const SearchListView(),
+
+            InkWell(
+              child: const SearchListView(),
+              onTap: () {
+                Get.to(() => const UserSingleServicePage());
+              },
+            ),
+            InkWell(
+              child: const SearchListView(),
+              onTap: () {
+                Get.to(() => const UserSingleServicePage());
+              },
+            ),
+            InkWell(
+              child: const SearchListView(),
+              onTap: () {
+                Get.to(() => const UserSingleServicePage());
+              },
+            ),
+            InkWell(
+              child: const SearchListView(),
+              onTap: () {
+                Get.to(() => const UserSingleServicePage());
+              },
+            ),
+            InkWell(
+              child: const SearchListView(),
+              onTap: () {
+                Get.to(() => const UserSingleServicePage());
+              },
+            ),
+            InkWell(
+              child: const SearchListView(),
+              onTap: () {
+                Get.to(() => const UserSingleServicePage());
+              },
+            ),
+           
           ],
         ),
       ),
