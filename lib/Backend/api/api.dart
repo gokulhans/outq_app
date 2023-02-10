@@ -1,17 +1,19 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'dart:convert';
-
-import 'package:outq_new_app/Backend/models/models.dart';
+import 'package:outq_new_app/Backend/models/user_models.dart';
+import 'package:outq_new_app/main.dart';
 
 // {"name":"govind","pswd":"1234"}
 
 Future getUsers() async {
-  var response = await http
-      .get(Uri.parse('https://outq-z6osk.ondigitalocean.app/test/api/reg'));
+  var response =
+      await http.get(Uri.parse('http://192.168.137.1:3001/test/api/reg'));
   var jsonData = jsonDecode(response.body);
 
-  List<Users
-  > users = [];
+  List<Users> users = [];
 
   for (var u in jsonData) {
     Users user = Users(u["name"], u["pswd"]);
@@ -19,4 +21,19 @@ Future getUsers() async {
   }
   print(users);
   return users;
+}
+
+Future getOwnerId(var response) async {
+  print(response);
+
+  var jsonData = jsonDecode(response.body);
+
+  List<idModel> ids = [];
+
+  for (var u in jsonData) {
+    idModel id = idModel(u["id"]);
+    ids.add(id);
+  }
+  print(ids);
+  return ids;
 }

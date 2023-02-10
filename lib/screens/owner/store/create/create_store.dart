@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
+import 'package:http/http.dart' as http;
 
 class CreateStorePage extends StatefulWidget {
   const CreateStorePage({super.key});
@@ -86,7 +88,36 @@ class CreateStoreForm extends StatefulWidget {
   State<CreateStoreForm> createState() => _CreateStoreFormState();
 }
 
+TextEditingController nameController = TextEditingController(text: '');
+TextEditingController typeController = TextEditingController(text: '');
+TextEditingController descriptionController = TextEditingController(text: '');
+TextEditingController locationController = TextEditingController(text: '');
+
+StoreModel shop = StoreModel('', '', '', '');
+
 class _CreateStoreFormState extends State<CreateStoreForm> {
+  Future save() async {
+    print({shop.name, shop.type, shop.description, shop.location});
+    http.post(
+        Uri.parse(
+          "http://192.168.137.1:3001/auth/owner/register",
+        ),
+        headers: <String, String>{
+          'Context-Type': 'application/json; charset=UTF-8',
+        },
+        body: <String, String>{
+          'name': shop.name,
+          'location': shop.location,
+          'description': shop.description,
+          'type': shop.type,
+        });
+    // Get.to(() => {const OwnerHomePage()});
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) => const CreateStorePage()),
+        (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -106,8 +137,12 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
+                child: TextField(
+                  controller: nameController,
+                  onChanged: (val) {
+                    shop.name = val;
+                  },
+                  decoration: const InputDecoration(
                     labelText: 'Shop Name',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
@@ -125,9 +160,13 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Shop Name',
+                child: TextField(
+                  controller: locationController,
+                  onChanged: (val) {
+                    shop.location = val;
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Location',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
@@ -144,9 +183,13 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Shop Name',
+                child: TextField(
+                  controller: descriptionController,
+                  onChanged: (val) {
+                    shop.description = val;
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Description',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
@@ -163,9 +206,13 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Shop Name',
+                child: TextField(
+                  controller: typeController,
+                  onChanged: (val) {
+                    shop.type = val;
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Type',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
