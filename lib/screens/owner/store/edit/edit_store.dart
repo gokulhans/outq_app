@@ -1,12 +1,46 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
-import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
+import 'package:outq_new_app/screens/owner/home/owner_home.dart';
+import 'package:outq_new_app/screens/owner/store/view/owner_view_store.dart';
+import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
+import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+Future save(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  String ownerid = prefs.getString("ownerid") ?? "null";
+  if (ownerid == "null") {
+    Get.to(() => const WelcomeScreen());
+  }
+
+  print({shop.name, shop.type, shop.description, shop.location});
+  http.post(
+      Uri.parse(
+        apidomain + "store/edit/id",
+      ),
+      headers: <String, String>{
+        'Context-Type': 'application/json; charset=UTF-8',
+      },
+      body: <String, String>{
+        'name': shop.name,
+        'location': shop.location,
+        'id': ownerid,
+        'description': shop.description,
+        'type': shop.type,
+      });
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+          builder: (BuildContext context) => const OwnerViewStorePage()),
+      (Route<dynamic> route) => false);
+}
 
 class EditStorePage extends StatefulWidget {
   const EditStorePage({super.key});
@@ -40,10 +74,16 @@ class _EditStorePageState extends State<EditStorePage> {
           ),
         ),
         child: Center(
+          child: TextButton(
             child: Text(
-          "Save",
-          style: Theme.of(context).textTheme.headline6,
-        )),
+              "Save",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            onPressed: () {
+              save(context);
+            },
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
@@ -61,7 +101,7 @@ class _EditStorePageState extends State<EditStorePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Edit Your Shop Details',
+                      'Fill Your Shop Details',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headline3,
                     ),
@@ -82,8 +122,6 @@ class _EditStorePageState extends State<EditStorePage> {
   }
 }
 
-
-
 class EditStoreForm extends StatefulWidget {
   const EditStoreForm({super.key});
 
@@ -99,28 +137,6 @@ TextEditingController locationController = TextEditingController(text: '');
 StoreModel shop = StoreModel('', '', '', '');
 
 class _EditStoreFormState extends State<EditStoreForm> {
-  Future save() async {
-    print({shop.name, shop.type, shop.description, shop.location});
-    http.post(
-        Uri.parse(
-          "http://192.168.137.1:3001/auth/owner/register",
-        ),
-        headers: <String, String>{
-          'Context-Type': 'application/json; charset=UTF-8',
-        },
-        body: <String, String>{
-          'name': shop.name,
-          'location': shop.location,
-          'description': shop.description,
-          'type': shop.type,
-        });
-    // Get.to(() => {const OwnerHomePage()});
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (BuildContext context) => const CreateStorePage()),
-        (Route<dynamic> route) => false);
-  }
-
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();

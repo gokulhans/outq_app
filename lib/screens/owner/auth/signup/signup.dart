@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
@@ -26,13 +27,11 @@ TextEditingController pswdController = TextEditingController(text: '');
 OwnerSignUpModel owners = OwnerSignUpModel('', '', '');
 
 class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
-
-  
   Future save() async {
     print({owners.name, owners.email, owners.pswd});
-    http.post(
+    final response = await http.post(
         Uri.parse(
-          apidomain+"auth/owner/register",
+          apidomain + "auth/owner/register",
         ),
         headers: <String, String>{
           'Context-Type': 'application/json; charset=UTF-8',
@@ -42,6 +41,12 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
           'email': owners.email,
           'pswd': owners.pswd,
         });
+
+    var jsonData = jsonDecode(response.body);
+    var str = jsonData[0]["id"];
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("ownerid", str);
     // Get.to(() => {const OwnerHomePage()});
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(

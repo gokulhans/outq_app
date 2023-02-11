@@ -3,12 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/api/api.dart';
 import 'package:outq_new_app/Backend/models/user_models.dart';
+import 'package:outq_new_app/screens/owner/auth/login/login.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
+import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/shared/splash/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:outq_new_app/screens/user/auth/login/login.dart';
+import 'package:outq_new_app/screens/user/home/user_home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white, // navigation bar color
@@ -17,12 +22,23 @@ void main() {
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.light),
   );
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? ownerid = prefs.getString("ownerid");
+  print(ownerid);
+  runApp(MyApp(ownerid: ownerid));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({super.key, required this.ownerid});
 
+  final String? ownerid;
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -72,7 +88,9 @@ class MyApp extends StatelessWidget {
           )),
       debugShowCheckedModeBanner: false,
       // home: Create(),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: widget.ownerid == null
+          ? const MyHomePage(title: 'Flutter Demo Home Page')
+          : const OwnerHomePage(),
     );
   }
 }
@@ -137,8 +155,6 @@ class _DisplayState extends State<Display> {
     );
   }
 }
-
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});

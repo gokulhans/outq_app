@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:outq_new_app/main.dart';
+import 'package:outq_new_app/screens/owner/auth/login/login.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/feedback_screen.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/help_screen.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/invite_friend_screen.dart';
+import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/utils/image_strings.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OwnerDrawer extends StatelessWidget {
   const OwnerDrawer({Key? key}) : super(key: key);
@@ -39,17 +42,17 @@ class OwnerDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.support_agent_rounded),
               title: const Text('Help'),
-              onTap: () => {Get.to(()=> const HelpScreen())},
+              onTap: () => {Get.to(() => const HelpScreen())},
             ),
             ListTile(
               leading: const Icon(Icons.help),
               title: const Text('Feedback'),
-              onTap: () => {Get.to(()=> const FeedbackScreen())},
+              onTap: () => {Get.to(() => const FeedbackScreen())},
             ),
             ListTile(
               leading: const Icon(Icons.people),
               title: const Text('Invite Friend'),
-              onTap: () => {Get.to(()=> const InviteFriend())},
+              onTap: () => {Get.to(() => const InviteFriend())},
             ),
             const ListTile(
               leading: Icon(Icons.share),
@@ -57,12 +60,19 @@ class OwnerDrawer extends StatelessWidget {
               // onTap: () => {Get.to(()=> InviteFriend())},
             ),
             const ListTile(
-              leading: Icon(Icons.info
-              ),
+              leading: Icon(Icons.info),
               title: Text('About Us'),
               // onTap: () => {Get.to(()=> InviteFriend())},
             ),
-            
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text('Logout'),
+              onTap: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                pref.remove("ownerid");
+                Get.to(() => const WelcomeScreen());
+              },
+            ),
           ],
         ),
       ),
