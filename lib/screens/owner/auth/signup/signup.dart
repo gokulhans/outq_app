@@ -4,6 +4,7 @@ import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/auth/login/login.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
+import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/text_strings.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -31,7 +32,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
     print({owners.name, owners.email, owners.pswd});
     http.post(
         Uri.parse(
-          "http://192.168.137.1:3001/auth/owner/register",
+          apidomain+"auth/owner/register",
         ),
         headers: <String, String>{
           'Context-Type': 'application/json; charset=UTF-8',
