@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
+import 'package:outq_new_app/screens/owner/service/view/owner_view_service.dart';
 import 'package:outq_new_app/screens/owner/store/Edit/Edit_store.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditServicePage extends StatefulWidget {
   const EditServicePage({super.key});
@@ -18,6 +20,35 @@ class EditServicePage extends StatefulWidget {
 }
 
 class _EditServicePageState extends State<EditServicePage> {
+  Future save(BuildContext context) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var storeid = pref.getString("storeid") ?? "null";
+    var ownerid = pref.getString("ownerid") ?? "null";
+
+    http.post(
+        Uri.parse(
+          "${apidomain}service/Edit/",
+        ),
+        headers: <String, String>{
+          'Context-Type': 'application/json; charset=UTF-8',
+        },
+        body: <String, String>{
+          'name': service.name,
+          'description': service.description,
+          'price': service.price,
+          'ownerid': ownerid,
+          'storeid': storeid,
+        });
+    // Get.to(() => {OwnerHomePage(currentIndex:0)});
+    // Navigator.of(context).pop();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) => OwnerHomePage(
+                  currentIndex: 2,
+                )),
+        (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +73,16 @@ class _EditServicePageState extends State<EditServicePage> {
           ),
         ),
         child: Center(
+          child: TextButton(
+            onPressed: () {
+              save(context);
+            },
             child: Text(
-          "Save",
-          style: Theme.of(context).textTheme.headline6,
-        )),
+              "Save",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
@@ -94,28 +131,6 @@ class EditServiceForm extends StatefulWidget {
 ServiceModel service = ServiceModel('', '', '', '', '');
 
 class _EditServiceFormState extends State<EditServiceForm> {
-  Future save() async {
-    http.post(
-        Uri.parse(
-          "${apidomain}services",
-        ),
-        headers: <String, String>{
-          'Context-Type': 'application/json; charset=UTF-8',
-        },
-        body: <String, String>{
-          'name': service.name,
-          'description': service.description,
-          'price': service.price,
-          'ownerid': service.ownerid,
-          'storeid': service.storeid,
-        });
-    // Get.to(() => {const OwnerHomePage()});
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (BuildContext context) => const OwnerHomePage()),
-        (Route<dynamic> route) => false);
-  }
-
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -140,7 +155,7 @@ class _EditServiceFormState extends State<EditServiceForm> {
                     service.name = val;
                   },
                   decoration: const InputDecoration(
-                    labelText: 'service Name',
+                    labelText: 'Name',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
@@ -183,6 +198,7 @@ class _EditServiceFormState extends State<EditServiceForm> {
                   onChanged: (val) {
                     service.price = val;
                   },
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     labelText: 'Price',
                     labelStyle: TextStyle(

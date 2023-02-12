@@ -91,7 +91,8 @@ class OwnerLoginPage extends StatelessWidget {
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
-                                    Get.to(() => const OwnerHomePage());
+                                    Get.to(
+                                        () => OwnerHomePage(currentIndex: 0));
                                   },
                                 ),
                               ),

@@ -39,7 +39,7 @@ Future save(BuildContext context) async {
 
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-          builder: (BuildContext context) => const OwnerHomePage()),
+          builder: (BuildContext context) => OwnerHomePage(currentIndex: 0)),
       (Route<dynamic> route) => false);
 }
 

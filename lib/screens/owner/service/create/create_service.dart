@@ -39,10 +39,13 @@ class _CreateServicePageState extends State<CreateServicePage> {
           'ownerid': ownerid,
           'storeid': storeid,
         });
-    // Get.to(() => {const OwnerHomePage()});
+    // Get.to(() => {OwnerHomePage(currentIndex:0)});
+    // Navigator.of(context).pop();
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-            builder: (BuildContext context) => const OwnerHomePage()),
+            builder: (BuildContext context) => OwnerHomePage(
+                  currentIndex: 2,
+                )),
         (Route<dynamic> route) => false);
   }
 

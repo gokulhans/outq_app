@@ -17,6 +17,7 @@ Future save(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   String ownerid = prefs.getString("ownerid") ?? "null";
+
   if (ownerid == "null") {
     Get.to(() => const WelcomeScreen());
   }
@@ -39,7 +40,7 @@ Future save(BuildContext context) async {
 
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-          builder: (BuildContext context) => const OwnerHomePage()),
+          builder: (BuildContext context) => OwnerHomePage(currentIndex: 1)),
       (Route<dynamic> route) => false);
 }
 

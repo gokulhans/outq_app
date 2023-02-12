@@ -10,11 +10,11 @@ Future getOwnerStore() async {
 
   var ownerid = pref.getString("ownerid");
 
-  var response = await http.get(Uri.parse('${apidomain}store/${ownerid}'));
+  var response = await http.get(Uri.parse('${apidomain}store/$ownerid'));
   var jsonData = jsonDecode(response.body);
-  print(jsonData[0]);
-  var str = jsonData[0]["storeName"];
   pref.setString("storeid", jsonData[0]["type"]);
+  print(jsonData);
+
   List<Store> stores = [];
 
   for (var u in jsonData) {
@@ -23,7 +23,6 @@ Future getOwnerStore() async {
     stores.add(store);
   }
   print(stores);
-  // print("object");
   return stores;
 }
 
@@ -32,16 +31,14 @@ Future getStoreServices() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
 
   var storeid = pref.getString("storeid");
-
   var response = await http.get(Uri.parse('${apidomain}service/get/$storeid'));
   var jsonData = jsonDecode(response.body);
-  List<ServiceModel> services = [];
+  List<GetServiceModel> services = [];
 
   for (var u in jsonData) {
-    ServiceModel service = ServiceModel(
-        u["name"], u["description"], u["price"], u["storeid"], u["ownerid"]);
+    GetServiceModel service = GetServiceModel(u["_id"], u["name"],
+        u["description"], u["price"], u["storeid"], u["ownerid"]);
     services.add(service);
   }
-  print(services);
   return services;
 }

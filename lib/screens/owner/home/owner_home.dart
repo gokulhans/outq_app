@@ -21,14 +21,14 @@ import 'package:outq_new_app/utils/sizes.dart';
 import 'package:http/http.dart' as http;
 
 class OwnerHomePage extends StatefulWidget {
-  const OwnerHomePage({super.key});
+  int currentIndex = 0;
+  OwnerHomePage({super.key, required this.currentIndex});
 
   @override
   State<OwnerHomePage> createState() => _OwnerHomePageState();
 }
 
 class _OwnerHomePageState extends State<OwnerHomePage> {
-  int currentIndex = 0;
   List tabScreens = const [
     OwnerHomeScreen(),
     OwnerViewStorePage(),
@@ -41,13 +41,13 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(55),
         child: OwnerAppBar(
-          title: "Owner Home",
+          title: "",
         ),
       ),
       drawer: const OwnerDrawer(),
       bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (index) => setState(() => currentIndex = index),
+          currentIndex: widget.currentIndex,
+          onTap: (index) => setState(() => widget.currentIndex = index),
           unselectedLabelStyle: TextStyle(
             color: Colors.blueGrey[50],
           ),
@@ -83,7 +83,7 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
               label: 'Settings',
             ),
           ]),
-      body: tabScreens.elementAt(currentIndex),
+      body: tabScreens.elementAt(widget.currentIndex),
     );
   }
 }

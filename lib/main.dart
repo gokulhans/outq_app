@@ -90,7 +90,7 @@ class _MyAppState extends State<MyApp> {
       // home: Create(),
       home: widget.ownerid == null
           ? const MyHomePage(title: 'Flutter Demo Home Page')
-          : const OwnerHomePage(),
+          : OwnerHomePage(currentIndex: 0),
     );
   }
 }

@@ -47,7 +47,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("ownerid", str);
-    // Get.to(() => {const OwnerHomePage()});
+    // Get.to(() => {OwnerHomePage(currentIndex:0)});
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
             builder: (BuildContext context) => const CreateStorePage()),

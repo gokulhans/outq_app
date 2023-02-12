@@ -17,8 +17,16 @@ class Store {
 
 class ServiceModel {
   String name, description, price, ownerid, storeid;
+
   ServiceModel(
       this.name, this.description, this.price, this.ownerid, this.storeid);
+}
+
+class GetServiceModel {
+  String _id, name, description, storeid, ownerid;
+  int price;
+  GetServiceModel(this._id, this.name, this.description, this.price,
+      this.storeid, this.ownerid);
 }
 
 class idModel {
