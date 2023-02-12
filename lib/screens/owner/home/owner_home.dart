@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_forgot_psd.dart';
 import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_reset_password.dart';
 import 'package:outq_new_app/screens/owner/auth/otp/owner_otp.dart';
@@ -11,6 +15,7 @@ import 'package:outq_new_app/screens/owner/service/edit/edit_service.dart';
 import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 import 'package:outq_new_app/screens/owner/success/success.dart';
 import 'package:outq_new_app/utils/sizes.dart';
+import 'package:http/http.dart' as http;
 
 class OwnerHomePage extends StatefulWidget {
   const OwnerHomePage({super.key});
@@ -80,9 +85,13 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
   }
 }
 
-class OwnerHomeScreen extends StatelessWidget {
+class OwnerHomeScreen extends StatefulWidget {
   const OwnerHomeScreen({super.key});
+  @override
+  State<OwnerHomeScreen> createState() => _OwnerHomeScreenState();
+}
 
+class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,11 +101,21 @@ class OwnerHomeScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          FutureBuilder(
+            future: getOwnerStore(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final data = snapshot.data as String;
+                return Text('$data');
+              }
+              return CircularProgressIndicator();
+            },
+          ),
           Container(
-            height: 130,
+            height: 150,
             padding: const EdgeInsets.only(right: 60),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -112,31 +131,40 @@ class OwnerHomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          Expanded(
+            child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (context, i) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Hair Cleaning ',
+                                textAlign: TextAlign.left,
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
+                              Text(
+                                'Arun',
+                                textAlign: TextAlign.left,
+                                style: Theme.of(context).textTheme.subtitle2,
+                              ),
+                            ]),
                         Text(
-                          'This is a Sample Notification',
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                        Text(
-                          'Herbal Pancake',
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.subtitle2,
-                        ),
-                      ]),
-                ),
-              ],
-            ),
+                          "10.00",
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w700, color: Colors.blue),
+                        )
+                      ],
+                    ),
+                  );
+                }),
           ),
         ],
       ),

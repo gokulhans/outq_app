@@ -36,9 +36,10 @@ Future save(BuildContext context) async {
         'description': shop.description,
         'type': shop.type,
       });
+      
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-          builder: (BuildContext context) => const OwnerViewStorePage()),
+          builder: (BuildContext context) => const OwnerHomePage()),
       (Route<dynamic> route) => false);
 }
 
