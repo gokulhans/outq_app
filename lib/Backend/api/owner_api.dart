@@ -7,12 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future getOwnerStore() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
+  
   var ownerid = pref.getString("ownerid");
 
   var response = await http.get(Uri.parse('${apidomain}store/${ownerid}'));
   var jsonData = jsonDecode(response.body);
   print(jsonData[0]);
   var str = jsonData[0]["storeName"];
+  pref.setString("storeid", jsonData[0]["type"]);
   List<Store> stores = [];
 
   for (var u in jsonData) {

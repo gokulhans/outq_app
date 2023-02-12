@@ -2,12 +2,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
+import 'package:outq_new_app/screens/owner/home/owner_home.dart';
+import 'package:outq_new_app/screens/owner/service/view/owner_view_service.dart';
 import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateServicePage extends StatefulWidget {
   const CreateServicePage({super.key});
@@ -17,6 +20,33 @@ class CreateServicePage extends StatefulWidget {
 }
 
 class _CreateServicePageState extends State<CreateServicePage> {
+
+   Future save(BuildContext context) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var storeid = pref.getString("storeid") ?? "null";
+    var ownerid = pref.getString("ownerid") ?? "null";
+
+    http.post(
+        Uri.parse(
+          "${apidomain}service",
+        ),
+        headers: <String, String>{
+          'Context-Type': 'application/json; charset=UTF-8',
+        },
+        body: <String, String>{
+          'name': service.name,
+          'description': service.description,
+          'price': service.price,
+          'ownerid': ownerid,
+          'storeid': storeid,
+        });
+    // Get.to(() => {const OwnerHomePage()});
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) => const OwnerHomePage()),
+        (Route<dynamic> route) => false);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +71,16 @@ class _CreateServicePageState extends State<CreateServicePage> {
           ),
         ),
         child: Center(
+          child: TextButton(
+            onPressed: () {
+              save(context);
+            },
             child: Text(
-          "Save",
-          style: Theme.of(context).textTheme.headline6,
-        )),
+              "Save",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
@@ -93,27 +129,7 @@ class CreateServiceForm extends StatefulWidget {
 ServiceModel service = ServiceModel('', '', '', '', '');
 
 class _CreateServiceFormState extends State<CreateServiceForm> {
-  Future save() async {
-    http.post(
-        Uri.parse(
-          "${apidomain}service",
-        ),
-        headers: <String, String>{
-          'Context-Type': 'application/json; charset=UTF-8',
-        },
-        body: <String, String>{
-          'name': service.name,
-          'description': service.description,
-          'price': service.price,
-          'ownerid': service.ownerid,
-          'storeid': service.storeid,
-        });
-    // Get.to(() => {const OwnerHomePage()});
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (BuildContext context) => const CreateStorePage()),
-        (Route<dynamic> route) => false);
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
