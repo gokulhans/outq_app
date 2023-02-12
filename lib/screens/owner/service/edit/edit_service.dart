@@ -2,12 +2,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
-import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
+import 'package:outq_new_app/screens/owner/home/owner_home.dart';
+import 'package:outq_new_app/screens/owner/store/Edit/Edit_store.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
+import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
-
 
 class EditServicePage extends StatefulWidget {
   const EditServicePage({super.key});
@@ -62,7 +63,7 @@ class _EditServicePageState extends State<EditServicePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Edit Your Service Details',
+                      'Fill Your Service Details',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headline3,
                     ),
@@ -90,33 +91,28 @@ class EditServiceForm extends StatefulWidget {
   State<EditServiceForm> createState() => _EditServiceFormState();
 }
 
-TextEditingController nameController = TextEditingController(text: '');
-TextEditingController typeController = TextEditingController(text: '');
-TextEditingController descriptionController = TextEditingController(text: '');
-TextEditingController locationController = TextEditingController(text: '');
-
-ServiceModel service = ServiceModel('', '', '', '');
+ServiceModel service = ServiceModel('', '', '', '', '');
 
 class _EditServiceFormState extends State<EditServiceForm> {
   Future save() async {
-    print({service.name, service.type, service.description, service.location});
     http.post(
         Uri.parse(
-          "http://192.168.137.1:3001/auth/owner/register",
+          "${apidomain}services",
         ),
         headers: <String, String>{
           'Context-Type': 'application/json; charset=UTF-8',
         },
         body: <String, String>{
           'name': service.name,
-          'location': service.location,
           'description': service.description,
-          'type': service.type,
+          'price': service.price,
+          'ownerid': service.ownerid,
+          'storeid': service.storeid,
         });
     // Get.to(() => {const OwnerHomePage()});
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-            builder: (BuildContext context) => const CreateStorePage()),
+            builder: (BuildContext context) => const OwnerHomePage()),
         (Route<dynamic> route) => false);
   }
 
@@ -140,7 +136,6 @@ class _EditServiceFormState extends State<EditServiceForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  controller: nameController,
                   onChanged: (val) {
                     service.name = val;
                   },
@@ -163,30 +158,6 @@ class _EditServiceFormState extends State<EditServiceForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  controller: locationController,
-                  onChanged: (val) {
-                    service.location = val;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Location',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    // hintText: 'myservice..',
-                  ),
-                ),
-              ),
-              Container(
-                height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: TextField(
-                  controller: descriptionController,
                   onChanged: (val) {
                     service.description = val;
                   },
@@ -209,12 +180,11 @@ class _EditServiceFormState extends State<EditServiceForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  controller: typeController,
                   onChanged: (val) {
-                    service.type = val;
+                    service.price = val;
                   },
                   decoration: const InputDecoration(
-                    labelText: 'Type',
+                    labelText: 'Price',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,

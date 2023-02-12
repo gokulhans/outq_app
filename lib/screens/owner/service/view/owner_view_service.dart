@@ -45,7 +45,7 @@ class OwnerViewServicePage extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Container(
-                color: Colors.grey[200],
+                // color: Colors.grey[200],
                 padding: EdgeInsets.symmetric(vertical: 8),
                 child: Row(
                   children: [
@@ -56,7 +56,8 @@ class OwnerViewServicePage extends StatelessWidget {
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(12.0),
                             child: const Image(
-                                image: AssetImage('assets/images/userImage.png'))),
+                                image:
+                                    AssetImage('assets/images/userImage.png'))),
                       ),
                     ),
                     Expanded(
@@ -98,8 +99,8 @@ class OwnerViewServicePage extends StatelessWidget {
                               bottomRight: Radius.circular(17.5),
                             ),
                             gradient: LinearGradient(
-                              begin:
-                                  Alignment(0.8459399938583374, 0.1310659646987915),
+                              begin: Alignment(
+                                  0.8459399938583374, 0.1310659646987915),
                               end: Alignment(
                                   -0.1310659646987915, 0.11150387674570084),
                               colors: [
@@ -110,7 +111,7 @@ class OwnerViewServicePage extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              'Book',
+                              'Edit',
                               textAlign: TextAlign.left,
                               style: GoogleFonts.poppins(
                                 color: Colors.white,

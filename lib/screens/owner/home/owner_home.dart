@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
@@ -124,7 +123,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                   ));
                 } else {
                   return Expanded(
-                    flex: 2,
+                      flex: 2,
                       child: ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, i) {

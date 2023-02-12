@@ -81,6 +81,7 @@ class _CreateStorePageState extends State<CreateStorePage> {
               style: Theme.of(context).textTheme.headline6,
             ),
             onPressed: () {
+              shop.type = "null";
               save(context);
             },
           ),
@@ -130,10 +131,10 @@ class CreateStoreForm extends StatefulWidget {
   State<CreateStoreForm> createState() => _CreateStoreFormState();
 }
 
-TextEditingController nameController = TextEditingController(text: '');
-TextEditingController typeController = TextEditingController(text: '');
-TextEditingController descriptionController = TextEditingController(text: '');
-TextEditingController locationController = TextEditingController(text: '');
+// TextEditingController nameController = TextEditingController(text: '');
+// TextEditingController typeController = TextEditingController(text: '');
+// TextEditingController descriptionController = TextEditingController(text: '');
+// TextEditingController locationController = TextEditingController(text: '');
 
 StoreModel shop = StoreModel('', '', '', '');
 
@@ -158,7 +159,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  controller: nameController,
+                  // controller: nameController,
                   onChanged: (val) {
                     shop.name = val;
                   },
@@ -181,7 +182,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  controller: locationController,
+                  // controller: locationController,
                   onChanged: (val) {
                     shop.location = val;
                   },
@@ -204,35 +205,12 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  controller: descriptionController,
+                  // controller: descriptionController,
                   onChanged: (val) {
                     shop.description = val;
                   },
                   decoration: const InputDecoration(
                     labelText: 'Description',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    // hintText: 'myshop..',
-                  ),
-                ),
-              ),
-              Container(
-                height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: TextField(
-                  controller: typeController,
-                  onChanged: (val) {
-                    shop.type = val;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Type',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
