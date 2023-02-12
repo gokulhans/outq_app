@@ -8,11 +8,14 @@ import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_reset_password.
 import 'package:outq_new_app/screens/owner/auth/otp/owner_otp.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_bar_main.dart';
 import 'package:outq_new_app/screens/owner/components/drawer/owner_drawer.dart';
+import 'package:outq_new_app/screens/owner/profile/settings/settings.dart';
+import 'package:outq_new_app/screens/owner/service/view/owner_view_service.dart';
 import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/screens/owner/service/create/create_service.dart';
 import 'package:outq_new_app/screens/owner/service/edit/edit_service.dart';
 import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
+import 'package:outq_new_app/screens/owner/store/view/owner_view_store.dart';
 import 'package:outq_new_app/screens/owner/success/success.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:http/http.dart' as http;
@@ -28,9 +31,9 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
   int currentIndex = 0;
   List tabScreens = const [
     OwnerHomeScreen(),
-    Center(child: Text("Out 2")),
-    Center(child: Text("Out 3")),
-    Center(child: Text("Out 4")),
+    OwnerViewStorePage(),
+    OwnerViewServicePage(),
+    OwnerViewSettingsPage(),
   ];
   @override
   Widget build(BuildContext context) {

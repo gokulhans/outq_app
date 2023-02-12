@@ -7,12 +7,6 @@ class OwnerViewServicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55),
-        child: OwnerAppBarWithBack(
-          title: "Owner View Service",
-        ),
-      ),
       body: Center(
         child: Text("Owner View Service"),
       ),

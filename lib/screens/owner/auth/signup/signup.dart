@@ -31,7 +31,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
     print({owners.name, owners.email, owners.pswd});
     final response = await http.post(
         Uri.parse(
-          apidomain + "auth/owner/register",
+          "${apidomain}auth/owner/register",
         ),
         headers: <String, String>{
           'Context-Type': 'application/json; charset=UTF-8',

@@ -1,1 +1,1 @@
-const String apidomain = "http://192.168.22.52:3001/";
+const String apidomain = "http://192.168.53.92:3001/";
