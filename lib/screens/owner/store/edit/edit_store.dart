@@ -24,7 +24,7 @@ Future save(BuildContext context) async {
   print({shop.name, shop.type, shop.description, shop.location});
   http.post(
       Uri.parse(
-        apidomain + "store/edit/id",
+        "${apidomain}store/edit/${shop.type}",
       ),
       headers: <String, String>{
         'Context-Type': 'application/json; charset=UTF-8',
@@ -36,14 +36,17 @@ Future save(BuildContext context) async {
         'description': shop.description,
         'type': shop.type,
       });
+
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-          builder: (BuildContext context) => const OwnerViewStorePage()),
+          builder: (BuildContext context) => const OwnerHomePage()),
       (Route<dynamic> route) => false);
 }
 
 class EditStorePage extends StatefulWidget {
-  const EditStorePage({super.key});
+  final ownerid;
+  dynamic argumentData = Get.arguments;
+  EditStorePage({super.key, required this.ownerid});
 
   @override
   State<EditStorePage> createState() => _EditStorePageState();
@@ -80,6 +83,8 @@ class _EditStorePageState extends State<EditStorePage> {
               style: Theme.of(context).textTheme.headline6,
             ),
             onPressed: () {
+              shop.type = widget.argumentData.type;
+              shop.id = widget.argumentData.id;
               save(context);
             },
           ),
@@ -113,7 +118,7 @@ class _EditStorePageState extends State<EditStorePage> {
                   ],
                 ),
               ),
-              const EditStoreForm(),
+              EditStoreForm(),
             ],
           ),
         ),
@@ -123,18 +128,14 @@ class _EditStorePageState extends State<EditStorePage> {
 }
 
 class EditStoreForm extends StatefulWidget {
-  const EditStoreForm({super.key});
+  dynamic argumentData = Get.arguments;
+  EditStoreForm({super.key});
 
   @override
   State<EditStoreForm> createState() => _EditStoreFormState();
 }
 
-TextEditingController nameController = TextEditingController(text: '');
-TextEditingController typeController = TextEditingController(text: '');
-TextEditingController descriptionController = TextEditingController(text: '');
-TextEditingController locationController = TextEditingController(text: '');
-
-StoreModel shop = StoreModel('', '', '', '');
+Store shop = Store('', '', '', '', '', '');
 
 class _EditStoreFormState extends State<EditStoreForm> {
   @override
@@ -156,8 +157,8 @@ class _EditStoreFormState extends State<EditStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
-                  controller: nameController,
+                child: TextFormField(
+                  initialValue: widget.argumentData.name,
                   onChanged: (val) {
                     shop.name = val;
                   },
@@ -168,7 +169,7 @@ class _EditStoreFormState extends State<EditStoreForm> {
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),
-                    // hintText: 'myshop..',
+                    // hintText: widget.argumentData.id,
                   ),
                 ),
               ),
@@ -179,8 +180,8 @@ class _EditStoreFormState extends State<EditStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
-                  controller: locationController,
+                child: TextFormField(
+                  initialValue: widget.argumentData.location,
                   onChanged: (val) {
                     shop.location = val;
                   },
@@ -202,8 +203,8 @@ class _EditStoreFormState extends State<EditStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
-                  controller: descriptionController,
+                child: TextFormField(
+                  initialValue: widget.argumentData.description,
                   onChanged: (val) {
                     shop.description = val;
                   },
@@ -218,29 +219,28 @@ class _EditStoreFormState extends State<EditStoreForm> {
                   ),
                 ),
               ),
-              Container(
-                height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: TextField(
-                  controller: typeController,
-                  onChanged: (val) {
-                    shop.type = val;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Type',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    // hintText: 'myshop..',
-                  ),
-                ),
-              ),
+              // Container(
+              //   height: 80,
+              //   padding: const EdgeInsets.symmetric(vertical: 12.0),
+              //   clipBehavior: Clip.antiAlias,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(22),
+              //   ),
+              //   child: TextField(
+              //     onChanged: (val) {
+              //       shop.type = val;
+              //     },
+              //     decoration: const InputDecoration(
+              //       labelText: 'Type',
+              //       labelStyle: TextStyle(
+              //         fontFamily: 'Montserrat',
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.grey,
+              //       ),
+              //       // hintText: 'myshop..',
+              //     ),
+              //   ),
+              // ),
               addVerticalSpace(100)
             ],
           ),

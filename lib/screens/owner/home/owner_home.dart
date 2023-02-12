@@ -106,35 +106,58 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
         children: [
           FutureBuilder(
             future: getOwnerStore(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                final data = snapshot.data as String;
-                return Text('$data');
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return const Center(
+                  child: Placeholder(
+                    color: Colors.green,
+                  ),
+                );
+              } else {
+                if (snapshot.data.length == 0) {
+                  return const Center(
+                      child: Text(
+                    'No Content is available right now.\nWe will Update it with in august 31.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ));
+                } else {
+                  return Expanded(
+                    flex: 2,
+                      child: ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, i) {
+                            return Container(
+                              height: 150,
+                              padding: const EdgeInsets.only(right: 60),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    snapshot.data[i].name,
+                                    textAlign: TextAlign.left,
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  ),
+                                  Text(
+                                    snapshot.data[i].description,
+                                    textAlign: TextAlign.left,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                ],
+                              ),
+                            );
+                          }));
+                }
               }
-              return CircularProgressIndicator();
             },
           ),
-          Container(
-            height: 150,
-            padding: const EdgeInsets.only(right: 60),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Meethu Beauty Shop',
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-                Text(
-                  'You got 10 Appoinments today so far..',
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-              ],
-            ),
-          ),
           Expanded(
+            flex: 5,
             child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: 10,

@@ -3,20 +3,24 @@ import 'dart:convert';
 
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future getOwnerStore() async {
-  var response = await http.get(Uri.parse('${apidomain}store/store'));
-  var jsonData = jsonDecode(response.body);
-  print(jsonData);
-  var str = jsonData[0]["storeName"];
-  // List<Store> stores = [];
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  var ownerid = pref.getString("ownerid");
 
-  // for (var u in jsonData) {
-  //   Store store = Store(u["_id"], u["name"], u["location"], u["id"],
-  //       u["description"], u["type"]);
-  //   stores.add(store);
-  // }
-  print(str);
+  var response = await http.get(Uri.parse('${apidomain}store/${ownerid}'));
+  var jsonData = jsonDecode(response.body);
+  print(jsonData[0]);
+  var str = jsonData[0]["storeName"];
+  List<Store> stores = [];
+
+  for (var u in jsonData) {
+    Store store = Store(u["_id"], u["name"], u["location"], u["id"],
+        u["description"], u["type"]);
+    stores.add(store);
+  }
+  print(stores);
   // print("object");
-  return str;
+  return stores;
 }
