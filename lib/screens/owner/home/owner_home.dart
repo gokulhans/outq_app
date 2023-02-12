@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_forgot_psd.dart';
@@ -108,10 +109,10 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return const Center(
-                  child: Placeholder(
-                    color: Colors.green,
-                  ),
-                );
+                    child: SpinKitCircle(
+                  color: Colors.blue,
+                  size: 50.0,
+                ));
               } else {
                 if (snapshot.data.length == 0) {
                   return const Center(

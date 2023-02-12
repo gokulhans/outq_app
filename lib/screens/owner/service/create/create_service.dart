@@ -20,15 +20,14 @@ class CreateServicePage extends StatefulWidget {
 }
 
 class _CreateServicePageState extends State<CreateServicePage> {
-
-   Future save(BuildContext context) async {
+  Future save(BuildContext context) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     var storeid = pref.getString("storeid") ?? "null";
     var ownerid = pref.getString("ownerid") ?? "null";
 
     http.post(
         Uri.parse(
-          "${apidomain}service",
+          "${apidomain}service/create/",
         ),
         headers: <String, String>{
           'Context-Type': 'application/json; charset=UTF-8',
@@ -46,7 +45,7 @@ class _CreateServicePageState extends State<CreateServicePage> {
             builder: (BuildContext context) => const OwnerHomePage()),
         (Route<dynamic> route) => false);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,8 +128,6 @@ class CreateServiceForm extends StatefulWidget {
 ServiceModel service = ServiceModel('', '', '', '', '');
 
 class _CreateServiceFormState extends State<CreateServiceForm> {
- 
-
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -198,6 +195,7 @@ class _CreateServiceFormState extends State<CreateServiceForm> {
                   onChanged: (val) {
                     service.price = val;
                   },
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     labelText: 'Price',
                     labelStyle: TextStyle(

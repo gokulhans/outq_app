@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
@@ -25,10 +26,10 @@ class OwnerViewStorePage extends StatelessWidget {
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.data == null) {
                   return const Center(
-                    child: Placeholder(
-                      color: Colors.green,
-                    ),
-                  );
+                      child: SpinKitCircle(
+                    color: Colors.blue,
+                    size: 50.0,
+                  ));
                 } else {
                   if (snapshot.data.length == 0) {
                     return const Center(
@@ -66,9 +67,11 @@ class OwnerViewStorePage extends StatelessWidget {
                                       ),
                                       TextButton(
                                           onPressed: () {
-                                            Get.to(() => EditStorePage(
-                                                ownerid:
-                                                    snapshot.data[i].type),arguments: snapshot.data[i]);
+                                            Get.to(
+                                                () => EditStorePage(
+                                                    ownerid:
+                                                        snapshot.data[i].type),
+                                                arguments: snapshot.data[i]);
                                           },
                                           child: Text(
                                             'Edit',
@@ -157,62 +160,6 @@ class OwnerViewStorePage extends StatelessWidget {
                                         Theme.of(context).textTheme.subtitle2,
                                   ),
                                   addVerticalSpace(20),
-                                  Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Services',
-                                            style: GoogleFonts.poppins(
-                                              color: const Color(0xFF09041B),
-                                              fontSize: 15,
-                                              // height: 1.5,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          // TextButton(
-                                          //   onPressed: () {},
-                                          //   child: Text(
-                                          //     'Edit',
-                                          //     style: GoogleFonts.poppins(
-                                          //       color: const Color(0xFFFF7B32),
-                                          //       fontSize: 12,
-                                          //       // height: 1.5,
-                                          //       fontWeight: FontWeight.w500,
-                                          //     ),
-                                          //   ),
-                                          // ),
-                                        ],
-                                      ),
-                                      addVerticalSpace(10),
-                                      const ServiceListTile(
-                                        name: "Hair Cutting",
-                                        price: "10\$",
-                                      ),
-                                      const ServiceListTile(
-                                        name: "Hair Cutting",
-                                        price: "10\$",
-                                      ),
-                                      const ServiceListTile(
-                                        name: "Hair Cutting",
-                                        price: "10\$",
-                                      ),
-                                      const ServiceListTile(
-                                        name: "Hair Cutting",
-                                        price: "10\$",
-                                      ),
-                                      const ServiceListTile(
-                                        name: "Hair Cutting",
-                                        price: "10\$",
-                                      ),
-                                      const ServiceListTile(
-                                        name: "Hair Cutting",
-                                        price: "10\$",
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               );
                             }));

@@ -70,6 +70,7 @@ class OwnerDrawer extends StatelessWidget {
               onTap: () async {
                 SharedPreferences pref = await SharedPreferences.getInstance();
                 pref.remove("ownerid");
+                pref.remove("storeid");
                 Get.to(() => const WelcomeScreen());
               },
             ),
