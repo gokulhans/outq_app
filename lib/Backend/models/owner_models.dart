@@ -3,6 +3,11 @@ class OwnerSignUpModel {
   OwnerSignUpModel(this.name, this.email, this.pswd);
 }
 
+class OwnerLoginModel {
+  String email, pswd;
+  OwnerLoginModel(this.email, this.pswd);
+}
+
 class StoreModel {
   String name, location, description, type;
   StoreModel(this.name, this.location, this.description, this.type);
@@ -23,10 +28,10 @@ class ServiceModel {
 }
 
 class GetServiceModel {
-  String _id, name, description, storeid, ownerid;
+  String _id, name, description, storeid, ownerid, id;
   int price;
   GetServiceModel(this._id, this.name, this.description, this.price,
-      this.storeid, this.ownerid);
+      this.storeid, this.ownerid, this.id);
 }
 
 class idModel {

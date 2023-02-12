@@ -1,14 +1,57 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:outq_new_app/screens/owner/auth/signup/signup.dart';
+import 'package:outq_new_app/Backend/models/owner_models.dart';
+import 'package:outq_new_app/screens/owner/auth/login/login.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
+import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
+import 'package:outq_new_app/utils/constants.dart';
+import 'package:outq_new_app/utils/text_strings.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
-import 'package:outq_new_app/utils/text_strings.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class OwnerLoginPage extends StatelessWidget {
+class OwnerLoginPage extends StatefulWidget {
   const OwnerLoginPage({super.key});
+
+  @override
+  State<OwnerLoginPage> createState() => _OwnerLoginPageState();
+}
+
+TextEditingController nameController = TextEditingController(text: '');
+TextEditingController emailController = TextEditingController(text: '');
+TextEditingController pswdController = TextEditingController(text: '');
+
+OwnerLoginModel owners = OwnerLoginModel('', '');
+
+class _OwnerLoginPageState extends State<OwnerLoginPage> {
+  Future save() async {
+    print({owners.email, owners.pswd});
+    final response = await http.post(
+        Uri.parse(
+          "${apidomain}auth/owner/login",
+        ),
+        headers: <String, String>{
+          'Context-Type': 'application/json; charset=UTF-8',
+        },
+        body: <String, String>{
+          'email': owners.email,
+          'pswd': owners.pswd,
+        });
+
+    var jsonData = jsonDecode(response.body);
+    var str = jsonData[0]["id"];
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("ownerid", str);
+    // Get.to(() => {OwnerHomePage(currentIndex:0)});
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) => OwnerHomePage(currentIndex: 0,)),
+        (Route<dynamic> route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +80,13 @@ class OwnerLoginPage extends StatelessWidget {
                       const EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
                   child: Column(
                     children: <Widget>[
-                      const TextField(
-                        decoration: InputDecoration(
-                            labelText: 'NAME ',
-                            labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green))),
-                      ),
-                      const SizedBox(height: 10.0),
-                      const TextField(
-                        decoration: InputDecoration(
-                            labelText: 'EMAIL',
+                      TextField(
+                        controller: emailController,
+                        onChanged: (val) {
+                          owners.email = val;
+                        },
+                        decoration: const InputDecoration(
+                            labelText: 'Email',
                             labelStyle: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
@@ -61,9 +97,13 @@ class OwnerLoginPage extends StatelessWidget {
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
                       const SizedBox(height: 10.0),
-                      const TextField(
-                        decoration: InputDecoration(
-                            labelText: 'PASSWORD ',
+                      TextField(
+                        controller: pswdController,
+                        onChanged: (val) {
+                          owners.pswd = val;
+                        },
+                        decoration: const InputDecoration(
+                            labelText: 'Password',
                             labelStyle: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
@@ -72,7 +112,6 @@ class OwnerLoginPage extends StatelessWidget {
                                 borderSide: BorderSide(color: Colors.green))),
                         obscureText: true,
                       ),
-
                       const SizedBox(height: 50.0),
                       // ignore: sized_box_for_whitespace
                       Container(
@@ -91,8 +130,8 @@ class OwnerLoginPage extends StatelessWidget {
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
-                                    Get.to(
-                                        () => OwnerHomePage(currentIndex: 0));
+                                    print("saved");
+                                    save();
                                   },
                                 ),
                               ),
@@ -106,16 +145,16 @@ class OwnerLoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Text(
-                    tOwnerSignUpQuestion,
+                    tOwnerLoginQuestion,
                   ),
                   TextButton(
-                    child: Text(tOwnerSignUp,
+                    child: Text(tOwnerLogin,
                         style: TextStyle(
                           color: ColorConstants.blue,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         )),
-                    onPressed: () => Get.to(() => const OwnerSignUpPage()),
+                    onPressed: () => Get.to(() => const OwnerLoginPage()),
                   )
                 ],
               )

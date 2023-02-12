@@ -33,7 +33,7 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
     OwnerHomeScreen(),
     OwnerViewStorePage(),
     OwnerViewServicePage(),
-    OwnerViewSettingsPage(),
+    // OwnerViewSettingsPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -78,10 +78,10 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
               icon: Icon(Icons.design_services_outlined),
               label: 'Services',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.settings),
+            //   label: 'Settings',
+            // ),
           ]),
       body: tabScreens.elementAt(widget.currentIndex),
     );

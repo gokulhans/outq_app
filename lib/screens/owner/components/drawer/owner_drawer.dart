@@ -54,16 +54,16 @@ class OwnerDrawer extends StatelessWidget {
               title: const Text('Invite Friend'),
               onTap: () => {Get.to(() => const InviteFriend())},
             ),
-            const ListTile(
-              leading: Icon(Icons.share),
-              title: Text('Rate the app'),
-              // onTap: () => {Get.to(()=> InviteFriend())},
-            ),
-            const ListTile(
-              leading: Icon(Icons.info),
-              title: Text('About Us'),
-              // onTap: () => {Get.to(()=> InviteFriend())},
-            ),
+            // const ListTile(
+            //   leading: Icon(Icons.share),
+            //   title: Text('Rate the app'),
+            //   // onTap: () => {Get.to(()=> InviteFriend())},
+            // ),
+            // const ListTile(
+            //   leading: Icon(Icons.info),
+            //   title: Text('About Us'),
+            //   // onTap: () => {Get.to(()=> InviteFriend())},
+            // ),
             ListTile(
               leading: Icon(Icons.info),
               title: Text('Logout'),

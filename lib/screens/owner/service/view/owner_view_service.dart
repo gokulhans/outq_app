@@ -114,13 +114,16 @@ class OwnerViewServicePage extends StatelessWidget {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Hair Coloring',
+                                                      snapshot.data[i].name,
                                                       textAlign: TextAlign.left,
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .subtitle1,
                                                     ),
-                                                    Text(snapshot.data[i].name,
+                                                    Text(
+                                                        snapshot.data[i].price
+                                                                .toString() +
+                                                            " \$",
                                                         textAlign:
                                                             TextAlign.left,
                                                         style: Theme.of(context)
@@ -165,18 +168,29 @@ class OwnerViewServicePage extends StatelessWidget {
                                                   ),
                                                 ),
                                                 child: Center(
-                                                  child: Text(
-                                                    'Edit',
-                                                    textAlign: TextAlign.left,
-                                                    style: GoogleFonts.poppins(
-                                                      color: Colors.white,
-                                                      fontSize: 12,
-                                                      letterSpacing: 0.5,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 1,
-                                                    ),
-                                                  ),
+                                                  child: TextButton(
+                                                      onPressed: () {
+                                                        deleteService(snapshot
+                                                            .data[i].id);
+                                                        Get.to(() =>
+                                                            OwnerHomePage(
+                                                                currentIndex:
+                                                                    2));
+                                                      },
+                                                      child: Text(
+                                                        'Delete',
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          color: Colors.white,
+                                                          fontSize: 12,
+                                                          letterSpacing: 0.5,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          height: 1,
+                                                        ),
+                                                      )),
                                                 ),
                                               ),
                                             ),

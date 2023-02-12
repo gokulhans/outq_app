@@ -1,13 +1,57 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:outq_new_app/Backend/models/User_models.dart';
 import 'package:outq_new_app/screens/user/auth/login/login.dart';
+import 'package:outq_new_app/screens/user/home/user_home.dart';
+import 'package:outq_new_app/utils/constants.dart';
+import 'package:outq_new_app/utils/text_strings.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
-import 'package:outq_new_app/utils/text_strings.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class UserSignUpPage extends StatelessWidget {
+class UserSignUpPage extends StatefulWidget {
   const UserSignUpPage({super.key});
+
+  @override
+  State<UserSignUpPage> createState() => _UserSignUpPageState();
+}
+
+TextEditingController nameController = TextEditingController(text: '');
+TextEditingController emailController = TextEditingController(text: '');
+TextEditingController pswdController = TextEditingController(text: '');
+
+UserSignUpModel users = UserSignUpModel('', '', '');
+
+class _UserSignUpPageState extends State<UserSignUpPage> {
+  Future save() async {
+    print({users.name, users.email, users.pswd});
+    final response = await http.post(
+        Uri.parse(
+          "${apidomain}auth/user/register",
+        ),
+        headers: <String, String>{
+          'Context-Type': 'application/json; charset=UTF-8',
+        },
+        body: <String, String>{
+          'name': users.name,
+          'email': users.email,
+          'pswd': users.pswd,
+        });
+
+    var jsonData = jsonDecode(response.body);
+    var str = jsonData[0]["id"];
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("Userid", str);
+    // Get.to(() => {UserHomePage(currentIndex:0)});
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) => const UserHomePage()),
+        (Route<dynamic> route) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +80,13 @@ class UserSignUpPage extends StatelessWidget {
                       const EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
                   child: Column(
                     children: <Widget>[
-                      const TextField(
-                        decoration: InputDecoration(
-                            labelText: 'NAME ',
+                      TextField(
+                        controller: nameController,
+                        onChanged: (val) {
+                          users.name = val;
+                        },
+                        decoration: const InputDecoration(
+                            labelText: 'Name ',
                             labelStyle: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
@@ -47,9 +95,13 @@ class UserSignUpPage extends StatelessWidget {
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
                       const SizedBox(height: 10.0),
-                      const TextField(
-                        decoration: InputDecoration(
-                            labelText: 'EMAIL',
+                      TextField(
+                        controller: emailController,
+                        onChanged: (val) {
+                          users.email = val;
+                        },
+                        decoration: const InputDecoration(
+                            labelText: 'Email',
                             labelStyle: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
@@ -60,9 +112,13 @@ class UserSignUpPage extends StatelessWidget {
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
                       const SizedBox(height: 10.0),
-                      const TextField(
-                        decoration: InputDecoration(
-                            labelText: 'PASSWORD ',
+                      TextField(
+                        controller: pswdController,
+                        onChanged: (val) {
+                          users.pswd = val;
+                        },
+                        decoration: const InputDecoration(
+                            labelText: 'Password',
                             labelStyle: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,
@@ -71,7 +127,6 @@ class UserSignUpPage extends StatelessWidget {
                                 borderSide: BorderSide(color: Colors.green))),
                         obscureText: true,
                       ),
-
                       const SizedBox(height: 50.0),
                       // ignore: sized_box_for_whitespace
                       Container(
@@ -90,40 +145,14 @@ class UserSignUpPage extends StatelessWidget {
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).pop();
+                                    print("saved");
+                                    save();
                                   },
                                 ),
                               ),
                             ),
                           )),
                       addVerticalSpace(20),
-                      // Container(
-                      //   height: 40.0,
-                      //   color: Colors.transparent,
-                      //   child: Container(
-                      //     decoration: BoxDecoration(
-                      //         border: Border.all(
-                      //             color: Colors.black,
-                      //             style: BorderStyle.solid,
-                      //             width: 1.0),
-                      //         color: Colors.transparent,
-                      //         borderRadius: BorderRadius.circular(20.0)),
-                      //     child: InkWell(
-                      //       onTap: () {
-                      //         Navigator.of(context).pop();
-                      //       },
-                      //       child:
-
-                      //           Center(
-                      //             child: Text('Go Back',
-                      //                 style: TextStyle(
-                      //                     fontWeight: FontWeight.bold,
-                      //                     fontFamily: 'Montserrat')),
-                      //           ),
-
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   )),
               const SizedBox(height: 15.0),
