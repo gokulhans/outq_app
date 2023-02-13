@@ -9,6 +9,7 @@ import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/shared/splash/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/screens/user/auth/login/login.dart';
 import 'package:outq_new_app/screens/user/home/user_home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,14 +26,16 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? ownerid = prefs.getString("ownerid");
+  String? userid = prefs.getString("userid");
   print(ownerid);
-  runApp(MyApp(ownerid: ownerid));
+  runApp(MyApp(ownerid: ownerid, userid: userid));
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key, required this.ownerid});
+  MyApp({super.key, required this.ownerid, required this.userid});
 
   final String? ownerid;
+  final String? userid;
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -88,9 +91,11 @@ class _MyAppState extends State<MyApp> {
           )),
       debugShowCheckedModeBanner: false,
       // home: Create(),
-      home: widget.ownerid == null
-          ? const MyHomePage(title: 'Flutter Demo Home Page')
-          : OwnerHomePage(currentIndex: 0),
+      home: (widget.ownerid != null)
+          ? OwnerHomePage(currentIndex: 0)
+          : (widget.userid != null)
+              ? const UserHomePage()
+              : const WelcomeScreen(),
     );
   }
 }

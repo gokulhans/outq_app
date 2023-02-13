@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:outq_new_app/Backend/models/User_models.dart';
+import 'package:outq_new_app/Backend/models/user_models.dart';
 import 'package:outq_new_app/screens/user/auth/login/login.dart';
 import 'package:outq_new_app/screens/user/home/user_home.dart';
 import 'package:outq_new_app/utils/constants.dart';
@@ -26,7 +26,7 @@ TextEditingController pswdController = TextEditingController(text: '');
 UserSignUpModel users = UserSignUpModel('', '', '');
 
 class _UserSignUpPageState extends State<UserSignUpPage> {
-  Future save() async {
+  Future save(BuildContext context) async {
     print({users.name, users.email, users.pswd});
     final response = await http.post(
         Uri.parse(
@@ -45,7 +45,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
     var str = jsonData[0]["id"];
 
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("Userid", str);
+    pref.setString("userid", str);
     // Get.to(() => {UserHomePage(currentIndex:0)});
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
@@ -146,7 +146,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                   ),
                                   onPressed: () {
                                     print("saved");
-                                    save();
+                                    save(context);
                                   },
                                 ),
                               ),

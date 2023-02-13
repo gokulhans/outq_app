@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:outq_new_app/Backend/models/User_models.dart';
+import 'package:outq_new_app/Backend/models/user_models.dart';
 import 'package:outq_new_app/screens/user/auth/login/login.dart';
+import 'package:outq_new_app/screens/user/auth/signup/signup.dart';
 import 'package:outq_new_app/screens/user/home/user_home.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/text_strings.dart';
@@ -26,11 +27,11 @@ TextEditingController pswdController = TextEditingController(text: '');
 UserLoginModel users = UserLoginModel('', '');
 
 class _UserLoginPageState extends State<UserLoginPage> {
-  Future save() async {
+  Future save(BuildContext context) async {
     print({users.email, users.pswd});
     final response = await http.post(
         Uri.parse(
-          "${apidomain}auth/user/register",
+          "${apidomain}auth/user/login",
         ),
         headers: <String, String>{
           'Context-Type': 'application/json; charset=UTF-8',
@@ -44,7 +45,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
     var str = jsonData[0]["id"];
 
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("Userid", str);
+    pref.setString("userid", str);
     // Get.to(() => {UserHomePage(currentIndex:0)});
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
@@ -131,7 +132,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                                   ),
                                   onPressed: () {
                                     print("saved");
-                                    save();
+                                    save(context);
                                   },
                                 ),
                               ),
@@ -148,13 +149,13 @@ class _UserLoginPageState extends State<UserLoginPage> {
                     tLoginQuestion,
                   ),
                   TextButton(
-                    child: Text(tLogin,
+                    child: Text(tSignUp,
                         style: TextStyle(
                           color: ColorConstants.blue,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         )),
-                    onPressed: () => Get.to(() => const UserLoginPage()),
+                    onPressed: () => Get.to(() => const UserSignUpPage()),
                   )
                 ],
               )

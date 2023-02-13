@@ -15,7 +15,6 @@ class StoreModel {
 
 class Store {
   String _id, name, location, id, description, type;
-
   Store(
       this._id, this.name, this.location, this.id, this.description, this.type);
 }

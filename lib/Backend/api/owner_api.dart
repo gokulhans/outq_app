@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
