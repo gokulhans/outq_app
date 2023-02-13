@@ -40,7 +40,7 @@ class _UserHomePageState extends State<UserHomePage> {
           title: "OutQ",
         ),
       ),
-      drawer: const UserDrawer(),
+      // drawer: const UserDrawer(),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (index) => setState(() => currentIndex = index),
@@ -204,52 +204,52 @@ class UserHomeScreen extends StatelessWidget {
             //     ],
             //   ),
             // ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          icon: const Icon(
-                            Icons.location_on,
-                            color: Colors.blue,
-                            size: 30,
-                          ),
-                          onPressed: () {}),
-                      Text(
-                        'Calicut, Kerala',
-                        style: GoogleFonts.poppins(
-                          color: const Color(0xFF09041B),
-                          fontSize: 16,
-                          // height: 1.5,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          icon: const Icon(
-                            Icons.notifications_active,
-                            size: 30,
-                          ),
-                          onPressed: () {}),
-                      IconButton(
-                          icon: const Icon(
-                            Icons.account_circle_outlined,
-                            size: 30,
-                          ),
-                          onPressed: () {}),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: [
+            //           IconButton(
+            //               icon: const Icon(
+            //                 Icons.location_on,
+            //                 color: Colors.blue,
+            //                 size: 30,
+            //               ),
+            //               onPressed: () {}),
+            //           Text(
+            //             'Calicut, Kerala',
+            //             style: GoogleFonts.poppins(
+            //               color: const Color(0xFF09041B),
+            //               fontSize: 16,
+            //               // height: 1.5,
+            //               fontWeight: FontWeight.w500,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //       Row(
+            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //         children: [
+            //           IconButton(
+            //               icon: const Icon(
+            //                 Icons.notifications_active,
+            //                 size: 30,
+            //               ),
+            //               onPressed: () {}),
+            //           IconButton(
+            //               icon: const Icon(
+            //                 Icons.account_circle_outlined,
+            //                 size: 30,
+            //               ),
+            //               onPressed: () {}),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
             addHorizontalSpace(20),
             Container(
               color: Colors.blue,
@@ -382,7 +382,7 @@ class UserHomeScreen extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 12.0),
+                // margin: const EdgeInsets.symmetric(vertical: 12.0),
                 child: ListView(
                   children: [
                     CarouselSlider(
@@ -445,7 +445,8 @@ class UserHomeScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             image: const DecorationImage(
-                              image: NetworkImage("ADD IMAGE URL HERE"),
+                              image: NetworkImage(
+                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -521,8 +522,10 @@ class UserHomeScreen extends StatelessWidget {
                     ));
                   } else {
                     return Expanded(
-                      flex: 2,
+                      flex: 3,
                       child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: tDefaultSize),
                         physics: const BouncingScrollPhysics(),
                         itemCount: snapshot.data.length,
                         itemBuilder: (context, i) {
