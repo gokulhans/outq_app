@@ -14,6 +14,7 @@ import 'package:outq_new_app/screens/user/store/view_store/user_view_store.dart'
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -27,8 +28,8 @@ class _UserHomePageState extends State<UserHomePage> {
   List tabScreens = const [
     Center(child: UserHomeScreen()),
     Center(child: UserServiceSearchPage()),
-    Center(child: UserChatListPage()),
-    Center(child: UserMyProfilePage()),
+    // Center(child: UserChatListPage()),
+    // Center(child: UserMyProfilePage()),
   ];
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class _UserHomePageState extends State<UserHomePage> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(55),
         child: UserAppBar(
-          title: "",
+          title: "OutQ",
         ),
       ),
       drawer: const UserDrawer(),
@@ -66,17 +67,17 @@ class _UserHomePageState extends State<UserHomePage> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.design_services_outlined),
-              label: 'Services',
+              icon: Icon(Icons.sell),
+              label: 'Offers',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat),
-              label: 'Messages',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.chat),
+            //   label: 'Messages',
+            // ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.person),
+            //   label: 'Profile',
+            // ),
           ]),
       body: tabScreens.elementAt(currentIndex),
     );
@@ -90,142 +91,410 @@ class UserHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
+        // padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
         color: Colors.white,
         height: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              // padding: const EdgeInsets.only(right: 80),
-              child: Text(
-                'Welcome To OutQ',
-                textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.headline3,
-              ),
-            ),
-            addVerticalSpace(20),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            // SizedBox(
+            //   width: double.infinity,
+            //   height: 50,
+            //   // padding: const EdgeInsets.only(right: 80),
+            //   child: Text(
+            //     'Welcome To OutQ',
+            //     textAlign: TextAlign.left,
+            //     style: Theme.of(context).textTheme.headline3,
+            //   ),
+            // ),
+            // addVerticalSpace(20),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Container(
+            //         width: 150,
+            //         height: 100,
+            //         padding: const EdgeInsets.all(2.0),
+            //         decoration: BoxDecoration(
+            //           boxShadow: const [
+            //             BoxShadow(
+            //               color: Colors.black26,
+            //               blurRadius: 10.0,
+            //               offset: Offset(0.0, 3.0),
+            //             ),
+            //           ],
+            //           color: Colors.white,
+            //           borderRadius: BorderRadius.circular(10.0),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             const Icon(
+            //               Icons.calendar_month_outlined,
+            //               size: 42,
+            //               color: Colors.black87,
+            //             ),
+            //             Text(
+            //               "Appointment",
+            //               textAlign: TextAlign.center,
+            //               style: GoogleFonts.poppins(
+            //                 fontWeight: FontWeight.w700,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //       Container(
+            //         width: 150,
+            //         height: 100,
+            //         padding: const EdgeInsets.all(2.0),
+            //         decoration: BoxDecoration(
+            //           boxShadow: const [
+            //             BoxShadow(
+            //               color: Colors.black26,
+            //               blurRadius: 10.0,
+            //               offset: Offset(0.0, 3.0),
+            //             ),
+            //           ],
+            //           color: Colors.white,
+            //           borderRadius: BorderRadius.circular(10.0),
+            //         ),
+            //         child: Column(
+            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //           children: [
+            //             const Icon(
+            //               Icons.directions_bus,
+            //               size: 42,
+            //               color: Colors.black87,
+            //             ),
+            //             Text(
+            //               "Track Bus",
+            //               textAlign: TextAlign.center,
+            //               style: GoogleFonts.poppins(
+            //                 fontWeight: FontWeight.w700,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //       // Container(
+            //       //   width: 150,
+            //       //   height: 90,
+            //       //   padding: const EdgeInsets.all(2.0),
+            //       //   decoration: BoxDecoration(
+            //       //     boxShadow: const [
+            //       //       BoxShadow(
+            //       //         color: Colors.black26,
+            //       //         blurRadius: 10.0,
+            //       //         offset: Offset(0.0, 3.0),
+            //       //       ),
+            //       //     ],
+            //       //     color: Colors.white,
+            //       //     borderRadius: BorderRadius.circular(10.0),
+            //       //   ),
+            //       //   child: Container(
+            //       //     child: Text(
+            //       //       "Track Bus",
+            //       //       style: Theme.of(context).textTheme.subtitle1,
+            //       //     ),
+            //       //   ),
+            //       // ),
+            //     ],
+            //   ),
+            // ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 150,
-                    height: 100,
-                    padding: const EdgeInsets.all(2.0),
-                    decoration: BoxDecoration(
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10.0,
-                          offset: Offset(0.0, 3.0),
-                        ),
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Icon(
-                          Icons.calendar_month_outlined,
-                          size: 42,
-                          color: Colors.black87,
-                        ),
-                        Text(
-                          "Appointment",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w700,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                          icon: const Icon(
+                            Icons.location_on,
+                            color: Colors.blue,
+                            size: 30,
                           ),
+                          onPressed: () {}),
+                      Text(
+                        'Calicut, Kerala',
+                        style: GoogleFonts.poppins(
+                          color: const Color(0xFF09041B),
+                          fontSize: 16,
+                          // height: 1.5,
+                          fontWeight: FontWeight.w500,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: 150,
-                    height: 100,
-                    padding: const EdgeInsets.all(2.0),
-                    decoration: BoxDecoration(
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10.0,
-                          offset: Offset(0.0, 3.0),
-                        ),
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Icon(
-                          Icons.directions_bus,
-                          size: 42,
-                          color: Colors.black87,
-                        ),
-                        Text(
-                          "Track Bus",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w700,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                          icon: const Icon(
+                            Icons.notifications_active,
+                            size: 30,
                           ),
-                        ),
-                      ],
-                    ),
+                          onPressed: () {}),
+                      IconButton(
+                          icon: const Icon(
+                            Icons.account_circle_outlined,
+                            size: 30,
+                          ),
+                          onPressed: () {}),
+                    ],
                   ),
-                  // Container(
-                  //   width: 150,
-                  //   height: 90,
-                  //   padding: const EdgeInsets.all(2.0),
-                  //   decoration: BoxDecoration(
-                  //     boxShadow: const [
-                  //       BoxShadow(
-                  //         color: Colors.black26,
-                  //         blurRadius: 10.0,
-                  //         offset: Offset(0.0, 3.0),
-                  //       ),
-                  //     ],
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(10.0),
-                  //   ),
-                  //   child: Container(
-                  //     child: Text(
-                  //       "Track Bus",
-                  //       style: Theme.of(context).textTheme.subtitle1,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
-            addVerticalSpace(20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Nearest Services',
-                  style: GoogleFonts.poppins(
-                    color: const Color(0xFF09041B),
-                    fontSize: 15,
-                    // height: 1.5,
-                    fontWeight: FontWeight.w500,
+            addHorizontalSpace(20),
+            Container(
+              color: Colors.blue,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      color: Colors.blue[800],
+                      child: Center(
+                        child: InkWell(
+                          focusColor: Colors.green,
+                          onTap: () {},
+                          child: Text(
+                            'SALOON',
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 14,
+                              // height: 1.5,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      color: Colors.blue,
+                      child: Center(
+                        child: InkWell(
+                          focusColor: Colors.green,
+                          onTap: () {},
+                          child: Text(
+                            'BUSES',
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 14,
+                              // height: 1.5,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      color: Colors.blue,
+                      child: Center(
+                        child: InkWell(
+                          focusColor: Colors.green,
+                          onTap: () {},
+                          child: Text(
+                            'TURF',
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 14,
+                              // height: 1.5,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      color: Colors.blue,
+                      child: Center(
+                        child: InkWell(
+                          focusColor: Colors.green,
+                          onTap: () {},
+                          child: Text(
+                            'PETS',
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 14,
+                              // height: 1.5,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
+              child: Column(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.grey[100],
+                      ),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          hintStyle: TextStyle(color: Colors.grey[500]),
+                          border: InputBorder.none,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 14),
+                          suffixIcon: Icon(
+                            Icons.search,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Expanded(
+              flex: 2,
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 12.0),
+                child: ListView(
+                  children: [
+                    CarouselSlider(
+                      items: [
+                        //1st Image of Slider
+                        Container(
+                          margin: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            image: const DecorationImage(
+                              image: NetworkImage(
+                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+
+                        //2nd Image of Slider
+                        Container(
+                          margin: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            image: const DecorationImage(
+                              image: NetworkImage(
+                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+
+                        //3rd Image of Slider
+                        Container(
+                          margin: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            image: const DecorationImage(
+                              image: NetworkImage(
+                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+
+                        //4th Image of Slider
+                        Container(
+                          margin: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            image: const DecorationImage(
+                              image: NetworkImage(
+                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+
+                        //5th Image of Slider
+                        Container(
+                          margin: const EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            image: const DecorationImage(
+                              image: NetworkImage("ADD IMAGE URL HERE"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ],
+
+                      //Slider Container properties
+                      options: CarouselOptions(
+                        height: 180.0,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        aspectRatio: 16 / 9,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enableInfiniteScroll: true,
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 800),
+                        viewportFraction: 0.8,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'View More',
-                  style: GoogleFonts.poppins(
-                    color: const Color(0xFFFF7B32),
-                    fontSize: 12,
-                    // height: 1.5,
-                    fontWeight: FontWeight.w500,
+              ),
+            ),
+
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: tDefaultSize),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Nearest Services',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xFF09041B),
+                      fontSize: 20,
+                      // height: 1.5,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                )
-              ],
+                  Text(
+                    'View More',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xFFFF7B32),
+                      fontSize: 12,
+                      // height: 1.5,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                ],
+              ),
             ),
             addVerticalSpace(20),
             FutureBuilder(
@@ -331,7 +600,10 @@ class UserHomeScreen extends StatelessWidget {
                                         child: TextButton(
                                       onPressed: () {
                                         Get.to(() => UserViewStorePage(),
-                                            arguments: [snapshot.data[i].type,snapshot.data[i].name]);
+                                            arguments: [
+                                              snapshot.data[i].type,
+                                              snapshot.data[i].name
+                                            ]);
                                       },
                                       child: Text(
                                         "View",

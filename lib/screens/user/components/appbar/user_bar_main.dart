@@ -21,16 +21,16 @@ class UserAppBar extends StatelessWidget {
       elevation: 0,
       backgroundColor: ColorConstants.white,
       foregroundColor: Colors.black,
-      centerTitle: true,
-      actions: [
-        IconButton(
-            icon: const Icon(
-              Icons.notifications,
-            ),
-            onPressed: () {
-              Get.to(() => const UserNotifications());
-            })
-      ],
+      // centerTitle: true,
+      // actions: [
+      //   IconButton(
+      //       icon: const Icon(
+      //         Icons.notifications,
+      //       ),
+      //       onPressed: () {
+      //         Get.to(() => const UserNotifications());
+      //       })
+      // ],
     );
   }
 }
