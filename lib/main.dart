@@ -15,7 +15,6 @@ import 'package:outq_new_app/screens/user/home/user_home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator_android/geolocator_android.dart';
 
-
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
