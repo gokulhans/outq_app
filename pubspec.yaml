@@ -47,6 +47,8 @@ dependencies:
   lottie: ^2.2.0
   horizontal_calendar: ^1.0.2
   table_calendar: ^3.0.9
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
 
 dev_dependencies:
   flutter_test:
