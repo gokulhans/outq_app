@@ -19,7 +19,7 @@ class UserNotifications extends StatelessWidget {
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 15,
+            itemCount: 12,
             itemBuilder: (context, index) {
               return const ListTile(
                 title: SingleNotiListTile(),
@@ -51,10 +51,10 @@ class SingleNotiListTile extends StatelessWidget {
         children: [
           Container(
             width: 60,
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.symmetric(horizontal:12.0,vertical: 16),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
-                child: const Icon(Icons.notifications,color: Colors.blue,)),
+                child: const Icon(Icons.notifications,size: 30,color: Colors.blue,)),
           ),
           Expanded(
             child: Padding(

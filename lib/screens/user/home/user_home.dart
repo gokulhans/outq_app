@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/Backend/api/user_api.dart';
+import 'package:outq_new_app/screens/user/booking/booking.dart';
 import 'package:outq_new_app/screens/user/chat/user_chat_list.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
 import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
@@ -25,61 +26,64 @@ class UserHomePage extends StatefulWidget {
 
 class _UserHomePageState extends State<UserHomePage> {
   int currentIndex = 0;
-  List tabScreens = const [
-    Center(child: UserHomeScreen()),
-    Center(child: UserServiceSearchPage()),
+  List tabScreens = [
+    const Center(child: UserHomeScreen()),
+    // Center(child: BookingPage()),
+    Center(child: UserViewStorePage()),
+    // Center(child: UserServiceSearchPage()),
     // Center(child: UserChatListPage()),
     // Center(child: UserMyProfilePage()),
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PreferredSize(
+    return const Scaffold(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(55),
         child: UserAppBar(
           title: "OutQ",
         ),
       ),
       // drawer: const UserDrawer(),
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: (index) => setState(() => currentIndex = index),
-          unselectedLabelStyle: TextStyle(
-            color: Colors.blueGrey[50],
-          ),
-          selectedIconTheme: IconThemeData(
-            color: ColorConstants.blue,
-          ),
-          selectedLabelStyle: TextStyle(
-            color: ColorConstants.blue,
-          ),
-          unselectedIconTheme: IconThemeData(
-            color: Colors.blueGrey[200],
-          ),
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          iconSize: 25,
-          backgroundColor: Colors.white,
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.sell),
-              label: 'Offers',
-            ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.chat),
-            //   label: 'Messages',
-            // ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.person),
-            //   label: 'Profile',
-            // ),
-          ]),
-      body: tabScreens.elementAt(currentIndex),
+      // bottomNavigationBar: BottomNavigationBar(
+      //     currentIndex: currentIndex,
+      //     onTap: (index) => setState(() => currentIndex = index),
+      //     unselectedLabelStyle: TextStyle(
+      //       color: Colors.blueGrey[50],
+      //     ),
+      //     selectedIconTheme: IconThemeData(
+      //       color: ColorConstants.blue,
+      //     ),
+      //     selectedLabelStyle: TextStyle(
+      //       color: ColorConstants.blue,
+      //     ),
+      //     unselectedIconTheme: IconThemeData(
+      //       color: Colors.blueGrey[200],
+      //     ),
+      //     showSelectedLabels: true,
+      //     showUnselectedLabels: true,
+      //     iconSize: 25,
+      //     backgroundColor: Colors.white,
+      //     type: BottomNavigationBarType.fixed,
+      //     items: const <BottomNavigationBarItem>[
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.home_rounded),
+      //         label: 'Home',
+      //       ),
+      //       BottomNavigationBarItem(
+      //         icon: Icon(Icons.search),
+      //         label: 'Search',
+      //       ),
+      //       // BottomNavigationBarItem(
+      //       //   icon: Icon(Icons.chat),
+      //       //   label: 'Messages',
+      //       // ),
+      //       // BottomNavigationBarItem(
+      //       //   icon: Icon(Icons.person),
+      //       //   label: 'Profile',
+      //       // ),
+      //     ]),
+      // body: tabScreens.elementAt(currentIndex),
+      body: const UserHomeScreen(),
     );
   }
 }
@@ -95,7 +99,7 @@ class UserHomeScreen extends StatelessWidget {
         color: Colors.white,
         height: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // SizedBox(
             //   width: double.infinity,
@@ -250,103 +254,103 @@ class UserHomeScreen extends StatelessWidget {
             //     ],
             //   ),
             // ),
-            addHorizontalSpace(20),
-            Container(
-              color: Colors.blue,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      color: Colors.blue[800],
-                      child: Center(
-                        child: InkWell(
-                          focusColor: Colors.green,
-                          onTap: () {},
-                          child: Text(
-                            'SALOON',
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 14,
-                              // height: 1.5,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      color: Colors.blue,
-                      child: Center(
-                        child: InkWell(
-                          focusColor: Colors.green,
-                          onTap: () {},
-                          child: Text(
-                            'BUSES',
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 14,
-                              // height: 1.5,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      color: Colors.blue,
-                      child: Center(
-                        child: InkWell(
-                          focusColor: Colors.green,
-                          onTap: () {},
-                          child: Text(
-                            'TURF',
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 14,
-                              // height: 1.5,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      color: Colors.blue,
-                      child: Center(
-                        child: InkWell(
-                          focusColor: Colors.green,
-                          onTap: () {},
-                          child: Text(
-                            'PETS',
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 14,
-                              // height: 1.5,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // addHorizontalSpace(20),
+            // Container(
+            //   color: Colors.blue,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //     children: [
+            //       Expanded(
+            //         flex: 1,
+            //         child: Container(
+            //           padding: const EdgeInsets.symmetric(vertical: 4),
+            //           color: Colors.blue[800],
+            //           child: Center(
+            //             child: InkWell(
+            //               focusColor: Colors.green,
+            //               onTap: () {},
+            //               child: Text(
+            //                 'SALOON',
+            //                 style: GoogleFonts.poppins(
+            //                   color: Colors.white,
+            //                   fontSize: 14,
+            //                   // height: 1.5,
+            //                   fontWeight: FontWeight.w700,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Expanded(
+            //         flex: 1,
+            //         child: Container(
+            //           padding: const EdgeInsets.symmetric(vertical: 4),
+            //           color: Colors.blue,
+            //           child: Center(
+            //             child: InkWell(
+            //               focusColor: Colors.green,
+            //               onTap: () {},
+            //               child: Text(
+            //                 'BUSES',
+            //                 style: GoogleFonts.poppins(
+            //                   color: Colors.white,
+            //                   fontSize: 14,
+            //                   // height: 1.5,
+            //                   fontWeight: FontWeight.w700,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Expanded(
+            //         flex: 1,
+            //         child: Container(
+            //           padding: const EdgeInsets.symmetric(vertical: 4),
+            //           color: Colors.blue,
+            //           child: Center(
+            //             child: InkWell(
+            //               focusColor: Colors.green,
+            //               onTap: () {},
+            //               child: Text(
+            //                 'TURF',
+            //                 style: GoogleFonts.poppins(
+            //                   color: Colors.white,
+            //                   fontSize: 14,
+            //                   // height: 1.5,
+            //                   fontWeight: FontWeight.w700,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Expanded(
+            //         flex: 1,
+            //         child: Container(
+            //           padding: const EdgeInsets.symmetric(vertical: 4),
+            //           color: Colors.blue,
+            //           child: Center(
+            //             child: InkWell(
+            //               focusColor: Colors.green,
+            //               onTap: () {},
+            //               child: Text(
+            //                 'PETS',
+            //                 style: GoogleFonts.poppins(
+            //                   color: Colors.white,
+            //                   fontSize: 14,
+            //                   // height: 1.5,
+            //                   fontWeight: FontWeight.w700,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             Container(
               padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
@@ -379,138 +383,134 @@ class UserHomeScreen extends StatelessWidget {
               ),
             ),
 
-            Expanded(
-              flex: 2,
-              child: Container(
-                // margin: const EdgeInsets.symmetric(vertical: 12.0),
-                child: ListView(
-                  children: [
-                    CarouselSlider(
-                      items: [
-                        //1st Image of Slider
-                        Container(
-                          margin: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+            // Expanded(
+            //   flex: 2,
+            //   child: Container(
+            //     // margin: const EdgeInsets.symmetric(vertical: 12.0),
+            //     child: ListView(
+            //       children: [
+            //         CarouselSlider(
+            //           items: [
+            //             //1st Image of Slider
+            //             Container(
+            //               margin: const EdgeInsets.all(6.0),
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(8.0),
+            //                 image: const DecorationImage(
+            //                   image: NetworkImage(
+            //                       "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+            //                   fit: BoxFit.cover,
+            //                 ),
+            //               ),
+            //             ),
 
-                        //2nd Image of Slider
-                        Container(
-                          margin: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+            //             //2nd Image of Slider
+            //             Container(
+            //               margin: const EdgeInsets.all(6.0),
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(8.0),
+            //                 image: const DecorationImage(
+            //                   image: NetworkImage(
+            //                       "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+            //                   fit: BoxFit.cover,
+            //                 ),
+            //               ),
+            //             ),
 
-                        //3rd Image of Slider
-                        Container(
-                          margin: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+            //             //3rd Image of Slider
+            //             Container(
+            //               margin: const EdgeInsets.all(6.0),
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(8.0),
+            //                 image: const DecorationImage(
+            //                   image: NetworkImage(
+            //                       "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+            //                   fit: BoxFit.cover,
+            //                 ),
+            //               ),
+            //             ),
 
-                        //4th Image of Slider
-                        Container(
-                          margin: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+            //             //4th Image of Slider
+            //             Container(
+            //               margin: const EdgeInsets.all(6.0),
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(8.0),
+            //                 image: const DecorationImage(
+            //                   image: NetworkImage(
+            //                       "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+            //                   fit: BoxFit.cover,
+            //                 ),
+            //               ),
+            //             ),
 
-                        //5th Image of Slider
-                        Container(
-                          margin: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
+            //             //5th Image of Slider
+            //             Container(
+            //               margin: const EdgeInsets.all(6.0),
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(8.0),
+            //                 image: const DecorationImage(
+            //                   image: NetworkImage(
+            //                       "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+            //                   fit: BoxFit.cover,
+            //                 ),
+            //               ),
+            //             ),
+            //           ],
 
-                      //Slider Container properties
-                      options: CarouselOptions(
-                        height: 180.0,
-                        enlargeCenterPage: true,
-                        autoPlay: true,
-                        aspectRatio: 16 / 9,
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enableInfiniteScroll: true,
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 800),
-                        viewportFraction: 0.8,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            //           //Slider Container properties
+            //           options: CarouselOptions(
+            //             height: 180.0,
+            //             enlargeCenterPage: true,
+            //             autoPlay: true,
+            //             aspectRatio: 16 / 9,
+            //             autoPlayCurve: Curves.fastOutSlowIn,
+            //             enableInfiniteScroll: true,
+            //             autoPlayAnimationDuration:
+            //                 const Duration(milliseconds: 800),
+            //             viewportFraction: 0.8,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
 
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: tDefaultSize),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Nearest Services',
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFF09041B),
-                      fontSize: 20,
-                      // height: 1.5,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'View More',
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xFFFF7B32),
-                      fontSize: 12,
-                      // height: 1.5,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            addVerticalSpace(20),
+            // Container(
+            //   margin: const EdgeInsets.symmetric(horizontal: tDefaultSize),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       // Text(
+            //       //   'Nearest Services',
+            //       //   style: GoogleFonts.poppins(
+            //       //     color: const Color(0xFF09041B),
+            //       //     fontSize: 20,
+            //       //     // height: 1.5,
+            //       //     fontWeight: FontWeight.w600,
+            //       //   ),
+            //       // ),
+            //       // Text(
+            //       //   'View More',
+            //       //   style: GoogleFonts.poppins(
+            //       //     color: const Color(0xFFFF7B32),
+            //       //     fontSize: 12,
+            //       //     // height: 1.5,
+            //       //     fontWeight: FontWeight.w500,
+            //       //   ),
+            //       // )
+            //     ],
+            //   ),
+            // ),
+            // addVerticalSpace(20),
             FutureBuilder(
               future: getAllStores(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.data == null) {
                   return const Center(
-                      child: SizedBox(
-                    height: 300,
-                    width: double.infinity,
-                    child: SpinKitCircle(
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-                  ));
+                      child: SpinKitCircle(
+                        color: Colors.blue,
+                        size: 50.0,
+                      ));
                 } else {
                   if (snapshot.data.length == 0) {
                     return const Center(
@@ -594,8 +594,8 @@ class UserHomeScreen extends StatelessWidget {
                                         end: Alignment(-0.1310659646987915,
                                             0.11150387674570084),
                                         colors: [
-                                          Color.fromRGBO(83, 130, 231, 1),
-                                          Color.fromRGBO(20, 130, 231, 1)
+                                          Color.fromRGBO(0, 81, 255, 1),
+                                          Color.fromRGBO(0, 132, 255, 1)
                                         ],
                                       ),
                                     ),
@@ -609,13 +609,13 @@ class UserHomeScreen extends StatelessWidget {
                                             ]);
                                       },
                                       child: Text(
-                                        "View",
+                                        "view",
                                         textAlign: TextAlign.left,
                                         style: GoogleFonts.poppins(
                                           color: Colors.white,
-                                          fontSize: 12,
+                                          fontSize: 10,
                                           letterSpacing: 0.5,
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w600,
                                           height: 1,
                                         ),
                                       ),

@@ -41,6 +41,18 @@ Future getStoreServices() async {
   }
   return services;
 }
+Future getSingleStoreServices(var storeid) async {
+   var response = await http.get(Uri.parse('${apidomain}service/get/$storeid'));
+  var jsonData = jsonDecode(response.body);
+  List<GetServiceModel> services = [];
+
+  for (var u in jsonData) {
+    GetServiceModel service = GetServiceModel(u["_id"], u["name"],
+        u["description"], u["price"], u["storeid"], u["ownerid"], u["id"]);
+    services.add(service);
+  }
+  return services;
+}
 
 Future deleteService(var serviceid) async {
   print('jdbfbj');

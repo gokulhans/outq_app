@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
 import 'package:outq_new_app/screens/user/notifications/user_notifications.dart';
+import 'package:outq_new_app/screens/user/profile/myprofile.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 
 class UserAppBar extends StatelessWidget {
@@ -28,12 +30,12 @@ class UserAppBar extends StatelessWidget {
       title: Row(
         children: [
           IconButton(
-          icon: const Icon(
-            Icons.location_on,
-            color: Colors.blue,
-            size: 30,
-          ),
-          onPressed: () {}),
+              icon: const Icon(
+                Icons.location_on,
+                color: Colors.blue,
+                size: 30,
+              ),
+              onPressed: () {}),
           Text(
             'Calicut ',
             style: GoogleFonts.poppins(
@@ -59,13 +61,17 @@ class UserAppBar extends StatelessWidget {
               Icons.notifications_active,
               size: 30,
             ),
-            onPressed: () {}),
+            onPressed: () {
+              Get.to(() => const UserNotifications());
+            }),
         IconButton(
             icon: const Icon(
               Icons.account_circle_outlined,
               size: 30,
             ),
-            onPressed: () {}),
+            onPressed: () {
+              Get.to(() => const UserMyProfilePage());
+            }),
       ],
 
       // Container(

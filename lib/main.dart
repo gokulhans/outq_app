@@ -81,12 +81,12 @@ class _MyAppState extends State<MyApp> {
             ),
             subtitle1: GoogleFonts.poppins(
               color: Colors.black87,
-              fontSize: 16,
+              fontSize: 12,
               fontWeight: FontWeight.w600,
             ),
             subtitle2: GoogleFonts.poppins(
               color: Colors.black54,
-              fontSize: 14,
+              fontSize: 10,
             ),
           )),
       debugShowCheckedModeBanner: false,
