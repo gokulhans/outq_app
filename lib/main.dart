@@ -92,12 +92,7 @@ class _MyAppState extends State<MyApp> {
             ),
           )),
       debugShowCheckedModeBanner: false,
-      // home: Create(),
-      home: (widget.ownerid != null)
-          ? OwnerHomePage(currentIndex: 0)
-          : (widget.userid != null)
-              ? const UserHomePage()
-              : const WelcomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
@@ -133,7 +128,7 @@ class _DisplayState extends State<Display> {
                 if (snapshot.data.length == 0) {
                   return const Center(
                       child: Text(
-                    'No Content is available right now.\nWe will Update it with in august 31.',
+                    'No Content is available right now.',
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
                     ),
@@ -163,44 +158,44 @@ class _DisplayState extends State<Display> {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+// class MyHomePage extends StatefulWidget {
+//   const MyHomePage({super.key, required this.title});
 
-  final String title;
+//   final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+//   @override
+//   State<MyHomePage> createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(55),
-        child: OwnerAppBarWithBack(
-          title: "Notifications",
-        ),
-      ),
-      body: SafeArea(
-        child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Home",
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Get.to(() => const SplashScreen());
-              },
-              child: const Text("Splash"),
-            ),
-          ],
-        )),
-      ),
-    );
-  }
-}
+// class _MyHomePageState extends State<MyHomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: const PreferredSize(
+//         preferredSize: Size.fromHeight(55),
+//         child: OwnerAppBarWithBack(
+//           title: "Notifications",
+//         ),
+//       ),
+//       body: SafeArea(
+//         child: Center(
+//             child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: [
+//             Text(
+//               "Home",
+//               style: Theme.of(context).textTheme.headline4,
+//             ),
+//             ElevatedButton(
+//               onPressed: () {
+//                 Get.to(() => const SplashScreen());
+//               },
+//               child: const Text("Splash"),
+//             ),
+//           ],
+//         )),
+//       ),
+//     );
+//   }
+// }

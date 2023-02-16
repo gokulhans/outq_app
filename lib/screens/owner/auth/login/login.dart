@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/auth/login/login.dart';
+import 'package:outq_new_app/screens/owner/auth/signup/signup.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
 import 'package:outq_new_app/utils/constants.dart';
@@ -145,16 +146,16 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Text(
-                    tOwnerLoginQuestion,
+                    tOwnerSignUpQuestion,
                   ),
                   TextButton(
-                    child: Text(tOwnerLogin,
+                    child: Text(tOwnerSignUp,
                         style: TextStyle(
                           color: ColorConstants.blue,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         )),
-                    onPressed: () => Get.to(() => const OwnerLoginPage()),
+                    onPressed: () => Get.to(() => const OwnerSignUpPage()),
                   )
                 ],
               )

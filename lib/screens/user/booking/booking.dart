@@ -1,12 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
+import 'package:outq_new_app/Backend/models/user_models.dart';
+import 'package:outq_new_app/screens/owner/home/owner_home.dart';
+import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/screens/user/booking/success_booked.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
+import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:http/http.dart' as http;
+
+
+Future save(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String ownerid = prefs.getString("ownerid") ?? "null";
+    if (ownerid == "null") {
+      Get.to(() => const WelcomeScreen());
+    }
+
+    // print({shop.name, shop.type, shop.description, shop.location});
+    http.post(
+        Uri.parse(
+          apidomain + "store/register/",
+        ),
+        headers: <String, String>{
+          'Context-Type': 'application/json; charset=UTF-8',
+        },
+        body: <String, String>{
+          'name': booking.start,
+          'location': booking.end,
+          'storeid': booking.storeid,
+          'serviceid': booking.serviceid,
+          'price': booking.price,
+          'time': booking.time,
+        });
+
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) => OwnerHomePage(currentIndex: 0)),
+        (Route<dynamic> route) => false);
+  }
+
+BookingModel booking = BookingModel('', '', '', '','','');
+  
 
 class Button extends StatelessWidget {
   const Button(
@@ -76,6 +116,8 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   //   getToken();
   //   super.initState();
   // }
+
+  
 
   @override
   Widget build(BuildContext context) {
