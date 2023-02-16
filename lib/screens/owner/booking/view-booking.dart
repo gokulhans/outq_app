@@ -5,17 +5,33 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/Backend/api/user_api.dart';
+import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 import 'package:outq_new_app/screens/user/booking/booking.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
+import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
+import 'package:http/http.dart' as http;
+
+
+Future cancelBooking() async {
+  dynamic argumentData = Get.arguments;
+  print(argumentData[3]);
+  var response = await http
+      .get(Uri.parse('${apidomain}booking/cancel/${argumentData[3]}'));
+  Get.to(() => OwnerHomePage(
+        currentIndex: 0,
+      ));
+  return true;
+}
 
 class OwnerAppoinmentInfoPage extends StatefulWidget {
   const OwnerAppoinmentInfoPage({super.key});
 
   @override
-  State<OwnerAppoinmentInfoPage> createState() => _OwnerAppoinmentInfoPageState();
+  State<OwnerAppoinmentInfoPage> createState() =>
+      _OwnerAppoinmentInfoPageState();
 }
 
 class _OwnerAppoinmentInfoPageState extends State<OwnerAppoinmentInfoPage> {
@@ -264,7 +280,27 @@ class _OwnerAppoinmentInfoPageState extends State<OwnerAppoinmentInfoPage> {
                         ),
                       ],
                     ),
-                    // addVerticalSpace(30),
+                    addVerticalSpace(30),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        width: 300,
+                        color: Colors.red,
+                        child: TextButton(
+                          onPressed: () {
+                            cancelBooking();
+                          },
+                          child: Text(
+                            'Cancel Appoinment',
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     // ClipRRect(
                     //   borderRadius: BorderRadius.circular(12),
                     //   child: Container(

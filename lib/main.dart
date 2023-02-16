@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
             ),
             headline5: GoogleFonts.poppins(
               color: Colors.blue,
-              fontSize: 18,
+              fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
             headline6: GoogleFonts.poppins(
@@ -79,12 +79,12 @@ class _MyAppState extends State<MyApp> {
             ),
             subtitle1: GoogleFonts.poppins(
               color: Colors.black87,
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
             subtitle2: GoogleFonts.poppins(
               color: Colors.black54,
-              fontSize: 10,
+              fontSize: 12,
             ),
           )),
       debugShowCheckedModeBanner: false,

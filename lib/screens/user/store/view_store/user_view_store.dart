@@ -164,18 +164,18 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                                 .textTheme
                                                 .subtitle1,
                                           ),
-                                          Text(
-                                            snapshot.data[i].name,
-                                            textAlign: TextAlign.left,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2,
-                                          ),
-                                          // Text('\$7',
-                                          //     textAlign: TextAlign.left,
-                                          //     style: Theme.of(context)
-                                          //         .textTheme
-                                          //         .headline5),
+                                          // Text(
+                                          //   snapshot.data[i].price,
+                                          //   textAlign: TextAlign.left,
+                                          //   style: Theme.of(context)
+                                          //       .textTheme
+                                          //       .subtitle2,
+                                          // ),
+                                          Text(snapshot.data[i].price + " ₹",
+                                              textAlign: TextAlign.left,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline5),
                                         ]),
                                   ),
                                 ),
@@ -198,8 +198,8 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                                   snapshot.data[i].id,
                                                   snapshot.data[i].storeid,
                                                   argumentData[0],
-                                                  // snapshot.data[i].price,
                                                   snapshot.data[i].name,
+                                                  // snapshot.data[i].price,
                                                 ]);
                                           },
                                           child: Text(

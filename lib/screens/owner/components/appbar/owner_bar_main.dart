@@ -23,15 +23,15 @@ class OwnerAppBar extends StatelessWidget {
       backgroundColor: ColorConstants.white,
       foregroundColor: Colors.black,
       centerTitle: true,
-      actions: [
-        IconButton(
-            icon: const Icon(
-              Icons.notifications,
-            ),
-            onPressed: () {
-              Get.to(() => const OwnerNotifications());
-            })
-      ],
+      // actions: [
+      //   IconButton(
+      //       icon: const Icon(
+      //         Icons.notifications,
+      //       ),
+      //       onPressed: () {
+      //         Get.to(() => const OwnerNotifications());
+      //       })
+      // ],
     );
   }
 }

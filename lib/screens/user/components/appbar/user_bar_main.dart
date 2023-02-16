@@ -29,26 +29,35 @@ class UserAppBar extends StatelessWidget {
       //     onPressed: () {}),
       title: Row(
         children: [
-          IconButton(
-              icon: const Icon(
-                Icons.location_on,
-                color: Colors.blue,
-                size: 30,
-              ),
-              onPressed: () {}),
           Text(
-            'Calicut ',
+            'OutQ',
             style: GoogleFonts.poppins(
               color: const Color(0xFF09041B),
-              fontSize: 16,
+              fontSize: 18,
               // height: 1.5,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w800,
             ),
           ),
-          const Icon(
-            Icons.arrow_drop_down_outlined,
-            size: 24,
-          )
+          // IconButton(
+          //     icon: const Icon(
+          //       Icons.queue,
+          //       color: Colors.blue,
+          //       size: 30,
+          //     ),
+          //     onPressed: () {}),
+          // Text(
+          //   'OutQ',
+          //   style: GoogleFonts.poppins(
+          //     color: const Color(0xFF09041B),
+          //     fontSize: 16,
+          //     // height: 1.5,
+          //     fontWeight: FontWeight.w500,
+          //   ),
+          // ),
+          // const Icon(
+          //   Icons.arrow_drop_down_outlined,
+          //   size: 24,
+          // )
         ],
       ),
       automaticallyImplyLeading: false,

@@ -27,7 +27,7 @@ class _UserViewBookingsPageState extends State<UserViewBookingsPage> {
         body: Container(
       color: Colors.white,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(

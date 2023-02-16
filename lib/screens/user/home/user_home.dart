@@ -29,7 +29,7 @@ class _UserHomePageState extends State<UserHomePage> {
   int currentIndex = 0;
   List tabScreens = [
     const Center(child: UserHomeScreen()),
-    Center(child: UserViewBookingsPage()),
+    const Center(child: UserViewBookingsPage()),
     // Center(child: BookingPage()),
     // Center(child: UserServiceSearchPage()),
     // Center(child: UserChatListPage()),
