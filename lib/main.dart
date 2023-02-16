@@ -25,20 +25,16 @@ Future<void> main() async {
         statusBarBrightness: Brightness.light),
   );
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? ownerid = prefs.getString("ownerid");
-  String? userid = prefs.getString("userid");
-  print(ownerid);
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // String? ownerid = prefs.getString("ownerid");
+  // String? userid = prefs.getString("userid");
+  // print(ownerid);
   GeolocatorAndroid.registerWith();
-  runApp(MyApp(ownerid: ownerid, userid: userid));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({super.key, required this.ownerid, required this.userid});
-
-  final String? ownerid;
-  final String? userid;
-
+  const MyApp({super.key});
   @override
   State<MyApp> createState() => _MyAppState();
 }

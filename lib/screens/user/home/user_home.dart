@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/screens/user/booking/booking.dart';
+import 'package:outq_new_app/screens/user/booking/view-booking.dart';
 import 'package:outq_new_app/screens/user/chat/user_chat_list.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
 import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
@@ -28,62 +29,62 @@ class _UserHomePageState extends State<UserHomePage> {
   int currentIndex = 0;
   List tabScreens = [
     const Center(child: UserHomeScreen()),
+    Center(child: UserViewBookingsPage()),
     // Center(child: BookingPage()),
-    Center(child: UserViewStorePage()),
     // Center(child: UserServiceSearchPage()),
     // Center(child: UserChatListPage()),
     // Center(child: UserMyProfilePage()),
   ];
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: PreferredSize(
+    return Scaffold(
+      appBar: const PreferredSize(
         preferredSize: Size.fromHeight(55),
         child: UserAppBar(
           title: "OutQ",
         ),
       ),
       // drawer: const UserDrawer(),
-      // bottomNavigationBar: BottomNavigationBar(
-      //     currentIndex: currentIndex,
-      //     onTap: (index) => setState(() => currentIndex = index),
-      //     unselectedLabelStyle: TextStyle(
-      //       color: Colors.blueGrey[50],
-      //     ),
-      //     selectedIconTheme: IconThemeData(
-      //       color: ColorConstants.blue,
-      //     ),
-      //     selectedLabelStyle: TextStyle(
-      //       color: ColorConstants.blue,
-      //     ),
-      //     unselectedIconTheme: IconThemeData(
-      //       color: Colors.blueGrey[200],
-      //     ),
-      //     showSelectedLabels: true,
-      //     showUnselectedLabels: true,
-      //     iconSize: 25,
-      //     backgroundColor: Colors.white,
-      //     type: BottomNavigationBarType.fixed,
-      //     items: const <BottomNavigationBarItem>[
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.home_rounded),
-      //         label: 'Home',
-      //       ),
-      //       BottomNavigationBarItem(
-      //         icon: Icon(Icons.search),
-      //         label: 'Search',
-      //       ),
-      //       // BottomNavigationBarItem(
-      //       //   icon: Icon(Icons.chat),
-      //       //   label: 'Messages',
-      //       // ),
-      //       // BottomNavigationBarItem(
-      //       //   icon: Icon(Icons.person),
-      //       //   label: 'Profile',
-      //       // ),
-      //     ]),
-      // body: tabScreens.elementAt(currentIndex),
-      body: const UserHomeScreen(),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: (index) => setState(() => currentIndex = index),
+          unselectedLabelStyle: TextStyle(
+            color: Colors.blueGrey[50],
+          ),
+          selectedIconTheme: IconThemeData(
+            color: ColorConstants.blue,
+          ),
+          selectedLabelStyle: TextStyle(
+            color: ColorConstants.blue,
+          ),
+          unselectedIconTheme: IconThemeData(
+            color: Colors.blueGrey[200],
+          ),
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          iconSize: 20,
+          backgroundColor: Colors.white,
+          type: BottomNavigationBarType.fixed,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.watch),
+              label: 'My Appoinments',
+            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.chat),
+            //   label: 'Messages',
+            // ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.person),
+            //   label: 'Profile',
+            // ),
+          ]),
+      body: tabScreens.elementAt(currentIndex),
+      // body: const UserHomeScreen(),
     );
   }
 }
@@ -508,9 +509,9 @@ class UserHomeScreen extends StatelessWidget {
                 if (snapshot.data == null) {
                   return const Center(
                       child: SpinKitCircle(
-                        color: Colors.blue,
-                        size: 50.0,
-                      ));
+                    color: Colors.blue,
+                    size: 50.0,
+                  ));
                 } else {
                   if (snapshot.data.length == 0) {
                     return const Center(

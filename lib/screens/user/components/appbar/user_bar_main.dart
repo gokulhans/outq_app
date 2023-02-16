@@ -51,6 +51,7 @@ class UserAppBar extends StatelessWidget {
           )
         ],
       ),
+      automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: ColorConstants.white,
       foregroundColor: Colors.black,

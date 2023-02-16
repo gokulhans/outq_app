@@ -53,8 +53,7 @@ class CreateStorePage extends StatefulWidget {
 }
 
 class _CreateStorePageState extends State<CreateStorePage> {
-
-   String? _currentAddress;
+  String? _currentAddress;
   Position? _currentPosition;
 
   Future<bool> _handleLocationPermission() async {
@@ -112,7 +111,7 @@ class _CreateStorePageState extends State<CreateStorePage> {
       debugPrint(e);
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,20 +177,20 @@ class _CreateStorePageState extends State<CreateStorePage> {
                 ),
               ),
               Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('LAT: ${_currentPosition?.latitude ?? ""}'),
-              Text('LNG: ${_currentPosition?.longitude ?? ""}'),
-              Text('ADDRESS: ${_currentAddress ?? ""}'),
-              const SizedBox(height: 32),
-              ElevatedButton(
-                onPressed: _getCurrentPosition,
-                child: const Text("Get Current Location"),
-              )
-            ],
-          ),
-        ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('LAT: ${_currentPosition?.latitude ?? ""}'),
+                    Text('LNG: ${_currentPosition?.longitude ?? ""}'),
+                    Text('ADDRESS: ${_currentAddress ?? ""}'),
+                    const SizedBox(height: 32),
+                    ElevatedButton(
+                      onPressed: _getCurrentPosition,
+                      child: const Text("Get Current Location"),
+                    )
+                  ],
+                ),
+              ),
               // const CreateStoreForm(),
             ],
           ),

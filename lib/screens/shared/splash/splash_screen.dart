@@ -1,15 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/screens/user/home/user_home.dart';
+import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-
-  // final String? ownerid;
-  // final String? userid;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -29,22 +30,43 @@ class _SplashScreenState extends State<SplashScreen> {
         Get.to(() => OwnerHomePage(currentIndex: 0));
       } else if (userid != null) {
         Get.to(() => const UserHomePage());
+      } else {
+        Get.to(() => const WelcomeScreen());
       }
-      Get.to(() => const WelcomeScreen());
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          Image(image: AssetImage("assets/app_icon/playstore.png"))
-        ],
-      )),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0),
+        child: AppBar(
+          elevation: 0,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+              statusBarColor: Colors.black,
+              statusBarIconBrightness: Brightness.light,
+              statusBarBrightness: Brightness.dark),
+        ),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [hexToColor("#0F3EE9"), hexToColor("#000000")],
+            transform: const GradientRotation(9 * pi / 180),
+          ),
+        ),
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            Image(image: AssetImage("assets/app_icon/playstore.png"))
+          ],
+        )),
+      ),
     );
   }
 }
