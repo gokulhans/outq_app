@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
@@ -7,46 +9,52 @@ import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/screens/user/booking/success_booked.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
+import 'package:outq_new_app/screens/user/home/user_home.dart';
+import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 
-
 Future save(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String ownerid = prefs.getString("ownerid") ?? "null";
-    if (ownerid == "null") {
-      Get.to(() => const WelcomeScreen());
-    }
-
-    // print({shop.name, shop.type, shop.description, shop.location});
-    http.post(
-        Uri.parse(
-          apidomain + "store/register/",
-        ),
-        headers: <String, String>{
-          'Context-Type': 'application/json; charset=UTF-8',
-        },
-        body: <String, String>{
-          'name': booking.start,
-          'location': booking.end,
-          'storeid': booking.storeid,
-          'serviceid': booking.serviceid,
-          'price': booking.price,
-          'time': booking.time,
-        });
-
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (BuildContext context) => OwnerHomePage(currentIndex: 0)),
-        (Route<dynamic> route) => false);
+  String ownerid = prefs.getString("ownerid") ?? "null";
+  if (ownerid == "null") {
+    Get.to(() => const WelcomeScreen());
   }
 
-BookingModel booking = BookingModel('', '', '', '','','');
-  
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  String userid = pref.getString("userid") ?? "null";
+  if (userid == "null") {
+    Get.to(() => const WelcomeScreen());
+  }
+
+  // print({shop.name, shop.type, shop.description, shop.location});
+  http.post(
+      Uri.parse(
+        apidomain + "booking/",
+      ),
+      headers: <String, String>{
+        'Context-Type': 'application/json; charset=UTF-8',
+      },
+      body: <String, String>{
+        'start': booking.start,
+        'end': booking.end,
+        'storeid': booking.storeid,
+        'serviceid': booking.serviceid,
+        'userid': userid,
+        'price': booking.price,
+        'date': booking.date,
+      });
+
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (BuildContext context) => UserHomePage()),
+      (Route<dynamic> route) => false);
+}
+
+BookingModel booking = BookingModel('', '', '', '', '', '', '');
 
 class Button extends StatelessWidget {
   const Button(
@@ -96,6 +104,7 @@ class ShopBookingPage extends StatefulWidget {
 
 class _ShopBookingPageState extends State<ShopBookingPage> {
   dynamic argumentData = Get.arguments;
+
   //declaration
   CalendarFormat _format = CalendarFormat.month;
   DateTime _focusDay = DateTime.now();
@@ -106,6 +115,24 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   bool _timeSelected = false;
   String? token; //get token for insert booking date and time into database
 
+  // Time
+  TimeOfDay selectedTime = TimeOfDay.now();
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked_s = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+
+    if (picked_s != null && picked_s != selectedTime)
+      setState(() {
+        selectedTime = picked_s;
+        final localizations = MaterialLocalizations.of(context);
+        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
+        booking.start = formattedTimeOfDay;
+        booking.end = formattedTimeOfDay;
+        // print(booking.date);
+      });
+  }
   // Future<void> getToken() async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
   //   token = prefs.getString('token') ?? '';
@@ -116,8 +143,6 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   //   getToken();
   //   super.initState();
   // }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -130,144 +155,81 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
           title: "",
         ),
       ),
+      floatingActionButton: Container(
+        width: 150,
+        height: 50,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          gradient: LinearGradient(
+            colors: [
+              ColorConstants.bluegradient1,
+              ColorConstants.bluegradient2
+            ],
+            transform: const GradientRotation(9 * pi / 180),
+          ),
+        ),
+        child: Center(
+          child: TextButton(
+            child: Text(
+              "Save",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            onPressed: () {
+              booking.serviceid = argumentData[0];
+              booking.storeid = argumentData[1];
+              booking.price = "50";
+              // booking.price = argumentData[2];
+              save(context);
+            },
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           color: Colors.white,
           child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: <Widget>[
-              SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Text(argumentData[1]),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: Text(
-                        'Select Date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    HorizontalCalendar(
-                      date: DateTime.now(),
-                      textColor: Colors.black45,
-                      backgroundColor: Colors.white,
-                      selectedColor: Colors.blue,
-                      showMonth: true,
-                      onDateSelected: (date) {
-                        print(date.toString());
-                      },
-                    ),
-                    // _tableCalendar(),
-                    addVerticalSpace(30),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      child: Text(
-                        'Select Consultation Time',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    addVerticalSpace(0),
-                  ],
-                ),
-              ),
-              _isWeekend
-                  ? SliverToBoxAdapter(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 30),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Weekend is not available, please select another date',
+              physics: const BouncingScrollPhysics(),
+              slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(argumentData[2]),
+                      const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        child: Text(
+                          'Select Date',
                           style: TextStyle(
-                            fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.grey,
+                            fontSize: 16,
                           ),
                         ),
                       ),
-                    )
-                  : SliverGrid(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          return InkWell(
-                            splashColor: Colors.transparent,
-                            onTap: () {
-                              setState(() {
-                                _currentIndex = index;
-                                _timeSelected = true;
-                              });
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: _currentIndex == index
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                borderRadius: BorderRadius.circular(15),
-                                color:
-                                    _currentIndex == index ? Colors.blue : null,
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                '${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: _currentIndex == index
-                                      ? Colors.white
-                                      : null,
-                                ),
-                              ),
-                            ),
-                          );
+                      HorizontalCalendar(
+                        date: DateTime.now(),
+                        textColor: Colors.black45,
+                        backgroundColor: Colors.white,
+                        selectedColor: Colors.blue,
+                        showMonth: true,
+                        onDateSelected: (date) {
+                          // print(argumentData);
+                          booking.date = date.toString();
                         },
-                        childCount: 8,
                       ),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4, childAspectRatio: 1.5),
-                    ),
-              SliverToBoxAdapter(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 80),
-                  child: Button(
-                    width: double.infinity,
-                    title: 'Book Appointment',
-                    onPressed: () async {
-                      Get.to(() => const AppointmentBooked());
-                      //convert date/day/time into string first
-                      // final getDate = DateConverted.getDate(_currentDay);
-                      // final getDay = DateConverted.getDay(_currentDay.weekday);
-                      // final getTime = DateConverted.getTime(_currentIndex!);
-
-                      // final booking = await DioProvider().bookAppointment(
-                      //     getDate, getDay, getTime, doctor['doctor_id'], token!);
-
-                      //if booking return status code 200, then redirect to success booking page
-
-                      // if (booking == 200) {
-                      //   MyApp.navigatorKey.currentState!
-                      //       .pushNamed('success_booking');
-                      // }
-                    },
-                    disable: _timeSelected || _dateSelected ? false : true,
+                      ElevatedButton(
+                        onPressed: () {
+                          _selectTime(context);
+                        },
+                        child: Text('SELECT TIME'),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
+              ]),
         ),
       ),
     );

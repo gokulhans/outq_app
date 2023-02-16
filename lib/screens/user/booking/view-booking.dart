@@ -11,16 +11,14 @@ import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 
-class UserViewStorePage extends StatefulWidget {
-  UserViewStorePage({super.key});
+class UserViewBookingsPage extends StatefulWidget {
+  UserViewBookingsPage({super.key});
 
   @override
-  State<UserViewStorePage> createState() => _UserViewStorePageState();
+  State<UserViewBookingsPage> createState() => _UserViewBookingsPageState();
 }
 
-class _UserViewStorePageState extends State<UserViewStorePage> {
-  dynamic argumentData = Get.arguments;
-  bool isChecked = false;
+class _UserViewBookingsPageState extends State<UserViewBookingsPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -37,73 +35,7 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FutureBuilder(
-                future: getSingleStore(argumentData[0]),
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.data == null) {
-                    return Container();
-                    // return const Center(
-                    //     child: SpinKitCircle(
-                    //   color: Colors.blue,
-                    //   size: 50.0,
-                    // ));
-                  } else {
-                    if (snapshot.data.length == 0) {
-                      return const Center(
-                          child: Text(
-                        'No Content is available right now.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ));
-                    } else {
-                      return Expanded(
-                        flex: 2,
-                        child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, i) {
-                            return Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const SizedBox(
-                                  width: double.infinity,
-                                  height: 180,
-                                  child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4)),
-                                    child: Image(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
-                                    ),
-                                  ),
-                                ),
-                                addVerticalSpace(20),
-                                Text(
-                                  snapshot.data[i].name,
-                                  style:
-                                      Theme.of(context).textTheme.headline4,
-                                ),
-                                Text(
-                                  snapshot.data[i].description,
-                                  style:
-                                      Theme.of(context).textTheme.subtitle2,
-                                ),
-                                // addVerticalSpace(30),
-                              ],
-                            );
-                          },
-                        ),
-                      );
-                    }
-                  }
-                },
-              ),
-              FutureBuilder(
-                future: getSingleStoreServices(argumentData[0]),
+                future: getUserBookings(),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.data == null) {
                     return const Center(
@@ -119,7 +51,7 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                     if (snapshot.data.length == 0) {
                       return const Center(
                           child: Text(
-                        'No Content is available right now.',
+                        'No Booking is available right now.',
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
                         ),

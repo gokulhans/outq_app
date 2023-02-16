@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
+import 'package:outq_new_app/Backend/models/user_models.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,8 +42,9 @@ Future getStoreServices() async {
   }
   return services;
 }
+
 Future getSingleStoreServices(var storeid) async {
-   var response = await http.get(Uri.parse('${apidomain}service/get/$storeid'));
+  var response = await http.get(Uri.parse('${apidomain}service/get/$storeid'));
   var jsonData = jsonDecode(response.body);
   List<GetServiceModel> services = [];
 
@@ -59,4 +61,29 @@ Future deleteService(var serviceid) async {
   var response =
       await http.get(Uri.parse('${apidomain}service/del/$serviceid'));
   return true;
+}
+
+Future getStoreServiceBooking(var serviceid) async {
+  var response =
+      await http.get(Uri.parse('${apidomain}booking/store/viewall/$serviceid'));
+  var jsonData = jsonDecode(response.body);
+  print(jsonData);
+
+  List<GetBookingModel> bookings = [];
+  for (var u in jsonData) {
+    GetBookingModel booking = GetBookingModel(
+      u["_id"],
+      u["start"],
+      u["end"],
+      u["storeid"],
+      u["serviceid"],
+      u["userid"],
+      u["bookingid"],
+      u["price"],
+      u["date"],
+    );
+    bookings.add(booking);
+  }
+  print(bookings);
+  return bookings;
 }
