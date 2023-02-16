@@ -9,28 +9,27 @@ class OwnerLoginModel {
 }
 
 class StoreModel {
-  String name, location, description, type;
-  StoreModel(this.name, this.location, this.description, this.type);
+  String name, location, description, type, img;
+  StoreModel(this.name, this.location, this.description, this.type, this.img);
 }
 
 class Store {
-  String _id, name, location, id, description, type;
-  Store(
-      this._id, this.name, this.location, this.id, this.description, this.type);
+  String _id, name, location, id, description, type, img;
+  Store(this._id, this.name, this.location, this.id, this.description,
+      this.type, this.img);
 }
 
 class ServiceModel {
-  String name, description, price, ownerid, storeid;
+  String name, description, price, ogprice, img, ownerid, storeid;
 
-  ServiceModel(
-      this.name, this.description, this.price, this.ownerid, this.storeid);
+  ServiceModel(this.name, this.description, this.price, this.ogprice, this.img,
+      this.ownerid, this.storeid);
 }
 
 class GetServiceModel {
-  String _id, name, description, storeid, ownerid, id;
-  int price;
+  String _id, name, description, price ,ogprice, img, ownerid, storeid, id;
   GetServiceModel(this._id, this.name, this.description, this.price,
-      this.storeid, this.ownerid, this.id);
+      this.ogprice, this.img, this.ownerid, this.storeid, this.id);
 }
 
 class idModel {

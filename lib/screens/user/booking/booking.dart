@@ -177,7 +177,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
             ),
             onPressed: () {
               booking.serviceid = argumentData[0];
-              booking.storeid = argumentData[1];
+              booking.storeid = argumentData[2];
               booking.price = "50";
               // booking.price = argumentData[2];
               save(context);
@@ -224,7 +224,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                         onPressed: () {
                           _selectTime(context);
                         },
-                        child: Text('SELECT TIME'),
+                        child: const Text('SELECT TIME'),
                       ),
                     ],
                   ),

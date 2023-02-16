@@ -197,6 +197,7 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                                 arguments: [
                                                   snapshot.data[i].id,
                                                   snapshot.data[i].storeid,
+                                                  argumentData[0],
                                                   // snapshot.data[i].price,
                                                   snapshot.data[i].name,
                                                 ]);

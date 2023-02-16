@@ -19,7 +19,7 @@ Future getOwnerStore() async {
 
   for (var u in jsonData) {
     Store store = Store(u["_id"], u["name"], u["location"], u["id"],
-        u["description"], u["type"]);
+        u["description"], u["type"], u["img"]);
     stores.add(store);
   }
   print(stores);
@@ -29,17 +29,26 @@ Future getOwnerStore() async {
 Future getStoreServices() async {
   print('d');
   SharedPreferences pref = await SharedPreferences.getInstance();
-
   var storeid = pref.getString("storeid");
   var response = await http.get(Uri.parse('${apidomain}service/get/$storeid'));
   var jsonData = jsonDecode(response.body);
   List<GetServiceModel> services = [];
 
   for (var u in jsonData) {
-    GetServiceModel service = GetServiceModel(u["_id"], u["name"],
-        u["description"], u["price"], u["storeid"], u["ownerid"], u["id"]);
+    GetServiceModel service = GetServiceModel(
+        u["_id"],
+        u["name"],
+        u["description"],
+        u["price"],
+        u["ogprice"],
+        u["img"],
+        u["storeid"],
+        u["ownerid"],
+        u["id"]);
+    print("service");
     services.add(service);
   }
+  print(services);
   return services;
 }
 
@@ -49,8 +58,16 @@ Future getSingleStoreServices(var storeid) async {
   List<GetServiceModel> services = [];
 
   for (var u in jsonData) {
-    GetServiceModel service = GetServiceModel(u["_id"], u["name"],
-        u["description"], u["price"], u["storeid"], u["ownerid"], u["id"]);
+    GetServiceModel service = GetServiceModel(
+        u["_id"],
+        u["name"],
+        u["description"],
+        u["price"],
+        u["ogprice"],
+        u["img"],
+        u["storeid"],
+        u["ownerid"],
+        u["id"]);
     services.add(service);
   }
   return services;
@@ -63,9 +80,12 @@ Future deleteService(var serviceid) async {
   return true;
 }
 
-Future getStoreServiceBooking(var serviceid) async {
+Future getStoreServiceBooking() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  var storeid = pref.getString("storeid");
+  print(storeid);
   var response =
-      await http.get(Uri.parse('${apidomain}booking/store/viewall/$serviceid'));
+      await http.get(Uri.parse('${apidomain}booking/view/store/63ee76df83f6e604e4256365'));
   var jsonData = jsonDecode(response.body);
   print(jsonData);
 
@@ -84,6 +104,7 @@ Future getStoreServiceBooking(var serviceid) async {
     );
     bookings.add(booking);
   }
+  print("bookings");
   print(bookings);
   return bookings;
 }

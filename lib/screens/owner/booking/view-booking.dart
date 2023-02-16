@@ -11,14 +11,14 @@ import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 
-class UserSingleServicePage extends StatefulWidget {
-  const UserSingleServicePage({super.key});
+class OwnerAppoinmentInfoPage extends StatefulWidget {
+  const OwnerAppoinmentInfoPage({super.key});
 
   @override
-  State<UserSingleServicePage> createState() => _UserSingleServicePageState();
+  State<OwnerAppoinmentInfoPage> createState() => _OwnerAppoinmentInfoPageState();
 }
 
-class _UserSingleServicePageState extends State<UserSingleServicePage> {
+class _OwnerAppoinmentInfoPageState extends State<OwnerAppoinmentInfoPage> {
   dynamic argumentData = Get.arguments;
   bool isChecked = false;
 
@@ -28,7 +28,7 @@ class _UserSingleServicePageState extends State<UserSingleServicePage> {
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: UserAppBarWithBack(
-            title: "",
+            title: "Appoinment Info",
           ),
         ),
         body: Container(
@@ -54,11 +54,11 @@ class _UserSingleServicePageState extends State<UserSingleServicePage> {
                   ),
                   addVerticalSpace(20),
                   Text(
-                    argumentData[1],
+                    "argumentData[1]",
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   Text(
-                    argumentData[2],
+                    "argumentData[2]",
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                   addVerticalSpace(30),
@@ -68,6 +68,55 @@ class _UserSingleServicePageState extends State<UserSingleServicePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Column(
                   children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Time",
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
+                                ),
+                              ]),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Container(
+                              // width: 100,
+                              // height: 25,
+                              // color: Colors.blue[700],
+                              child: Center(
+                                  child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "10.00 AM",
+                                  textAlign: TextAlign.right,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
+                                ),
+                              )),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Row(
                       children: [
                         Expanded(
@@ -215,28 +264,48 @@ class _UserSingleServicePageState extends State<UserSingleServicePage> {
                         ),
                       ],
                     ),
-                    addVerticalSpace(30),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Container(
-                        width: 300,
-                        color: Colors.blue,
-                        child: TextButton(
-                          onPressed: () {
-                            // Add your onPressed action here
-                          },
-                          child: Text(
-                            'Get Direction',
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // addVerticalSpace(30),
+                    // ClipRRect(
+                    //   borderRadius: BorderRadius.circular(12),
+                    //   child: Container(
+                    //     width: 300,
+                    //     color: Colors.blue,
+                    //     child: TextButton(
+                    //       onPressed: () {
+                    //         // Add your onPressed action here
+                    //       },
+                    //       child: Text(
+                    //         'Get Direction',
+                    //         style: GoogleFonts.poppins(
+                    //           color: Colors.white,
+                    //           fontWeight: FontWeight.w600,
+                    //           fontSize: 16.0,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     // addVerticalSpace(10),
+                    // ClipRRect(
+                    //   borderRadius: BorderRadius.circular(12),
+                    //   child: Container(
+                    //     width: 300,
+                    //     color: Colors.red,
+                    //     child: TextButton(
+                    //       onPressed: () {
+                    //         // Add your onPressed action here
+                    //       },
+                    //       child: Text(
+                    //         'Cancel Appoinment',
+                    //         style: GoogleFonts.poppins(
+                    //           color: Colors.white,
+                    //           fontWeight: FontWeight.w600,
+                    //           fontSize: 16.0,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               )

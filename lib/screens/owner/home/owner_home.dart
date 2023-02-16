@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
+import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_forgot_psd.dart';
 import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_reset_password.dart';
 import 'package:outq_new_app/screens/owner/auth/otp/owner_otp.dart';
+import 'package:outq_new_app/screens/owner/booking/view-booking.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_bar_main.dart';
 import 'package:outq_new_app/screens/owner/components/drawer/owner_drawer.dart';
 import 'package:outq_new_app/screens/owner/profile/settings/settings.dart';
+import 'package:outq_new_app/screens/owner/profile/user_profile/user_profile.dart';
 import 'package:outq_new_app/screens/owner/service/view/owner_view_service.dart';
 import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
 import 'package:get/get.dart';
@@ -21,8 +24,8 @@ import 'package:outq_new_app/utils/sizes.dart';
 import 'package:http/http.dart' as http;
 
 class OwnerHomePage extends StatefulWidget {
-  int currentIndex = 0;
   OwnerHomePage({super.key, required this.currentIndex});
+  int currentIndex;
 
   @override
   State<OwnerHomePage> createState() => _OwnerHomePageState();
@@ -98,11 +101,11 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(tDefaultSize),
+      padding: const EdgeInsets.symmetric(horizontal:tDefaultSize),
       color: Colors.white,
       height: double.infinity,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           FutureBuilder(
             future: getOwnerStore(),
@@ -156,41 +159,140 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
               }
             },
           ),
-          Expanded(
-            flex: 5,
-            child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: 10,
-                itemBuilder: (context, i) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+          FutureBuilder(
+            future: getStoreServiceBooking(),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return const Center(
+                    child: SizedBox(
+                  height: 300,
+                  width: double.infinity,
+                  child: SpinKitCircle(
+                    color: Colors.blue,
+                    size: 50.0,
+                  ),
+                ));
+              } else {
+                if (snapshot.data.length == 0) {
+                  return const Center(
+                      child: Text(
+                    'No Booking is available right now.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ));
+                } else {
+                  return Expanded(
+                    flex: 6,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, i) {
+                        return InkWell(
+                          onTap: () => Get.to(
+                              () => const OwnerAppoinmentInfoPage(),
+                              arguments: [
+                                snapshot.data[i].start,
+                                snapshot.data[i].storeid,
+                                snapshot.data[i].serviceid,
+                              ]),
+                          child: Row(
                             children: [
-                              Text(
-                                'Hair Cleaning ',
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.subtitle1,
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12.0,
+                                  ),
+                                  child: Container(
+                                    height: 60,
+                                    child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        child: const Image(
+                                            image: AssetImage(
+                                                'assets/images/userImage.png'))),
+                                  ),
+                                ),
                               ),
-                              Text(
-                                'Arun',
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context).textTheme.subtitle2,
+                              Expanded(
+                                flex: 4,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          snapshot.data[i].start,
+                                          textAlign: TextAlign.left,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle1,
+                                        ),
+                                        Text(
+                                          snapshot.data[i].serviceid,
+                                          textAlign: TextAlign.left,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                        // Text('\$7',
+                                        //     textAlign: TextAlign.left,
+                                        //     style: Theme.of(context)
+                                        //         .textTheme
+                                        //         .headline5),
+                                      ]),
+                                ),
                               ),
-                            ]),
-                        Text(
-                          "10.00",
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w700, color: Colors.blue),
-                        )
-                      ],
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Container(
+                                      width: 100,
+                                      height: 25,
+                                      color: Colors.blue[700],
+                                      child: Center(
+                                          child: TextButton(
+                                        onPressed: () {
+                                          // Get.to(() => const ShopBookingPage(),
+                                          //     arguments: [
+                                          //       snapshot.data[i].id,
+                                          //       snapshot.data[i].storeid,
+                                          //       // snapshot.data[i].price,
+                                          //       snapshot.data[i].name,
+                                          //     ]);
+                                        },
+                                        child: Text(
+                                          snapshot.data[i].start,
+                                          textAlign: TextAlign.left,
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            letterSpacing: 0.5,
+                                            fontWeight: FontWeight.w600,
+                                            height: 1,
+                                          ),
+                                        ),
+                                      )),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   );
-                }),
+                }
+              }
+            },
           ),
         ],
       ),

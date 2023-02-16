@@ -8,18 +8,34 @@ import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 import 'package:outq_new_app/screens/user/booking/booking.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
+import 'package:outq_new_app/screens/user/home/user_home.dart';
+import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-class UserSingleServicePage extends StatefulWidget {
-  const UserSingleServicePage({super.key});
-
-  @override
-  State<UserSingleServicePage> createState() => _UserSingleServicePageState();
+Future cancelBooking() async {
+  dynamic argumentData = Get.arguments;
+  print(argumentData[3]);
+  var response = await http
+      .get(Uri.parse('${apidomain}booking/cancel/${argumentData[3]}'));
+  Get.to(() => const UserHomePage());
+  return true;
 }
 
-class _UserSingleServicePageState extends State<UserSingleServicePage> {
+class UserSingleAppoinmentInfoPage extends StatefulWidget {
+  const UserSingleAppoinmentInfoPage({super.key});
+
+  @override
+  State<UserSingleAppoinmentInfoPage> createState() =>
+      _UserSingleAppoinmentInfoPageState();
+}
+
+class _UserSingleAppoinmentInfoPageState
+    extends State<UserSingleAppoinmentInfoPage> {
   dynamic argumentData = Get.arguments;
+
   bool isChecked = false;
 
   @override
@@ -68,6 +84,55 @@ class _UserSingleServicePageState extends State<UserSingleServicePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Column(
                   children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Time",
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
+                                ),
+                              ]),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Container(
+                              // width: 100,
+                              // height: 25,
+                              // color: Colors.blue[700],
+                              child: Center(
+                                  child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "10.00 AM",
+                                  textAlign: TextAlign.right,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
+                                ),
+                              )),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Row(
                       children: [
                         Expanded(
@@ -216,17 +281,38 @@ class _UserSingleServicePageState extends State<UserSingleServicePage> {
                       ],
                     ),
                     addVerticalSpace(30),
+                    // ClipRRect(
+                    //   borderRadius: BorderRadius.circular(12),
+                    //   child: Container(
+                    //     width: 300,
+                    //     color: Colors.blue,
+                    //     child: TextButton(
+                    //       onPressed: () {
+                    //         // Add your onPressed action here
+                    //       },
+                    //       child: Text(
+                    //         'Get Direction',
+                    //         style: GoogleFonts.poppins(
+                    //           color: Colors.white,
+                    //           fontWeight: FontWeight.w600,
+                    //           fontSize: 16.0,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    addVerticalSpace(10),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Container(
                         width: 300,
-                        color: Colors.blue,
+                        color: Colors.red,
                         child: TextButton(
                           onPressed: () {
-                            // Add your onPressed action here
+                            cancelBooking();
                           },
                           child: Text(
-                            'Get Direction',
+                            'Cancel Appoinment',
                             style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -236,7 +322,6 @@ class _UserSingleServicePageState extends State<UserSingleServicePage> {
                         ),
                       ),
                     ),
-                    // addVerticalSpace(10),
                   ],
                 ),
               )

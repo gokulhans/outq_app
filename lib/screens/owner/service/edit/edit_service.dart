@@ -58,35 +58,8 @@ class _EditServicePageState extends State<EditServicePage> {
           title: "",
         ),
       ),
-      floatingActionButton: Container(
-        width: 150,
-        height: 50,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          gradient: LinearGradient(
-            colors: [
-              ColorConstants.bluegradient1,
-              ColorConstants.bluegradient2
-            ],
-            transform: const GradientRotation(9 * pi / 180),
-          ),
-        ),
-        child: Center(
-          child: TextButton(
-            onPressed: () {
-              save(context);
-            },
-            child: Text(
-              "Save",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
-        padding: const EdgeInsets.all(tDefaultSize),
+        padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
         color: Colors.white,
         height: double.infinity,
         child: SingleChildScrollView(
@@ -94,7 +67,7 @@ class _EditServicePageState extends State<EditServicePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: 150,
+                height: 120,
                 padding: const EdgeInsets.only(right: 60),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,7 +101,7 @@ class EditServiceForm extends StatefulWidget {
   State<EditServiceForm> createState() => _EditServiceFormState();
 }
 
-ServiceModel service = ServiceModel('', '', '', '', '');
+ServiceModel service = ServiceModel('', '', '', '', '', '', '');
 
 class _EditServiceFormState extends State<EditServiceForm> {
   @override
@@ -210,7 +183,34 @@ class _EditServiceFormState extends State<EditServiceForm> {
                   ),
                 ),
               ),
-              addVerticalSpace(100)
+              addVerticalSpace(20),
+              Container(
+                width: 150,
+                height: 50,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    colors: [
+                      ColorConstants.bluegradient1,
+                      ColorConstants.bluegradient2
+                    ],
+                    transform: const GradientRotation(9 * pi / 180),
+                  ),
+                ),
+                child: Center(
+                  child: TextButton(
+                    onPressed: () {
+                      save(context);
+                    },
+                    child: Text(
+                      "Save",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                ),
+              ),
+              addVerticalSpace(40)
             ],
           ),
         ));

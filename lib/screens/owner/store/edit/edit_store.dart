@@ -13,6 +13,18 @@ import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+void onload() {
+  dynamic argumentData = Get.arguments;
+  print("test");
+  print(shop.name);
+  shop.name = argumentData.name;
+  shop.location = argumentData.location;
+  shop.id = argumentData.id;
+  shop.description = argumentData.description;
+  shop.type = argumentData.type;
+  shop.img = argumentData.img;
+}
+
 Future save(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -36,6 +48,7 @@ Future save(BuildContext context) async {
         'id': ownerid,
         'description': shop.description,
         'type': shop.type,
+        'img': shop.img,
       });
 
   Navigator.of(context).pushAndRemoveUntil(
@@ -47,6 +60,7 @@ Future save(BuildContext context) async {
 class EditStorePage extends StatefulWidget {
   final ownerid;
   dynamic argumentData = Get.arguments;
+
   EditStorePage({super.key, required this.ownerid});
 
   @override
@@ -54,46 +68,23 @@ class EditStorePage extends StatefulWidget {
 }
 
 class _EditStorePageState extends State<EditStorePage> {
+  
   @override
+  void initState() {
+    super.initState();
+    onload();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
+        preferredSize: Size.fromHeight(50),
         child: OwnerAppBarWithBack(
           title: "",
         ),
       ),
-      floatingActionButton: Container(
-        width: 150,
-        height: 50,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          gradient: LinearGradient(
-            colors: [
-              ColorConstants.bluegradient1,
-              ColorConstants.bluegradient2
-            ],
-            transform: const GradientRotation(9 * pi / 180),
-          ),
-        ),
-        child: Center(
-          child: TextButton(
-            child: Text(
-              "Save",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            onPressed: () {
-              shop.type = widget.argumentData.type;
-              shop.id = widget.argumentData.id;
-              save(context);
-            },
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
-        padding: const EdgeInsets.all(tDefaultSize),
+        padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
         color: Colors.white,
         height: double.infinity,
         child: SingleChildScrollView(
@@ -101,7 +92,7 @@ class _EditStorePageState extends State<EditStorePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: 150,
+                height: 100,
                 padding: const EdgeInsets.only(right: 60),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,11 +102,11 @@ class _EditStorePageState extends State<EditStorePage> {
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headline3,
                     ),
-                    Text(
-                      'This data will be displayed in your account profile.',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
+                    // Text(
+                    //   'This data will be displayed in your account profile.',
+                    //   textAlign: TextAlign.left,
+                    //   style: Theme.of(context).textTheme.subtitle2,
+                    // ),
                   ],
                 ),
               ),
@@ -136,7 +127,7 @@ class EditStoreForm extends StatefulWidget {
   State<EditStoreForm> createState() => _EditStoreFormState();
 }
 
-Store shop = Store('', '', '', '', '', '');
+Store shop = Store('', '', '', '', '', '', '');
 
 class _EditStoreFormState extends State<EditStoreForm> {
   @override
@@ -220,29 +211,59 @@ class _EditStoreFormState extends State<EditStoreForm> {
                   ),
                 ),
               ),
-              // Container(
-              //   height: 80,
-              //   padding: const EdgeInsets.symmetric(vertical: 12.0),
-              //   clipBehavior: Clip.antiAlias,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(22),
-              //   ),
-              //   child: TextField(
-              //     onChanged: (val) {
-              //       shop.type = val;
-              //     },
-              //     decoration: const InputDecoration(
-              //       labelText: 'Type',
-              //       labelStyle: TextStyle(
-              //         fontFamily: 'Montserrat',
-              //         fontWeight: FontWeight.bold,
-              //         color: Colors.grey,
-              //       ),
-              //       // hintText: 'myshop..',
-              //     ),
-              //   ),
-              // ),
-              addVerticalSpace(100)
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextFormField(
+                  initialValue: widget.argumentData.img,
+                  onChanged: (val) {
+                    shop.img = val;
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Image Link',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              addVerticalSpace(30),
+              Container(
+                width: 150,
+                height: 50,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    colors: [
+                      ColorConstants.bluegradient1,
+                      ColorConstants.bluegradient2
+                    ],
+                    transform: const GradientRotation(9 * pi / 180),
+                  ),
+                ),
+                child: Center(
+                  child: TextButton(
+                    child: Text(
+                      "Save",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    onPressed: () {
+                      shop.type = widget.argumentData.type;
+                      shop.id = widget.argumentData.id;
+                      save(context);
+                    },
+                  ),
+                ),
+              ),
+              addVerticalSpace(40)
             ],
           ),
         ));

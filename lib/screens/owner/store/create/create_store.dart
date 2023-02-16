@@ -37,6 +37,7 @@ Future save(BuildContext context) async {
         'id': ownerid,
         'description': shop.description,
         'type': shop.type,
+        'img': shop.img,
       });
 
   Navigator.of(context).pushAndRemoveUntil(
@@ -116,41 +117,13 @@ class _CreateStorePageState extends State<CreateStorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(60),
+        preferredSize: Size.fromHeight(50),
         child: OwnerAppBarWithBack(
           title: "",
         ),
       ),
-      floatingActionButton: Container(
-        width: 150,
-        height: 50,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          gradient: LinearGradient(
-            colors: [
-              ColorConstants.bluegradient1,
-              ColorConstants.bluegradient2
-            ],
-            transform: const GradientRotation(9 * pi / 180),
-          ),
-        ),
-        child: Center(
-          child: TextButton(
-            child: Text(
-              "Save",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            onPressed: () {
-              shop.type = "null";
-              save(context);
-            },
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Container(
-        padding: const EdgeInsets.all(tDefaultSize),
+        padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
         color: Colors.white,
         height: double.infinity,
         child: SingleChildScrollView(
@@ -158,7 +131,7 @@ class _CreateStorePageState extends State<CreateStorePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                height: 150,
+                height: 100,
                 padding: const EdgeInsets.only(right: 60),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -168,30 +141,30 @@ class _CreateStorePageState extends State<CreateStorePage> {
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headline3,
                     ),
-                    Text(
-                      'This data will be displayed in your account profile.',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
+                    // Text(
+                    //   'This data will be displayed in your account profile.',
+                    //   textAlign: TextAlign.left,
+                    //   style: Theme.of(context).textTheme.subtitle2,
+                    // ),
                   ],
                 ),
               ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('LAT: ${_currentPosition?.latitude ?? ""}'),
-                    Text('LNG: ${_currentPosition?.longitude ?? ""}'),
-                    Text('ADDRESS: ${_currentAddress ?? ""}'),
-                    const SizedBox(height: 32),
-                    ElevatedButton(
-                      onPressed: _getCurrentPosition,
-                      child: const Text("Get Current Location"),
-                    )
-                  ],
-                ),
-              ),
-              // const CreateStoreForm(),
+              // Center(
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Text('LAT: ${_currentPosition?.latitude ?? ""}'),
+              //       Text('LNG: ${_currentPosition?.longitude ?? ""}'),
+              //       Text('ADDRESS: ${_currentAddress ?? ""}'),
+              //       const SizedBox(height: 32),
+              //       ElevatedButton(
+              //         onPressed: _getCurrentPosition,
+              //         child: const Text("Get Current Location"),
+              //       )
+              //     ],
+              //   ),
+              // ),
+              const CreateStoreForm(),
             ],
           ),
         ),
@@ -212,7 +185,7 @@ class CreateStoreForm extends StatefulWidget {
 // TextEditingController descriptionController = TextEditingController(text: '');
 // TextEditingController locationController = TextEditingController(text: '');
 
-StoreModel shop = StoreModel('', '', '', '');
+StoreModel shop = StoreModel('', '', '', '', '');
 
 class _CreateStoreFormState extends State<CreateStoreForm> {
   @override
@@ -242,6 +215,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   decoration: const InputDecoration(
                     labelText: 'Shop Name',
                     labelStyle: TextStyle(
+                      fontSize: 14,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
@@ -265,6 +239,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   decoration: const InputDecoration(
                     labelText: 'Location',
                     labelStyle: TextStyle(
+                      fontSize: 14,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
@@ -289,6 +264,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                     labelText: 'Description',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),
@@ -296,7 +272,82 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   ),
                 ),
               ),
-              addVerticalSpace(100)
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextField(
+                  // controller: descriptionController,
+                  onChanged: (val) {
+                    shop.img = val;
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Image Link',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              // Container(
+              //   height: 80,
+              //   padding: const EdgeInsets.symmetric(vertical: 12.0),
+              //   clipBehavior: Clip.antiAlias,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(22),
+              //   ),
+              //   child: TextField(
+              //     // controller: descriptionController,
+              //     onChanged: (val) {
+              //       shop.description = val;
+              //     },
+              //     decoration: const InputDecoration(
+              //       labelText: 'Shop Opening Time',
+              //       labelStyle: TextStyle(
+              //         fontFamily: 'Montserrat',
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.grey,
+              //       ),
+              //       // hintText: 'myshop..',
+              //     ),
+              //   ),
+              // ),
+              addVerticalSpace(30),
+              Container(
+                width: 150,
+                height: 50,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    colors: [
+                      ColorConstants.bluegradient1,
+                      ColorConstants.bluegradient2
+                    ],
+                    transform: const GradientRotation(9 * pi / 180),
+                  ),
+                ),
+                child: Center(
+                  child: TextButton(
+                    child: Text(
+                      "Save",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    onPressed: () {
+                      shop.type = "null";
+                      save(context);
+                    },
+                  ),
+                ),
+              ),
+              addVerticalSpace(40)
             ],
           ),
         ));

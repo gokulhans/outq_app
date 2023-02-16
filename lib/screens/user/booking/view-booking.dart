@@ -7,6 +7,7 @@ import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 import 'package:outq_new_app/screens/user/booking/booking.dart';
+import 'package:outq_new_app/screens/user/booking/user_view_booking.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
 import 'package:outq_new_app/screens/user/service/view_service/user_view_service.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -77,11 +78,12 @@ class _UserViewBookingsPageState extends State<UserViewBookingsPage> {
                       itemBuilder: (context, i) {
                         return InkWell(
                           onTap: () => Get.to(
-                              () => const UserSingleServicePage(),
+                              () => const UserSingleAppoinmentInfoPage(),
                               arguments: [
                                 snapshot.data[i].start,
                                 snapshot.data[i].storeid,
                                 snapshot.data[i].serviceid,
+                                snapshot.data[i].bookingid,
                               ]),
                           child: Row(
                             children: [
@@ -147,13 +149,13 @@ class _UserViewBookingsPageState extends State<UserViewBookingsPage> {
                                       child: Center(
                                           child: TextButton(
                                         onPressed: () {
-                                          Get.to(() => const ShopBookingPage(),
-                                              arguments: [
-                                                snapshot.data[i].id,
-                                                snapshot.data[i].storeid,
-                                                // snapshot.data[i].price,
-                                                snapshot.data[i].name,
-                                              ]);
+                                          // Get.to(() => const ShopBookingPage(),
+                                          //     arguments: [
+                                          //       snapshot.data[i].id,
+                                          //       snapshot.data[i].storeid,
+                                          //       // snapshot.data[i].price,
+                                          //       snapshot.data[i].name,
+                                          //     ]);
                                         },
                                         child: Text(
                                           snapshot.data[i].start,

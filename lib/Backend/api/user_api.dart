@@ -12,7 +12,7 @@ Future getAllStores() async {
   List<Store> stores = [];
   for (var u in jsonData) {
     Store store = Store(u["_id"], u["name"], u["location"], u["id"],
-        u["description"], u["type"]);
+        u["description"], u["type"], u["img"]);
     stores.add(store);
   }
   print(stores);
@@ -28,7 +28,7 @@ Future getSingleStore(var storeid) async {
   List<Store> stores = [];
   for (var u in jsonData) {
     Store store = Store(u["_id"], u["name"], u["location"], u["id"],
-        u["description"], u["type"]);
+        u["description"], u["type"], u["img"]);
     stores.add(store);
   }
   print(stores);
