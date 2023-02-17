@@ -64,11 +64,10 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, i) {
                             return Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const SizedBox(
+                                SizedBox(
                                   width: double.infinity,
                                   height: 180,
                                   child: ClipRRect(
@@ -76,21 +75,18 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                         BorderRadius.all(Radius.circular(4)),
                                     child: Image(
                                       fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+                                      image: NetworkImage(snapshot.data[i].img),
                                     ),
                                   ),
                                 ),
                                 addVerticalSpace(20),
                                 Text(
                                   snapshot.data[i].name,
-                                  style:
-                                      Theme.of(context).textTheme.headline4,
+                                  style: Theme.of(context).textTheme.headline4,
                                 ),
                                 Text(
                                   snapshot.data[i].description,
-                                  style:
-                                      Theme.of(context).textTheme.subtitle2,
+                                  style: Theme.of(context).textTheme.subtitle2,
                                 ),
                                 // addVerticalSpace(30),
                               ],
@@ -142,9 +138,13 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                     child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(12.0),
-                                        child: const Image(
-                                            image: AssetImage(
-                                                'assets/images/userImage.png'))),
+                                        child: Image(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                              snapshot.data[i].img),
+                                          width: 60,
+                                          height: 50,
+                                        )),
                                   ),
                                 ),
                                 Expanded(
@@ -199,7 +199,8 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                                   snapshot.data[i].storeid,
                                                   argumentData[0],
                                                   snapshot.data[i].name,
-                                                  // snapshot.data[i].price,
+                                                  snapshot.data[i].price,
+                                                  argumentData[1],
                                                 ]);
                                           },
                                           child: Text(

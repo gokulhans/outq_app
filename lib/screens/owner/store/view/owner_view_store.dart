@@ -111,17 +111,17 @@ class OwnerViewStorePage extends StatelessWidget {
                                     ),
                                   ),
                                   addVerticalSpace(20),
-                                  const Center(
+                                  Center(
                                     child: SizedBox(
                                       width: double.infinity,
                                       height: 200,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.all(
+                                        borderRadius: const BorderRadius.all(
                                             Radius.circular(4)),
                                         child: Image(
                                           fit: BoxFit.cover,
                                           image: NetworkImage(
-                                              "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80"),
+                                              snapshot.data[i].img),
                                         ),
                                       ),
                                     ),

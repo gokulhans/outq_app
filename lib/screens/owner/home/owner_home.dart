@@ -101,7 +101,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal:tDefaultSize),
+      padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
       color: Colors.white,
       height: double.infinity,
       child: Column(
@@ -174,13 +174,16 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                 ));
               } else {
                 if (snapshot.data.length == 0) {
-                  return const Center(
-                      child: Text(
-                    'No Booking is available right now.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ));
+                  return const Expanded(
+                    flex: 6,
+                    child: Center(
+                        child: Text(
+                      'No Booking is available right now.',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                      ),
+                    )),
+                  );
                 } else {
                   return Expanded(
                     flex: 6,
@@ -221,7 +224,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.start,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [

@@ -96,9 +96,13 @@ class OwnerViewServicePage extends StatelessWidget {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           4.0),
-                                                  child: const Image(
-                                                      image: AssetImage(
-                                                          'assets/images/userImage.png'))),
+                                                  child: Image(
+                                                    fit: BoxFit.cover,
+                                                    image: NetworkImage(
+                                                        snapshot.data[i].img),
+                                                    width: 60,
+                                                    height: 50,
+                                                  )),
                                             ),
                                           ),
                                           addHorizontalSpace(10),

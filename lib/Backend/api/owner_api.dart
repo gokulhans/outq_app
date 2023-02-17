@@ -80,6 +80,7 @@ Future deleteService(var serviceid) async {
   return true;
 }
 
+
 Future getStoreServiceBooking() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   var storeid = pref.getString("storeid");

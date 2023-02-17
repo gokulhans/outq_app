@@ -44,7 +44,7 @@ Future save(BuildContext context) async {
       (Route<dynamic> route) => false);
 }
 
-BookingModel booking = BookingModel('', '', '', '', '', '');
+BookingModel booking = BookingModel('', '', '', '', '', '','');
 
 class Button extends StatelessWidget {
   const Button(

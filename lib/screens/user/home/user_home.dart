@@ -537,10 +537,17 @@ class UserHomeScreen extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(12.0),
                                   child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: const Image(
-                                          image: AssetImage(
-                                              'assets/images/userImage.png'))),
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    child: Image(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(snapshot.data[i].img),
+                                      width: 60,
+                                      height: 50,
+                                    ),
+                                    // child: const Image(
+                                    //     image: AssetImage(
+                                    //         'assets/images/userImage.png'))
+                                  ),
                                 ),
                               ),
                               Expanded(

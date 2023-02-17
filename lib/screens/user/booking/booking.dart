@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
+import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/Backend/models/user_models.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
@@ -33,6 +34,7 @@ Future save(BuildContext context) async {
     Get.to(() => const WelcomeScreen());
   }
 
+  getTimeSlots(booking.serviceid);
   // print({shop.name, shop.type, shop.description, shop.location});
   http.post(
       Uri.parse(
@@ -157,37 +159,8 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
           title: "",
         ),
       ),
-      floatingActionButton: Container(
-        width: 150,
-        height: 50,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          gradient: LinearGradient(
-            colors: [
-              ColorConstants.bluegradient1,
-              ColorConstants.bluegradient2
-            ],
-            transform: const GradientRotation(9 * pi / 180),
-          ),
-        ),
-        child: Center(
-          child: TextButton(
-            child: Text(
-              "Save",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            onPressed: () {
-              booking.serviceid = argumentData[0];
-              booking.storeid = argumentData[2];
-              booking.price = "50";
-              // booking.price = argumentData[2];
-              save(context);
-            },
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton:
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
@@ -200,7 +173,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Text(argumentData[2]),
-                      addVerticalSpace(20),
+                      // addVerticalSpace(20),
                       const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -246,6 +219,59 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                         ),
                       ),
                       addVerticalSpace(30),
+                      SizedBox(
+                        height: 250,
+                        child: Center(
+                          child: GridView.builder(
+                              physics:
+                                  const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 4, childAspectRatio: 1.6),
+                              itemCount: 20,
+                              itemBuilder: (BuildContext context, int index) {
+                                return InkWell(
+                                  splashColor: Colors.transparent,
+                                  onTap: () {
+                                    setState(() {
+                                      print(
+                                          "${index + 9}:${30} ${index + 9 > 11 ? "PM" : "AM"}");
+                                      _currentIndex = index;
+                                      _timeSelected = true;
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 50,
+                                    margin: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: _currentIndex == index
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: _currentIndex == index
+                                          ? Colors.blue
+                                          : null,
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '${index + 9}:${30} ${index + 9 > 11 ? "PM" : "AM"}',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: _currentIndex == index
+                                            ? Colors.white
+                                            : null,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        ),
+                      ),
+                      addVerticalSpace(30),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Row(
@@ -273,7 +299,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                   child: TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  "Mens Fashion",
+                                  argumentData[5],
                                   textAlign: TextAlign.right,
                                   style: GoogleFonts.poppins(
                                     color: Colors.blue,
@@ -315,7 +341,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                   child: TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  "Hair Cutting",
+                                  argumentData[3],
                                   textAlign: TextAlign.right,
                                   style: GoogleFonts.poppins(
                                     color: Colors.blue,
@@ -341,8 +367,8 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Price',
-                                      style: TextStyle(
+                                      argumentData[4],
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
                                       ),
@@ -456,6 +482,40 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           ],
                         ),
                       ),
+                      addVerticalSpace(20),
+                      Center(
+                        child: Container(
+                          width: 150,
+                          height: 50,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            gradient: LinearGradient(
+                              colors: [
+                                ColorConstants.bluegradient1,
+                                ColorConstants.bluegradient2
+                              ],
+                              transform: const GradientRotation(9 * pi / 180),
+                            ),
+                          ),
+                          child: Center(
+                            child: TextButton(
+                              child: Text(
+                                "Book",
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
+                              onPressed: () {
+                                booking.serviceid = argumentData[0];
+                                booking.storeid = argumentData[2];
+                                booking.price = "50";
+                                // booking.price = argumentData[2];
+                                save(context);
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      addVerticalSpace(20),
                     ],
                   ),
                 ),

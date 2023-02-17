@@ -64,3 +64,33 @@ Future getUserBookings() async {
   print(bookings);
   return bookings;
 }
+
+Future getTimeSlots(var serviceid) async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+
+  var userid = pref.getString("userid");
+
+  var response =
+      await http.get(Uri.parse('${apidomain}booking/timeslots/$serviceid'));
+  var jsonData = jsonDecode(response.body);
+  print(jsonData);
+
+  // List<GetBookingModel> bookings = [];
+  // for (var u in jsonData) {
+  //   GetBookingModel booking = GetBookingModel(
+  //     u["_id"],
+  //     u["start"],
+  //     u["end"],
+  //     u["storeid"],
+  //     u["serviceid"],
+  //     u["userid"],
+  //     u["bookingid"],
+  //     u["price"],
+  //     u["date"],
+  //   );
+
+  //   bookings.add(booking);
+  // }
+  // print(bookings);
+  // return bookings;
+}
