@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:outq_new_app/Backend/models/user_models.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
@@ -12,6 +13,7 @@ import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
 import 'package:outq_new_app/screens/user/home/user_home.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
+import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -188,7 +190,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
           color: Colors.white,
           child: CustomScrollView(
               physics: const BouncingScrollPhysics(),
@@ -197,7 +199,8 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(argumentData[2]),
+                      // Text(argumentData[2]),
+                      addVerticalSpace(20),
                       const Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -205,10 +208,11 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           'Select Date',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 20,
                           ),
                         ),
                       ),
+                      addVerticalSpace(30),
                       HorizontalCalendar(
                         date: DateTime.now(),
                         textColor: Colors.black45,
@@ -220,11 +224,237 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           booking.date = date.toString();
                         },
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          _selectTime(context);
-                        },
-                        child: const Text('SELECT TIME'),
+                      addVerticalSpace(50),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          'Select Time',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      addVerticalSpace(30),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _selectTime(context);
+                          },
+                          child: const Text('Choose Time'),
+                        ),
+                      ),
+                      addVerticalSpace(30),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Store',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                            Container(
+                              // width: 100,
+                              // height: 25,
+                              // color: Colors.blue[700],
+                              child: Center(
+                                  child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "Mens Fashion",
+                                  textAlign: TextAlign.right,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
+                                ),
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Service',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                            Container(
+                              // width: 100,
+                              // height: 25,
+                              // color: Colors.blue[700],
+                              child: Center(
+                                  child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "Hair Cutting",
+                                  textAlign: TextAlign.right,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
+                                ),
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Price',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                            Container(
+                              // width: 100,
+                              // height: 25,
+                              // color: Colors.blue[700],
+                              child: Center(
+                                  child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "100 ₹",
+                                  textAlign: TextAlign.right,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
+                                ),
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Date',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                            Container(
+                              // width: 100,
+                              // height: 25,
+                              // color: Colors.blue[700],
+                              child: Center(
+                                  child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "23",
+                                  textAlign: TextAlign.right,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
+                                ),
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Time',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                            Container(
+                              // width: 100,
+                              // height: 25,
+                              // color: Colors.blue[700],
+                              child: Center(
+                                  child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "8.30",
+                                  textAlign: TextAlign.right,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontSize: 15,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700,
+                                    height: 1,
+                                  ),
+                                ),
+                              )),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
