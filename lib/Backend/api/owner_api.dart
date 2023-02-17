@@ -7,9 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future getOwnerStore() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
-
   var ownerid = pref.getString("ownerid");
-
   var response = await http.get(Uri.parse('${apidomain}store/$ownerid'));
   var jsonData = jsonDecode(response.body);
   pref.setString("storeid", jsonData[0]["type"]);
@@ -19,7 +17,7 @@ Future getOwnerStore() async {
 
   for (var u in jsonData) {
     Store store = Store(u["_id"], u["name"], u["location"], u["id"],
-        u["description"], u["type"], u["img"]);
+        u["description"], u["type"], u["img"],u["start"],u["end"],u["employees"]);
     stores.add(store);
   }
   print(stores);
@@ -86,7 +84,7 @@ Future getStoreServiceBooking() async {
   var storeid = pref.getString("storeid");
   print(storeid);
   var response =
-      await http.get(Uri.parse('${apidomain}booking/view/store/63ee76df83f6e604e4256365'));
+      await http.get(Uri.parse('${apidomain}booking/view/store/$storeid'));
   var jsonData = jsonDecode(response.body);
   print(jsonData);
 
@@ -102,6 +100,8 @@ Future getStoreServiceBooking() async {
       u["bookingid"],
       u["price"],
       u["date"],
+      u["servicename"],
+      u["storename"],
     );
     bookings.add(booking);
   }

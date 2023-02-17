@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:getwidget/components/search_bar/gf_search_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/Backend/api/user_api.dart';
@@ -98,6 +99,12 @@ class OwnerHomeScreen extends StatefulWidget {
 }
 
 class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
+  List list = [
+    "Flutter",
+    "React",
+    "Ionic",
+    "Xamarin",
+  ];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -107,6 +114,32 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          // Expanded(
+          //   flex: 2,
+          //   child: GFSearchBar(
+          //     searchList: list,
+          //     searchQueryBuilder: (query, list) {
+          //       return list
+          //           .where((item) =>
+          //               item.toLowerCase().contains(query.toLowerCase()))
+          //           .toList();
+          //     },
+          //     overlaySearchListItemBuilder: (item) {
+          //       return Container(
+          //         padding: const EdgeInsets.all(8),
+          //         child: Text(
+          //           item,
+          //           style: const TextStyle(fontSize: 18),
+          //         ),
+          //       );
+          //     },
+          //     onItemSelected: (item) {
+          //       setState(() {
+          //         print('$item');
+          //       });
+          //     },
+          //   ),
+          // ),
           FutureBuilder(
             future: getOwnerStore(),
             builder: (context, AsyncSnapshot snapshot) {
@@ -198,6 +231,10 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                                 snapshot.data[i].start,
                                 snapshot.data[i].storeid,
                                 snapshot.data[i].serviceid,
+                                snapshot.data[i].servicename,
+                                snapshot.data[i].storename,
+                                snapshot.data[i].price,
+                                snapshot.data[i].bookingid,
                               ]),
                           child: Row(
                             children: [
@@ -229,14 +266,14 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          snapshot.data[i].start,
+                                          snapshot.data[i].servicename,
                                           textAlign: TextAlign.left,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle1,
                                         ),
                                         Text(
-                                          snapshot.data[i].serviceid,
+                                          snapshot.data[i].price,
                                           textAlign: TextAlign.left,
                                           style: Theme.of(context)
                                               .textTheme

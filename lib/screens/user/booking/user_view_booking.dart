@@ -70,11 +70,11 @@ class _UserSingleAppoinmentInfoPageState
                   ),
                   addVerticalSpace(20),
                   Text(
-                    argumentData[1],
+                    argumentData[4],
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   Text(
-                    argumentData[2],
+                    argumentData[5],
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                   addVerticalSpace(30),

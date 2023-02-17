@@ -21,6 +21,8 @@ class UserViewStorePage extends StatefulWidget {
 class _UserViewStorePageState extends State<UserViewStorePage> {
   dynamic argumentData = Get.arguments;
   bool isChecked = false;
+  bool isFollowed = false;
+  // bool cmbscritta = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                       ));
                     } else {
                       return Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -85,9 +87,41 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                   style: Theme.of(context).textTheme.headline4,
                                 ),
                                 Text(
-                                  snapshot.data[i].description,
+                                  snapshot.data[i].location,
                                   style: Theme.of(context).textTheme.subtitle2,
                                 ),
+                                Column(
+                                  children: [
+                                    Text("1 followers"),
+                                    addVerticalSpace(10),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Container(
+                                          width: 100,
+                                          height: 40,
+                                          color: isFollowed
+                                              ? Colors.blue
+                                              : Colors.grey,
+                                          child: TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  isFollowed = !isFollowed;
+                                                });
+                                              },
+                                              child: isFollowed
+                                                  ? const Text(
+                                                      "Follow",
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    )
+                                                  : const Text(
+                                                      "Unfollow",
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ))),
+                                    ),
+                                  ],
+                                )
                                 // addVerticalSpace(30),
                               ],
                             );
@@ -171,11 +205,26 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                           //       .textTheme
                                           //       .subtitle2,
                                           // ),
-                                          Text(snapshot.data[i].price + " ₹",
-                                              textAlign: TextAlign.left,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headline5),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                snapshot.data[i].ogprice + " ₹",
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Colors.red,
+                                                    decoration: TextDecoration
+                                                        .lineThrough),
+                                              ),
+                                              addHorizontalSpace(10),
+                                              Text(
+                                                  snapshot.data[i].price + " ₹",
+                                                  textAlign: TextAlign.left,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline5),
+                                            ],
+                                          ),
                                         ]),
                                   ),
                                 ),

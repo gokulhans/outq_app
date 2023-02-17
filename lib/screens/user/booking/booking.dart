@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
@@ -21,22 +23,16 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 
 Future save(BuildContext context) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  String ownerid = prefs.getString("ownerid") ?? "null";
-  if (ownerid == "null") {
-    Get.to(() => const WelcomeScreen());
-  }
-
+  dynamic argumentData = Get.arguments;
   SharedPreferences pref = await SharedPreferences.getInstance();
   String userid = pref.getString("userid") ?? "null";
   if (userid == "null") {
     Get.to(() => const WelcomeScreen());
   }
 
-  getTimeSlots(booking.serviceid);
+  getTimeSlots(booking.serviceid, booking.date);
   // print({shop.name, shop.type, shop.description, shop.location});
-  http.post(
+  final response = await http.post(
       Uri.parse(
         apidomain + "booking/",
       ),
@@ -51,14 +47,26 @@ Future save(BuildContext context) async {
         'userid': userid,
         'price': booking.price,
         'date': booking.date,
+        'servicename': argumentData[3],
+        'storename': argumentData[5],
       });
-
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (BuildContext context) => UserHomePage()),
-      (Route<dynamic> route) => false);
+  print(response);
+  var jsonData = jsonDecode(response.body);
+  print(jsonData["success"]);
+  if (jsonData["success"]) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Slot Successfully Booked')));
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) => AppointmentBooked()),
+        (Route<dynamic> route) => false);
+  } else {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Slot Already Booked')));
+  }
 }
 
-BookingModel booking = BookingModel('', '', '', '', '', '', '');
+BookingModel booking = BookingModel('', '', '', '', '', '', '', '', ' ');
 
 class Button extends StatelessWidget {
   const Button(
@@ -137,6 +145,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
         // print(booking.date);
       });
   }
+
   // Future<void> getToken() async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
   //   token = prefs.getString('token') ?? '';
@@ -147,6 +156,13 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   //   getToken();
   //   super.initState();
   // }
+  
+  late Future<dynamic> _future;
+  @override
+  void initState() {
+    super.initState();
+    _future = getTimeSlots(argumentData[0], booking.date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -195,32 +211,130 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                         onDateSelected: (date) {
                           // print(argumentData);
                           booking.date = date.toString();
+                          print(booking.date);
+                          Get.to(() => ShopBookingPage());
+                          setState(() {
+                            _future =
+                                getTimeSlots(booking.serviceid, booking.date);
+                          });
                         },
                       ),
                       addVerticalSpace(50),
+
+                      // addVerticalSpace(30),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                      //   child: ElevatedButton(
+                      //     onPressed: () {
+                      //       _selectTime(context);
+                      //     },
+                      //     child: const Text('Choose Time'),
+                      //   ),
+                      // ),
+
+                      addVerticalSpace(20),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          'Select Time',
+                          'Already Booked Time',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
                         ),
                       ),
-                      addVerticalSpace(30),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _selectTime(context);
-                          },
-                          child: const Text('Choose Time'),
-                        ),
+                      FutureBuilder(
+                        future: _future,
+                        builder: (context, AsyncSnapshot snapshot) {
+                          if (snapshot.data == null) {
+                            return const Center(
+                                child: SpinKitCircle(
+                              color: Colors.blue,
+                              size: 50.0,
+                            ));
+                          } else {
+                            if (snapshot.data.length == 0) {
+                              return const Padding(
+                                padding: EdgeInsets.all(24.0),
+                                child: Center(
+                                    child: Text(
+                                  'No Appoinment Found Today',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.red,
+                                  ),
+                                )),
+                              );
+                            } else {
+                              return SizedBox(
+                                height: 100,
+                                child: Center(
+                                  child: GridView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
+                                      shrinkWrap: true,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 4,
+                                              childAspectRatio: 1.6),
+                                      itemCount: snapshot.data.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return InkWell(
+                                          splashColor: Colors.transparent,
+                                          onTap: () {
+                                            // setState(() {
+                                            //   print(
+                                            //       "${index + 9}:${30} ${index + 9 > 11 ? "PM" : "AM"}");
+                                            //   _currentIndex = index;
+                                            //   _timeSelected = true;
+                                            // });
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            margin: const EdgeInsets.all(5),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: _currentIndex == index
+                                                    ? Colors.white
+                                                    : Colors.white,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              color: Colors.red,
+                                            ),
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              snapshot.data[index].start,
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: _currentIndex == index
+                                                      ? Colors.white
+                                                      : Colors.white),
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                ),
+                              );
+                            }
+                          }
+                        },
                       ),
                       addVerticalSpace(30),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          'Select Your Time',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
                       SizedBox(
-                        height: 250,
+                        height: 200,
                         child: Center(
                           child: GridView.builder(
                               physics:
@@ -229,20 +343,20 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 4, childAspectRatio: 1.6),
-                              itemCount: 20,
+                              itemCount: 12,
                               itemBuilder: (BuildContext context, int index) {
                                 return InkWell(
                                   splashColor: Colors.transparent,
                                   onTap: () {
+                                    booking.start =
+                                        "${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}";
+                                    print(booking.start);
                                     setState(() {
-                                      print(
-                                          "${index + 9}:${30} ${index + 9 > 11 ? "PM" : "AM"}");
                                       _currentIndex = index;
                                       _timeSelected = true;
                                     });
                                   },
                                   child: Container(
-                                    height: 50,
                                     margin: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                       border: Border.all(
@@ -257,7 +371,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                     ),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      '${index + 9}:${30} ${index + 9 > 11 ? "PM" : "AM"}',
+                                      '${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}',
                                       style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
@@ -367,7 +481,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      argumentData[4],
+                                      "Price",
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
@@ -383,91 +497,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                   child: TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  "100 ₹",
-                                  textAlign: TextAlign.right,
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.blue,
-                                    fontSize: 15,
-                                    letterSpacing: 0.5,
-                                    fontWeight: FontWeight.w700,
-                                    height: 1,
-                                  ),
-                                ),
-                              )),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Date',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                            Container(
-                              // width: 100,
-                              // height: 25,
-                              // color: Colors.blue[700],
-                              child: Center(
-                                  child: TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "23",
-                                  textAlign: TextAlign.right,
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.blue,
-                                    fontSize: 15,
-                                    letterSpacing: 0.5,
-                                    fontWeight: FontWeight.w700,
-                                    height: 1,
-                                  ),
-                                ),
-                              )),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Time',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ]),
-                            ),
-                            Container(
-                              // width: 100,
-                              // height: 25,
-                              // color: Colors.blue[700],
-                              child: Center(
-                                  child: TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "8.30",
+                                  argumentData[4],
                                   textAlign: TextAlign.right,
                                   style: GoogleFonts.poppins(
                                     color: Colors.blue,

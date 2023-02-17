@@ -192,6 +192,105 @@ class OwnerViewStorePage extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.subtitle2,
                                   ),
+                                  addVerticalSpace(20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Opening Time',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF09041B),
+                                          fontSize: 15,
+                                          // height: 1.5,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      // TextButton(
+                                      //     onPressed: () {},
+                                      //     child: Text(
+                                      //       'Edit',
+                                      //       style: GoogleFonts.poppins(
+                                      //         color: const Color(0xFFFF7B32),
+                                      //         fontSize: 12,
+                                      //         // height: 1.5,
+                                      //         fontWeight: FontWeight.w500,
+                                      //       ),
+                                      //     ))
+                                    ],
+                                  ),
+                                  addVerticalSpace(10),
+                                  Text(
+                                    snapshot.data[i].start,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                  addVerticalSpace(20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Closing Time',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF09041B),
+                                          fontSize: 15,
+                                          // height: 1.5,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      // TextButton(
+                                      //     onPressed: () {},
+                                      //     child: Text(
+                                      //       'Edit',
+                                      //       style: GoogleFonts.poppins(
+                                      //         color: const Color(0xFFFF7B32),
+                                      //         fontSize: 12,
+                                      //         // height: 1.5,
+                                      //         fontWeight: FontWeight.w500,
+                                      //       ),
+                                      //     ))
+                                    ],
+                                  ),
+                                  addVerticalSpace(10),
+                                  Text(
+                                    snapshot.data[i].end,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                  addVerticalSpace(20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Employees',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF09041B),
+                                          fontSize: 15,
+                                          // height: 1.5,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      // TextButton(
+                                      //     onPressed: () {},
+                                      //     child: Text(
+                                      //       'Edit',
+                                      //       style: GoogleFonts.poppins(
+                                      //         color: const Color(0xFFFF7B32),
+                                      //         fontSize: 12,
+                                      //         // height: 1.5,
+                                      //         fontWeight: FontWeight.w500,
+                                      //       ),
+                                      //     ))
+                                    ],
+                                  ),
+                                  addVerticalSpace(10),
+                                  Text(
+                                    snapshot.data[i].employees,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
                                 ],
                               );
                             }));

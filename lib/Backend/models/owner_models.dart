@@ -9,14 +9,14 @@ class OwnerLoginModel {
 }
 
 class StoreModel {
-  String name, location, description, type, img;
-  StoreModel(this.name, this.location, this.description, this.type, this.img);
+  String name, location, description, type, img,start,end,employees;
+  StoreModel(this.name, this.location, this.description, this.type, this.img,this.start,this.end,this.employees);
 }
 
 class Store {
-  String _id, name, location, id, description, type, img;
+  String _id, name, location, id, description, type, img,start,end,employees;
   Store(this._id, this.name, this.location, this.id, this.description,
-      this.type, this.img);
+      this.type, this.img,this.start,this.end,this.employees);
 }
 
 class ServiceModel {

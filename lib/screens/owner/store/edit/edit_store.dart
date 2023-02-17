@@ -23,6 +23,9 @@ void onload() {
   shop.description = argumentData.description;
   shop.type = argumentData.type;
   shop.img = argumentData.img;
+  shop.start = argumentData.start;
+  shop.end = argumentData.end;
+  shop.employees = argumentData.employees;
 }
 
 Future save(BuildContext context) async {
@@ -49,6 +52,9 @@ Future save(BuildContext context) async {
         'description': shop.description,
         'type': shop.type,
         'img': shop.img,
+        'start': shop.start,
+        'end': shop.end,
+        'employees': shop.employees,
       });
 
   Navigator.of(context).pushAndRemoveUntil(
@@ -127,7 +133,7 @@ class EditStoreForm extends StatefulWidget {
   State<EditStoreForm> createState() => _EditStoreFormState();
 }
 
-Store shop = Store('', '', '', '', '', '', '');
+Store shop = Store('', '', '', '', '', '', '','','','');
 
 class _EditStoreFormState extends State<EditStoreForm> {
   @override
@@ -227,6 +233,84 @@ class _EditStoreFormState extends State<EditStoreForm> {
                     labelText: 'Image Link',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+               Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextFormField(
+                  initialValue: widget.argumentData.start,
+                  // controller: descriptionController,
+                  onChanged: (val) {
+                    shop.start = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Store Start time',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextFormField(
+                  initialValue: widget.argumentData.end,
+                  // controller: descriptionController,
+                  onChanged: (val) {
+                    shop.end = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Closing Time',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextFormField(
+                  initialValue: widget.argumentData.employees,
+                  // controller: descriptionController,
+                  onChanged: (val) {
+                    shop.employees = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'No. of employees ',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),

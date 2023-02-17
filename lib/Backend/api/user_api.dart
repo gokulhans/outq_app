@@ -12,10 +12,10 @@ Future getAllStores() async {
   List<Store> stores = [];
   for (var u in jsonData) {
     Store store = Store(u["_id"], u["name"], u["location"], u["id"],
-        u["description"], u["type"], u["img"]);
+        u["description"], u["type"], u["img"],u["start"],u["end"],u["employees"]);
     stores.add(store);
   }
-  print(stores);
+  // print(stores);
   return stores;
 }
 
@@ -28,7 +28,7 @@ Future getSingleStore(var storeid) async {
   List<Store> stores = [];
   for (var u in jsonData) {
     Store store = Store(u["_id"], u["name"], u["location"], u["id"],
-        u["description"], u["type"], u["img"]);
+        u["description"], u["type"], u["img"],u["start"],u["end"],u["employees"]);
     stores.add(store);
   }
   print(stores);
@@ -57,6 +57,8 @@ Future getUserBookings() async {
       u["bookingid"],
       u["price"],
       u["date"],
+      u["servicename"],
+      u["storename"],
     );
 
     bookings.add(booking);
@@ -65,32 +67,24 @@ Future getUserBookings() async {
   return bookings;
 }
 
-Future getTimeSlots(var serviceid) async {
+Future getTimeSlots(var serviceid,var date) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
 
   var userid = pref.getString("userid");
 
   var response =
-      await http.get(Uri.parse('${apidomain}booking/timeslots/$serviceid'));
+      await http.get(Uri.parse('${apidomain}booking/timeslots/$serviceid/$date'));
   var jsonData = jsonDecode(response.body);
   print(jsonData);
 
-  // List<GetBookingModel> bookings = [];
-  // for (var u in jsonData) {
-  //   GetBookingModel booking = GetBookingModel(
-  //     u["_id"],
-  //     u["start"],
-  //     u["end"],
-  //     u["storeid"],
-  //     u["serviceid"],
-  //     u["userid"],
-  //     u["bookingid"],
-  //     u["price"],
-  //     u["date"],
-  //   );
+  List<TimeSlots> slots = [];
+  for (var u in jsonData) {
+    TimeSlots slot = TimeSlots(
+      u["start"],u["date"]
+    );
 
-  //   bookings.add(booking);
-  // }
-  // print(bookings);
-  // return bookings;
+    slots.add(slot);
+  }
+  print(slots);
+  return slots;
 }

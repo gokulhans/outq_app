@@ -14,6 +14,7 @@ import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:geocoding/geocoding.dart';
 
 Future save(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -38,6 +39,9 @@ Future save(BuildContext context) async {
         'description': shop.description,
         'type': shop.type,
         'img': shop.img,
+        'start': shop.start,
+        'end': shop.end,
+        'employees': shop.employees,
       });
 
   Navigator.of(context).pushAndRemoveUntil(
@@ -54,7 +58,7 @@ class CreateStorePage extends StatefulWidget {
 }
 
 class _CreateStorePageState extends State<CreateStorePage> {
-  String? _currentAddress;
+  String _currentAddress = "";
   Position? _currentPosition;
 
   Future<bool> _handleLocationPermission() async {
@@ -104,10 +108,13 @@ class _CreateStorePageState extends State<CreateStorePage> {
             _currentPosition!.latitude, _currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
+      print(place.country);
       setState(() {
         _currentAddress =
-            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+            '${place.administrativeArea}, ${place.locality}, ${place.thoroughfare}, ${place.postalCode}';
       });
+      print(_currentAddress);
+      shop.location = _currentAddress;
     }).catchError((e) {
       debugPrint(e);
     });
@@ -149,22 +156,22 @@ class _CreateStorePageState extends State<CreateStorePage> {
                   ],
                 ),
               ),
-              // Center(
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Text('LAT: ${_currentPosition?.latitude ?? ""}'),
-              //       Text('LNG: ${_currentPosition?.longitude ?? ""}'),
-              //       Text('ADDRESS: ${_currentAddress ?? ""}'),
-              //       const SizedBox(height: 32),
-              //       ElevatedButton(
-              //         onPressed: _getCurrentPosition,
-              //         child: const Text("Get Current Location"),
-              //       )
-              //     ],
-              //   ),
-              // ),
-              const CreateStoreForm(),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Text('LAT: ${_currentPosition?.latitude ?? ""}'),
+                    // Text('LNG: ${_currentPosition?.longitude ?? ""}'),
+                    // Text('ADDRESS: ${_currentAddress ?? ""}'),
+                    const SizedBox(height: 32),
+                    ElevatedButton(
+                      onPressed: _getCurrentPosition,
+                      child: const Text("Get Current Location"),
+                    )
+                  ],
+                ),
+              ),
+              CreateStoreForm(location: _currentAddress),
             ],
           ),
         ),
@@ -174,7 +181,8 @@ class _CreateStorePageState extends State<CreateStorePage> {
 }
 
 class CreateStoreForm extends StatefulWidget {
-  const CreateStoreForm({super.key});
+  const CreateStoreForm({super.key, required this.location});
+  final String location;
 
   @override
   State<CreateStoreForm> createState() => _CreateStoreFormState();
@@ -185,7 +193,7 @@ class CreateStoreForm extends StatefulWidget {
 // TextEditingController descriptionController = TextEditingController(text: '');
 // TextEditingController locationController = TextEditingController(text: '');
 
-StoreModel shop = StoreModel('', '', '', '', '');
+StoreModel shop = StoreModel('', '', '', '', '','','',' ');
 
 class _CreateStoreFormState extends State<CreateStoreForm> {
   @override
@@ -231,8 +239,9 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
+                child: TextFormField(
                   // controller: locationController,
+                  initialValue: widget.location,
                   onChanged: (val) {
                     shop.location = val;
                   },
@@ -286,6 +295,81 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   },
                   decoration: const InputDecoration(
                     labelText: 'Image Link',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextField(
+                  // controller: descriptionController,
+                  onChanged: (val) {
+                    shop.start = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Store Start time',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextField(
+                  // controller: descriptionController,
+                  onChanged: (val) {
+                    shop.end = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Closing Time',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextField(
+                  // controller: descriptionController,
+                  onChanged: (val) {
+                    shop.employees = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'No. of employees ',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 14,

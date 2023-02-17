@@ -17,9 +17,9 @@ import 'package:http/http.dart' as http;
 
 Future cancelBooking() async {
   dynamic argumentData = Get.arguments;
-  print(argumentData[3]);
+  print(argumentData[6]);
   var response = await http
-      .get(Uri.parse('${apidomain}booking/cancel/${argumentData[3]}'));
+      .get(Uri.parse('${apidomain}booking/cancel/${argumentData[6]}'));
   Get.to(() => OwnerHomePage(
         currentIndex: 0,
       ));
@@ -70,11 +70,11 @@ class _OwnerAppoinmentInfoPageState extends State<OwnerAppoinmentInfoPage> {
                   ),
                   addVerticalSpace(20),
                   Text(
-                    "argumentData[1]",
+                    argumentData[3],
                     style: Theme.of(context).textTheme.headline4,
                   ),
                   Text(
-                    "argumentData[2]",
+                    argumentData[4],
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                   addVerticalSpace(30),
@@ -117,7 +117,7 @@ class _OwnerAppoinmentInfoPageState extends State<OwnerAppoinmentInfoPage> {
                                   child: TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  "10.00 AM",
+                                  argumentData[0],
                                   textAlign: TextAlign.right,
                                   style: GoogleFonts.poppins(
                                     color: Colors.blue,
@@ -166,7 +166,7 @@ class _OwnerAppoinmentInfoPageState extends State<OwnerAppoinmentInfoPage> {
                                   child: TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  "100 \$",
+                                  argumentData[5],
                                   textAlign: TextAlign.right,
                                   style: GoogleFonts.poppins(
                                     color: Colors.blue,
@@ -215,7 +215,7 @@ class _OwnerAppoinmentInfoPageState extends State<OwnerAppoinmentInfoPage> {
                                   child: TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  "Hair Cutting",
+                                  argumentData[3],
                                   textAlign: TextAlign.right,
                                   style: GoogleFonts.poppins(
                                     color: Colors.blue,
@@ -264,7 +264,7 @@ class _OwnerAppoinmentInfoPageState extends State<OwnerAppoinmentInfoPage> {
                                   child: TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  "Mens Fashion",
+                                  argumentData[4],
                                   textAlign: TextAlign.right,
                                   style: GoogleFonts.poppins(
                                     color: Colors.blue,
@@ -291,7 +291,7 @@ class _OwnerAppoinmentInfoPageState extends State<OwnerAppoinmentInfoPage> {
                             cancelBooking();
                           },
                           child: Text(
-                            'Cancel Appoinment',
+                            'Done',
                             style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,

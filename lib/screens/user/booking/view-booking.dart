@@ -84,6 +84,8 @@ class _UserViewBookingsPageState extends State<UserViewBookingsPage> {
                                 snapshot.data[i].storeid,
                                 snapshot.data[i].serviceid,
                                 snapshot.data[i].bookingid,
+                                snapshot.data[i].servicename,
+                                snapshot.data[i].storename,
                               ]),
                           child: Row(
                             children: [
@@ -115,14 +117,14 @@ class _UserViewBookingsPageState extends State<UserViewBookingsPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "snapshot.data[i].service",
+                                          snapshot.data[i].servicename,
                                           textAlign: TextAlign.left,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle1,
                                         ),
                                         Text(
-                                          "snapshot.data[i].store",
+                                          snapshot.data[i].storename,
                                           textAlign: TextAlign.left,
                                           style: Theme.of(context)
                                               .textTheme
