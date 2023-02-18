@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator_android/geolocator_android.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white, // navigation bar color
@@ -24,7 +25,6 @@ Future<void> main() async {
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.light),
   );
-  WidgetsFlutterBinding.ensureInitialized();
   // SharedPreferences prefs = await SharedPreferences.getInstance();
   // String? ownerid = prefs.getString("ownerid");
   // String? userid = prefs.getString("userid");
