@@ -168,11 +168,9 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   @override
   Widget build(BuildContext context) {
     dynamic argumentData = Get.arguments;
-    print(argumentData[6]);
-    print(argumentData[7]);
     int start = 12 - int.parse(argumentData[6]);
     int end = int.parse(argumentData[7]);
-    int hours = start + end;
+    int hours = start + end + 1;
     // Config().init(context);
     // final doctor = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
@@ -356,10 +354,10 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                   splashColor: Colors.transparent,
                                   onTap: () {
                                     booking.start =
-                                        "${index + start}:00 ${index + 9 > 11 ? "PM" : "AM"}";
+                                        "${index + argumentData[6]}:00 ${index + 9 > 11 ? "PM" : "AM"}";
                                     print(booking.start);
                                     setState(() {
-                                      _currentIndex = index + start;
+                                      _currentIndex = index;
                                       _timeSelected = true;
                                     });
                                   },
@@ -544,7 +542,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               onPressed: () {
                                 booking.serviceid = argumentData[0];
                                 booking.storeid = argumentData[2];
-                                booking.price = "50";
+                                booking.price = argumentData[4];
                                 // booking.price = argumentData[2];
                                 save(context);
                               },

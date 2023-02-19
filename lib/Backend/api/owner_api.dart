@@ -142,10 +142,10 @@ Future getStoreServiceBooking() async {
 Future getOwnerOrders() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
 
-  var ownerid = pref.getString("ownerid");
+  var storeid = pref.getString("storeid");
 
   var response =
-      await http.get(Uri.parse('${apidomain}order/view/store/$ownerid'));
+      await http.get(Uri.parse('${apidomain}order/view/store/$storeid'));
   var jsonData = jsonDecode(response.body);
   print(jsonData);
 
@@ -158,13 +158,12 @@ Future getOwnerOrders() async {
       u["storeid"],
       u["serviceid"],
       u["userid"],
-      u["bookingid"],
       u["price"],
       u["date"],
       u["servicename"],
       u["storename"],
-      u["orderid"],
       u["status"],
+      u["orderid"],
     );
     orders.add(order);
   }

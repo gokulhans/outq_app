@@ -45,13 +45,12 @@ class GetOrderModel {
       storeid,
       serviceid,
       userid,
-      bookingid,
       price,
       date,
       servicename,
       storename,
-      status,
-      orderid;
+      orderid,
+      status;
   GetOrderModel(
     this._id,
     this.start,
@@ -59,12 +58,11 @@ class GetOrderModel {
     this.storeid,
     this.serviceid,
     this.userid,
-    this.bookingid,
     this.price,
     this.date,
     this.servicename,
     this.storename,
-    this.status,
     this.orderid,
+    this.status,
   );
 }

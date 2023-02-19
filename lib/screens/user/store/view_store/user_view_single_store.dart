@@ -11,14 +11,16 @@ import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 
-class UserViewStorePage extends StatefulWidget {
-  UserViewStorePage({super.key});
+class UserViewSingleStorePage extends StatefulWidget {
+  dynamic argumentData = Get.arguments;
+  UserViewSingleStorePage({super.key});
 
   @override
-  State<UserViewStorePage> createState() => _UserViewStorePageState();
+  State<UserViewSingleStorePage> createState() =>
+      _UserViewSingleStorePageState();
 }
 
-class _UserViewStorePageState extends State<UserViewStorePage> {
+class _UserViewSingleStorePageState extends State<UserViewSingleStorePage> {
   dynamic argumentData = Get.arguments;
   bool isChecked = false;
   bool isFollowed = false;
@@ -246,7 +248,7 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                                 arguments: [
                                                   snapshot.data[i].id,
                                                   snapshot.data[i].storeid,
-                                                  argumentData[0], 
+                                                  argumentData[0],
                                                   snapshot.data[i].name,
                                                   snapshot.data[i].price,
                                                   argumentData[1],

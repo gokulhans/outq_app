@@ -93,23 +93,23 @@ class _OwnerAppoinmentHistoryPageState
                               ]),
                           child: Row(
                             children: [
-                              Expanded(
-                                flex: 2,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12.0,
-                                  ),
-                                  child: Container(
-                                    height: 60,
-                                    child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        child: const Image(
-                                            image: AssetImage(
-                                                'assets/images/userImage.png'))),
-                                  ),
-                                ),
-                              ),
+                              // Expanded(
+                              //   flex: 2,
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.symmetric(
+                              //       vertical: 12.0,
+                              //     ),
+                              //     child: Container(
+                              //       height: 60,
+                              //       child: ClipRRect(
+                              //           borderRadius:
+                              //               BorderRadius.circular(12.0),
+                              //           child: const Image(
+                              //               image: AssetImage(
+                              //                   'assets/images/userImage.png'))),
+                              //     ),
+                              //   ),
+                              // ),
                               Expanded(
                                 flex: 4,
                                 child: Padding(
@@ -128,7 +128,7 @@ class _OwnerAppoinmentHistoryPageState
                                               .subtitle1,
                                         ),
                                         Text(
-                                          snapshot.data[i].storename,
+                                          snapshot.data[i].date,
                                           textAlign: TextAlign.left,
                                           style: Theme.of(context)
                                               .textTheme
@@ -151,30 +151,44 @@ class _OwnerAppoinmentHistoryPageState
                                     child: Container(
                                       width: 100,
                                       height: 25,
-                                      color: Colors.blue[700],
+                                      // color: Colors.blue[700],
                                       child: Center(
-                                          child: TextButton(
-                                        onPressed: () {
-                                          // Get.to(() => const ShopBookingPage(),
-                                          //     arguments: [
-                                          //       snapshot.data[i].id,
-                                          //       snapshot.data[i].storeid,
-                                          //       // snapshot.data[i].price,
-                                          //       snapshot.data[i].name,
-                                          //     ]);
-                                        },
-                                        child: Text(
-                                          snapshot.data[i].start,
-                                          textAlign: TextAlign.left,
-                                          style: GoogleFonts.poppins(
-                                            color: Colors.white,
-                                            fontSize: 10,
-                                            letterSpacing: 0.5,
-                                            fontWeight: FontWeight.w600,
-                                            height: 1,
-                                          ),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            // Get.to(() => const ShopBookingPage(),
+                                            //     arguments: [
+                                            //       snapshot.data[i].id,
+                                            //       snapshot.data[i].storeid,
+                                            //       // snapshot.data[i].price,
+                                            //       snapshot.data[i].name,
+                                            //     ]);
+                                          },
+                                          child: snapshot.data[i].orderid ==
+                                                  "Cancelled"
+                                              ? Text(
+                                                  snapshot.data[i].orderid,
+                                                  textAlign: TextAlign.left,
+                                                  style: GoogleFonts.poppins(
+                                                    color: Colors.red,
+                                                    fontSize: 12,
+                                                    letterSpacing: 0.5,
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 1,
+                                                  ),
+                                                )
+                                              : Text(
+                                                  snapshot.data[i].orderid,
+                                                  textAlign: TextAlign.left,
+                                                  style: GoogleFonts.poppins(
+                                                    color: Colors.green,
+                                                    fontSize: 12,
+                                                    letterSpacing: 0.5,
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 1,
+                                                  ),
+                                                ),
                                         ),
-                                      )),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -194,4 +208,3 @@ class _OwnerAppoinmentHistoryPageState
     ));
   }
 }
-

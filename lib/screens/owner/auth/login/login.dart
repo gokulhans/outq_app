@@ -44,10 +44,14 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
         });
 
     var jsonData = jsonDecode(response.body);
-    var str = jsonData[0]["id"];
+    var ownerid = jsonData[0]["id"];
+    var storeid = jsonData[0]["storeid"];
+    print(storeid);
+    print(ownerid);
 
     SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("ownerid", str);
+    pref.setString("ownerid", ownerid);
+    pref.setString("storeid", storeid);
     // Get.to(() => {OwnerExitHome(currentIndex:0)});
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
@@ -132,7 +136,7 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                             shadowColor: Colors.blueAccent,
                             color: ColorConstants.blue,
                             elevation: 7.0,
-                            child: GestureDetector(
+                            child: InkWell(
                               onTap: () {
                                 setState(() {
                                   isLoading = true;

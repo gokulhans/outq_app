@@ -15,13 +15,17 @@ import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-Future cancelBooking() async {
+Future cancelBooking(BuildContext context) async {
   dynamic argumentData = Get.arguments;
   print(argumentData[3]);
-  var response = await http
-      .get(Uri.parse('${apidomain}booking/cancel/${argumentData[3]}'));
-  Get.off(() => const UserHomePage());
-  return true;
+  var response = await http.get(
+    Uri.parse('${apidomain}booking/cancel/${argumentData[3]}'),
+  );
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+          builder: (BuildContext context) => const UserHomePage()),
+      (Route<dynamic> route) => false);
+  // Get.offAll(() => const UserHomePage());
 }
 
 class UserSingleAppoinmentInfoPage extends StatefulWidget {
@@ -309,7 +313,7 @@ class _UserSingleAppoinmentInfoPageState
                         color: Colors.red,
                         child: TextButton(
                           onPressed: () {
-                            cancelBooking();
+                            cancelBooking(context);
                           },
                           child: Text(
                             'Cancel Appoinment',

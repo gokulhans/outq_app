@@ -58,7 +58,6 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -151,7 +150,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                             shadowColor: Colors.blueAccent,
                             color: ColorConstants.blue,
                             elevation: 7.0,
-                            child: GestureDetector(
+                            child: InkWell(
                               onTap: () {
                                 setState(() {
                                   isLoading = true;

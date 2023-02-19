@@ -266,7 +266,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                             shadowColor: Colors.blueAccent,
                             color: ColorConstants.blue,
                             elevation: 7.0,
-                            child: GestureDetector(
+                            child: InkWell(
                               onTap: () {
                                 setState(() {
                                   isLoading = true;
