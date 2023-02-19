@@ -168,7 +168,11 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   @override
   Widget build(BuildContext context) {
     dynamic argumentData = Get.arguments;
-    dynamic hours = 12 - argumentData[6] + argumentData[7];
+    print(argumentData[6]);
+    print(argumentData[7]);
+    int start = 12 - int.parse(argumentData[6]);
+    int end = int.parse(argumentData[7]);
+    int hours = start + end;
     // Config().init(context);
     // final doctor = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
@@ -308,7 +312,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                             ),
                                             alignment: Alignment.center,
                                             child: Text(
-                                              snapshot.data[index].start,
+                                              argumentData[6],
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.bold,
@@ -346,16 +350,16 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 4, childAspectRatio: 1.6),
-                              itemCount: hours+1,
+                              itemCount: hours,
                               itemBuilder: (BuildContext context, int index) {
                                 return InkWell(
                                   splashColor: Colors.transparent,
                                   onTap: () {
                                     booking.start =
-                                        "${index + argumentData[6]}:00 ${index + 9 > 11 ? "PM" : "AM"}";
+                                        "${index + start}:00 ${index + 9 > 11 ? "PM" : "AM"}";
                                     print(booking.start);
                                     setState(() {
-                                      _currentIndex = index;
+                                      _currentIndex = index + start;
                                       _timeSelected = true;
                                     });
                                   },

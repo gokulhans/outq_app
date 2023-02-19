@@ -9,14 +9,15 @@ class OwnerLoginModel {
 }
 
 class StoreModel {
-  String name, location, description, type, img,start,end,employees;
-  StoreModel(this.name, this.location, this.description, this.type, this.img,this.start,this.end,this.employees);
+  String name, location, description, type, img, start, end, employees;
+  StoreModel(this.name, this.location, this.description, this.type, this.img,
+      this.start, this.end, this.employees);
 }
 
 class Store {
-  String _id, name, location, id, description, type, img,start,end,employees;
+  String _id, name, location, id, description, type, img, start, end, employees;
   Store(this._id, this.name, this.location, this.id, this.description,
-      this.type, this.img,this.start,this.end,this.employees);
+      this.type, this.img, this.start, this.end, this.employees);
 }
 
 class ServiceModel {
@@ -27,7 +28,7 @@ class ServiceModel {
 }
 
 class GetServiceModel {
-  String _id, name, description, price ,ogprice, img, ownerid, storeid, id;
+  String _id, name, description, price, ogprice, img, ownerid, storeid, id;
   GetServiceModel(this._id, this.name, this.description, this.price,
       this.ogprice, this.img, this.ownerid, this.storeid, this.id);
 }
@@ -35,4 +36,35 @@ class GetServiceModel {
 class idModel {
   String id;
   idModel(this.id);
+}
+
+class GetOrderModel {
+  String _id,
+      start,
+      end,
+      storeid,
+      serviceid,
+      userid,
+      bookingid,
+      price,
+      date,
+      servicename,
+      storename,
+      status,
+      orderid;
+  GetOrderModel(
+    this._id,
+    this.start,
+    this.end,
+    this.storeid,
+    this.serviceid,
+    this.userid,
+    this.bookingid,
+    this.price,
+    this.date,
+    this.servicename,
+    this.storename,
+    this.status,
+    this.orderid,
+  );
 }

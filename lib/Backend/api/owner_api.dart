@@ -138,3 +138,36 @@ Future getStoreServiceBooking() async {
   print(bookings);
   return bookings;
 }
+
+Future getOwnerOrders() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+
+  var ownerid = pref.getString("ownerid");
+
+  var response =
+      await http.get(Uri.parse('${apidomain}order/view/store/$ownerid'));
+  var jsonData = jsonDecode(response.body);
+  print(jsonData);
+
+  List<GetOrderModel> orders = [];
+  for (var u in jsonData) {
+    GetOrderModel order = GetOrderModel(
+      u["_id"],
+      u["start"],
+      u["end"],
+      u["storeid"],
+      u["serviceid"],
+      u["userid"],
+      u["bookingid"],
+      u["price"],
+      u["date"],
+      u["servicename"],
+      u["storename"],
+      u["orderid"],
+      u["status"],
+    );
+    orders.add(order);
+  }
+  print(orders);
+  return orders;
+}

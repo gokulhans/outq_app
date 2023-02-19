@@ -30,7 +30,7 @@ TextEditingController pswdController = TextEditingController(text: '');
 UserLoginModel users = UserLoginModel('', '');
 
 class _UserLoginPageState extends State<UserLoginPage> {
-  Future save(BuildContext context) async {
+  Future login_save(BuildContext context) async {
     print({users.email, users.pswd});
     final response = await http.post(
         Uri.parse(
@@ -177,7 +177,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                                   isLoading = true;
                                 });
                                 print("saved");
-                                save(context);
+                                login_save(context);
                               },
                               child: isLoading
                                   ? const Center(

@@ -613,7 +613,9 @@ class UserHomeScreen extends StatelessWidget {
                                         Get.to(() => UserViewStorePage(),
                                             arguments: [
                                               snapshot.data[i].type,
-                                              snapshot.data[i].name
+                                              snapshot.data[i].name,
+                                              snapshot.data[i].start,
+                                              snapshot.data[i].end
                                             ]);
                                       },
                                       child: Text(

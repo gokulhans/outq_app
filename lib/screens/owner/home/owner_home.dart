@@ -11,6 +11,7 @@ import 'package:outq_new_app/screens/owner/auth/otp/owner_otp.dart';
 import 'package:outq_new_app/screens/owner/booking/view-booking.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_bar_main.dart';
 import 'package:outq_new_app/screens/owner/components/drawer/owner_drawer.dart';
+import 'package:outq_new_app/screens/owner/history/appoinment_history.dart';
 import 'package:outq_new_app/screens/owner/profile/settings/settings.dart';
 import 'package:outq_new_app/screens/owner/profile/user_profile/user_profile.dart';
 import 'package:outq_new_app/screens/owner/service/view/owner_view_service.dart';
@@ -37,7 +38,7 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
     OwnerHomeScreen(),
     OwnerViewStorePage(),
     OwnerViewServicePage(),
-    // OwnerViewSettingsPage(),
+    OwnerAppoinmentHistoryPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -82,10 +83,10 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
               icon: Icon(Icons.design_services_outlined),
               label: 'Services',
             ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.settings),
-            //   label: 'Settings',
-            // ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.history),
+              label: 'History',
+            ),
           ]),
       body: tabScreens.elementAt(widget.currentIndex),
     );
