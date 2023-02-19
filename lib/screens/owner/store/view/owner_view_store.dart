@@ -34,7 +34,7 @@ class OwnerViewStorePage extends StatelessWidget {
                   if (snapshot.data.length == 0) {
                     return const Center(
                         child: Text(
-                      'No Content is available right now.\nWe will Update it with in august 31.',
+                      'No Content is available right now.',
                       style: TextStyle(
                         fontWeight: FontWeight.w800,
                       ),

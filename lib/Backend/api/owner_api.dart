@@ -16,8 +16,17 @@ Future getOwnerStore() async {
   List<Store> stores = [];
 
   for (var u in jsonData) {
-    Store store = Store(u["_id"], u["name"], u["location"], u["id"],
-        u["description"], u["type"], u["img"],u["start"],u["end"],u["employees"]);
+    Store store = Store(
+        u["_id"],
+        u["name"],
+        u["location"],
+        u["id"],
+        u["description"],
+        u["type"],
+        u["img"],
+        u["start"],
+        u["end"],
+        u["employees"]);
     stores.add(store);
   }
   print(stores);
@@ -25,7 +34,6 @@ Future getOwnerStore() async {
 }
 
 Future getStoreServices() async {
-  print('d');
   SharedPreferences pref = await SharedPreferences.getInstance();
   var storeid = pref.getString("storeid");
   var response = await http.get(Uri.parse('${apidomain}service/get/$storeid'));
@@ -71,13 +79,35 @@ Future getSingleStoreServices(var storeid) async {
   return services;
 }
 
+Future getSingleServiceDetails(var serviceid) async {
+  var response =
+      await http.get(Uri.parse('${apidomain}service/getservice/$serviceid'));
+  var jsonData = jsonDecode(response.body);
+  List<GetServiceModel> services = [];
+
+  for (var u in jsonData) {
+    GetServiceModel service = GetServiceModel(
+        u["_id"],
+        u["name"],
+        u["description"],
+        u["price"],
+        u["ogprice"],
+        u["img"],
+        u["storeid"],
+        u["ownerid"],
+        u["id"]);
+    services.add(service);
+  }
+  print(services);
+  return services;
+}
+
 Future deleteService(var serviceid) async {
   print('jdbfbj');
   var response =
       await http.get(Uri.parse('${apidomain}service/del/$serviceid'));
   return true;
 }
-
 
 Future getStoreServiceBooking() async {
   SharedPreferences pref = await SharedPreferences.getInstance();

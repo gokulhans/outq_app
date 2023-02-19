@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/service/create/create_service.dart';
+import 'package:outq_new_app/screens/owner/service/view/owner_single_service.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
@@ -60,13 +61,18 @@ class OwnerViewServicePage extends StatelessWidget {
                   ));
                 } else {
                   if (snapshot.data.length == 0) {
-                    return const Center(
-                        child: Text(
-                      'Add Your Services Here..',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ));
+                    return Column(
+                      children: [
+                        addVerticalSpace(30),
+                        const Center(
+                            child: Text(
+                          'Add Your First Service..',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                          ),
+                        )),
+                      ],
+                    );
                   } else {
                     return Expanded(
                         flex: 2,
@@ -174,16 +180,21 @@ class OwnerViewServicePage extends StatelessWidget {
                                                 child: Center(
                                                   child: TextButton(
                                                       onPressed: () async {
-                                                        await deleteService(
-                                                            snapshot
-                                                                .data[i].id);
+                                                        // await deleteService(
+                                                        //     snapshot
+                                                        //         .data[i].id);
+                                                        // Get.to(() =>
+                                                        //     OwnerHomePage(
+                                                        //         currentIndex:
+                                                        //             2));
                                                         Get.to(() =>
-                                                            OwnerHomePage(
-                                                                currentIndex:
-                                                                    2));
+                                                             OwnerSingleServicePage(),arguments: [
+                                                              snapshot.data[i].name,
+                                                              snapshot.data[i].id
+                                                             ]);
                                                       },
                                                       child: Text(
-                                                        'Delete',
+                                                        'View',
                                                         textAlign:
                                                             TextAlign.left,
                                                         style:
