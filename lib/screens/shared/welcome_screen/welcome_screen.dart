@@ -15,6 +15,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.all(tDefaultSize),
         child: Column(
@@ -43,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Expanded(
                     child: OutlinedButton(
-                  onPressed: () => Get.to(()=> const UserLoginPage()),
+                  onPressed: () => Get.to(() => const UserLoginPage()),
                   style: OutlinedButton.styleFrom(
                       shape: const RoundedRectangleBorder(),
                       padding:
@@ -53,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
                 addHorizontalSpace(10),
                 Expanded(
                     child: ElevatedButton(
-                  onPressed: () => Get.to(()=> const UserSignUpPage()),
+                  onPressed: () => Get.to(() => const UserSignUpPage()),
                   style: ElevatedButton.styleFrom(
                       shape: const RoundedRectangleBorder(),
                       padding:
@@ -63,7 +64,7 @@ class WelcomeScreen extends StatelessWidget {
               ],
             ),
             TextButton(
-                onPressed: () => Get.to(()=> const OwnerSignUpPage()),
+                onPressed: () => Get.to(() => const OwnerSignUpPage()),
                 child: const Center(
                   child: Text(tOwnerQuestion),
                 ))

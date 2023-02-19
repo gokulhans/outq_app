@@ -19,7 +19,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3)).then((value) async {
@@ -29,11 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
       print(ownerid);
       print(userid);
       if (ownerid != null) {
-        Get.to(() => OwnerHomePage(currentIndex: 0));
+        Get.off(() => const OwnerExithome());
       } else if (userid != null) {
-        Get.to(() => const UserHomePage());
+        Get.off(() => const UserExithome());
       } else {
-        Get.to(() => const WelcomeScreen());
+        Get.off(() => const Exithome());
       }
     });
   }
@@ -75,25 +74,25 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-class AppHome extends StatefulWidget {
-  const AppHome({super.key, required this.ownerid, required this.userid});
+// class AppHome extends StatefulWidget {
+//   const AppHome({super.key, required this.ownerid, required this.userid});
 
-  final String? ownerid;
-  final String? userid;
+//   final String? ownerid;
+//   final String? userid;
 
-  @override
-  State<AppHome> createState() => _AppHomeState();
-}
+//   @override
+//   State<AppHome> createState() => _AppHomeState();
+// }
 
-class _AppHomeState extends State<AppHome> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: (widget.ownerid != null)
-          ? OwnerHomePage(currentIndex: 0)
-          : (widget.userid != null)
-              ? const UserHomePage()
-              : const WelcomeScreen(),
-    );
-  }
-}
+// class _AppHomeState extends State<AppHome> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: (widget.ownerid != null)
+//           ? OwnerHomePage(currentIndex: 0)
+//           : (widget.userid != null)
+//               ? const UserHomePage()
+//               : const ExitHome(),
+//     );
+//   }
+// }

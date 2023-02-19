@@ -18,7 +18,7 @@
 
 //   String ownerid = prefs.getString("ownerid") ?? "null";
 //   if (ownerid == "null") {
-//     Get.to(() => const WelcomeScreen());
+//     Get.to(() => const ExitHome());
 //   }
 
 //   // print({shop.name, shop.type, shop.description, shop.location});

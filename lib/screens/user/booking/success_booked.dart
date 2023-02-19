@@ -64,7 +64,11 @@ class AppointmentBooked extends StatelessWidget {
                 ),
               ),
             ),
-            TextButton(onPressed: (){Get.to(()=>const UserHomePage());}, child: const Text("Back to Home")),
+            TextButton(
+                onPressed: () {
+                  Get.off(() => const UserHomePage());
+                },
+                child: const Text("Back to Home")),
             const Spacer(),
             //back to home page
             // Padding(

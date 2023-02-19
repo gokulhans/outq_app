@@ -5,6 +5,7 @@ import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/store/view/owner_view_store.dart';
+import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
@@ -34,7 +35,7 @@ Future save(BuildContext context) async {
   String ownerid = prefs.getString("ownerid") ?? "null";
 
   if (ownerid == "null") {
-    Get.to(() => const WelcomeScreen());
+    Get.to(() => const Exithome());
   }
 
   print({shop.name, shop.type, shop.description, shop.location});
@@ -74,7 +75,6 @@ class EditStorePage extends StatefulWidget {
 }
 
 class _EditStorePageState extends State<EditStorePage> {
-  
   @override
   void initState() {
     super.initState();
@@ -133,7 +133,7 @@ class EditStoreForm extends StatefulWidget {
   State<EditStoreForm> createState() => _EditStoreFormState();
 }
 
-Store shop = Store('', '', '', '', '', '', '','','','');
+Store shop = Store('', '', '', '', '', '', '', '', '', '');
 
 class _EditStoreFormState extends State<EditStoreForm> {
   @override
@@ -240,7 +240,7 @@ class _EditStoreFormState extends State<EditStoreForm> {
                   ),
                 ),
               ),
-               Container(
+              Container(
                 height: 80,
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
                 clipBehavior: Clip.antiAlias,

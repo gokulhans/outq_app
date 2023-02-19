@@ -20,7 +20,7 @@ Future cancelBooking() async {
   print(argumentData[3]);
   var response = await http
       .get(Uri.parse('${apidomain}booking/cancel/${argumentData[3]}'));
-  Get.to(() => const UserHomePage());
+  Get.off(() => const UserHomePage());
   return true;
 }
 

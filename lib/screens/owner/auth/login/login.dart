@@ -6,6 +6,7 @@ import 'package:outq_new_app/screens/owner/auth/login/login.dart';
 import 'package:outq_new_app/screens/owner/auth/signup/signup.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
+import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/text_strings.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
@@ -47,22 +48,25 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("ownerid", str);
-    // Get.to(() => {OwnerHomePage(currentIndex:0)});
+    // Get.to(() => {OwnerExitHome(currentIndex:0)});
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-            builder: (BuildContext context) => OwnerHomePage(currentIndex: 0,)),
+            builder: (BuildContext context) => const OwnerExithome()),
         (Route<dynamic> route) => false);
   }
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(tDefaultSize),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+          child: Padding(
+            padding: const EdgeInsets.all(tDefaultSize),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+                    Widget>[
               Stack(
                 children: <Widget>[
                   Container(
@@ -80,6 +84,7 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                   padding:
                       const EdgeInsets.only(top: 35.0, left: 20.0, right: 20.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       TextField(
                         controller: emailController,
@@ -111,9 +116,14 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                                 color: Colors.grey),
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green))),
-                        obscureText: true,
+                        //obscureText: true,
                       ),
-                      const SizedBox(height: 50.0),
+                      // const Padding(
+                      //   padding: EdgeInsets.only(top:24.0),
+                      //   child: Text("Login Failed. Try Again!",style: TextStyle(color: Colors.red,fontWeight: FontWeight.w500),),
+                      // ),
+
+                      const SizedBox(height: 30.0),
                       // ignore: sized_box_for_whitespace
                       Container(
                           height: 40.0,
@@ -123,19 +133,30 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                             color: ColorConstants.blue,
                             elevation: 7.0,
                             child: GestureDetector(
-                              onTap: () {},
-                              child: Center(
-                                child: TextButton(
-                                  child: const Text(
-                                    tLogin,
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  onPressed: () {
-                                    print("saved");
-                                    save();
-                                  },
-                                ),
-                              ),
+                              onTap: () {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                print("saved");
+                                save();
+                              },
+                              child: isLoading
+                                  ? const Center(
+                                      child: SizedBox(
+                                        height: 15,
+                                        width: 15,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 3,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  : const Center(
+                                      child: Text(
+                                        tLogin,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
                             ),
                           )),
                       addVerticalSpace(20),
@@ -160,7 +181,7 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                 ],
               )
             ]),
-      ),
-    ));
+          ),
+        ));
   }
 }

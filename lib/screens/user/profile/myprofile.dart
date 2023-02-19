@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
 import 'package:outq_new_app/utils/image_strings.dart';
@@ -89,7 +90,7 @@ class _UserMyProfilePageState extends State<UserMyProfilePage> {
                       SharedPreferences pref =
                           await SharedPreferences.getInstance();
                       pref.remove("userid");
-                      Get.to(() => const WelcomeScreen());
+                      Get.offAll(() => const Exithome());
                     },
                   ),
                 ],

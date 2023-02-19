@@ -5,6 +5,7 @@ import 'package:outq_new_app/Backend/api/api.dart';
 import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:geolocator_android/geolocator_android.dart';
+import 'package:outq_new_app/screens/shared/splash/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,7 +80,7 @@ class _MyAppState extends State<MyApp> {
             ),
           )),
       debugShowCheckedModeBanner: false,
-      home: const Exithome(),
+      home: const SplashScreen(),
     );
   }
 }

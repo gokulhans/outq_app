@@ -9,6 +9,7 @@ import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/Backend/models/user_models.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
+import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/screens/user/booking/success_booked.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
@@ -27,7 +28,7 @@ Future save(BuildContext context) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   String userid = pref.getString("userid") ?? "null";
   if (userid == "null") {
-    Get.to(() => const WelcomeScreen());
+    Get.to(() => const Exithome());
   }
 
   getTimeSlots(booking.serviceid, booking.date);
@@ -156,7 +157,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   //   getToken();
   //   super.initState();
   // }
-  
+
   late Future<dynamic> _future;
   @override
   void initState() {
@@ -169,10 +170,10 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
     // Config().init(context);
     // final doctor = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
-      appBar: const PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(55),
         child: UserAppBarWithBack(
-          title: "",
+          title: argumentData[3],
         ),
       ),
       // floatingActionButton:

@@ -5,6 +5,7 @@ import 'package:outq_new_app/screens/owner/auth/login/login.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/feedback_screen.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/help_screen.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/invite_friend_screen.dart';
+import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/utils/image_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,7 +72,7 @@ class OwnerDrawer extends StatelessWidget {
                 SharedPreferences pref = await SharedPreferences.getInstance();
                 pref.remove("ownerid");
                 pref.remove("storeid");
-                Get.to(() => const WelcomeScreen());
+                Get.offAll(() => const Exithome());
               },
             ),
           ],

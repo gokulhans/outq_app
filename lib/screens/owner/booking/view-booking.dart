@@ -14,7 +14,6 @@ import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
 
-
 Future cancelBooking() async {
   dynamic argumentData = Get.arguments;
   print(argumentData[6]);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 
 class UserForgotPsdPage extends StatelessWidget {
@@ -19,7 +20,7 @@ class UserForgotPsdPage extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                Get.to(() => const WelcomeScreen());
+                Get.to(() => const Exithome());
               },
               child: const Text("Welcome"))
         ],

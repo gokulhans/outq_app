@@ -7,6 +7,7 @@ import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/store/view/owner_view_store.dart';
+import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
@@ -21,7 +22,7 @@ Future save(BuildContext context) async {
 
   String ownerid = prefs.getString("ownerid") ?? "null";
   if (ownerid == "null") {
-    Get.to(() => const WelcomeScreen());
+    Get.to(() => const Exithome());
   }
 
   print({shop.name, shop.type, shop.description, shop.location});
@@ -46,7 +47,7 @@ Future save(BuildContext context) async {
 
   Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-          builder: (BuildContext context) => OwnerHomePage(currentIndex: 0)),
+          builder: (BuildContext context) => OwnerExithome()),
       (Route<dynamic> route) => false);
 }
 
@@ -193,7 +194,7 @@ class CreateStoreForm extends StatefulWidget {
 // TextEditingController descriptionController = TextEditingController(text: '');
 // TextEditingController locationController = TextEditingController(text: '');
 
-StoreModel shop = StoreModel('', '', '', '', '','','',' ');
+StoreModel shop = StoreModel('', '', '', '', '', '', '', ' ');
 
 class _CreateStoreFormState extends State<CreateStoreForm> {
   @override
