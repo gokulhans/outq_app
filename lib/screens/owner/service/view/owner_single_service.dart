@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
+import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/service/edit/edit_service.dart';
 import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
@@ -76,8 +77,7 @@ class OwnerSingleServicePage extends StatelessWidget {
                                       ),
                                       TextButton(
                                           onPressed: () {
-                                            Get.to(
-                                                () => EditServicePage(),
+                                            Get.to(() => EditServicePage(),
                                                 arguments: snapshot.data[i]);
                                           },
                                           child: Text(
@@ -233,6 +233,22 @@ class OwnerSingleServicePage extends StatelessWidget {
                                         Theme.of(context).textTheme.subtitle2,
                                   ),
                                   addVerticalSpace(20),
+                                  TextButton(
+                                      onPressed: () async {
+                                        await deleteService(
+                                            snapshot.data[i].id);
+                                        Get.to(() =>
+                                            OwnerHomePage(currentIndex: 2));
+                                      },
+                                      child: Text(
+                                        'Delete Service',
+                                        style: GoogleFonts.poppins(
+                                          color: Colors.red,
+                                          fontSize: 14,
+                                          // height: 1.5,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )),
                                 ],
                               );
                             }));

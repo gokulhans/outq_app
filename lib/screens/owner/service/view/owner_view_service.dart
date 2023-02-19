@@ -180,13 +180,7 @@ class OwnerViewServicePage extends StatelessWidget {
                                                 child: Center(
                                                   child: TextButton(
                                                       onPressed: () async {
-                                                        // await deleteService(
-                                                        //     snapshot
-                                                        //         .data[i].id);
-                                                        // Get.to(() =>
-                                                        //     OwnerHomePage(
-                                                        //         currentIndex:
-                                                        //             2));
+                                                        
                                                         Get.to(() =>
                                                              OwnerSingleServicePage(),arguments: [
                                                               snapshot.data[i].name,
