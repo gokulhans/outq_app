@@ -20,11 +20,11 @@ class UserSignUpPage extends StatefulWidget {
   State<UserSignUpPage> createState() => _UserSignUpPageState();
 }
 
-TextEditingController nameController = TextEditingController(text: '');
-TextEditingController emailController = TextEditingController(text: '');
-TextEditingController pswdController = TextEditingController(text: '');
+// TextEditingController nameController = TextEditingController(text: '');
+// TextEditingController emailController = TextEditingController(text: '');
+// TextEditingController pswdController = TextEditingController(text: '');
 
-UserSignUpModel users = UserSignUpModel('', '', '');
+UserSignUpModel users = UserSignUpModel('', '', '', '', '', '');
 
 class _UserSignUpPageState extends State<UserSignUpPage> {
   Future save(BuildContext context) async {
@@ -40,6 +40,9 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
           'name': users.name,
           'email': users.email,
           'pswd': users.pswd,
+          'phone': users.phone,
+          'location': users.location,
+          'pincode': users.pincode,
         });
 
     var jsonData = jsonDecode(response.body);
@@ -107,6 +110,39 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                         },
                         decoration: const InputDecoration(
                             labelText: 'Email',
+                            labelStyle: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            // hintText: 'EMAIL',
+                            // hintStyle: ,
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green))),
+                      ),
+                      TextField(
+                        // controller: emailController,
+                        onChanged: (val) {
+                          users.phone = val;
+                        },
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                            labelText: 'Phone Number',
+                            labelStyle: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            // hintText: 'EMAIL',
+                            // hintStyle: ,
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green))),
+                      ),
+                      TextField(
+                        // controller: emailController,
+                        onChanged: (val) {
+                          users.location = val;
+                        },
+                        decoration: const InputDecoration(
+                            labelText: 'Location',
                             labelStyle: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.bold,

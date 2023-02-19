@@ -250,6 +250,8 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                                   snapshot.data[i].name,
                                                   snapshot.data[i].price,
                                                   argumentData[1],
+                                                  snapshot.data[i].start,
+                                                  snapshot.data[i].end,
                                                 ]);
                                           },
                                           child: Text(

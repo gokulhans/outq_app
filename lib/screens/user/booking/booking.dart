@@ -167,6 +167,8 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
 
   @override
   Widget build(BuildContext context) {
+    dynamic argumentData = Get.arguments;
+    dynamic hours = 12 - argumentData[6] + argumentData[7];
     // Config().init(context);
     // final doctor = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
@@ -344,13 +346,13 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 4, childAspectRatio: 1.6),
-                              itemCount: 12,
+                              itemCount: hours+1,
                               itemBuilder: (BuildContext context, int index) {
                                 return InkWell(
                                   splashColor: Colors.transparent,
                                   onTap: () {
                                     booking.start =
-                                        "${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}";
+                                        "${index + argumentData[6]}:00 ${index + 9 > 11 ? "PM" : "AM"}";
                                     print(booking.start);
                                     setState(() {
                                       _currentIndex = index;
