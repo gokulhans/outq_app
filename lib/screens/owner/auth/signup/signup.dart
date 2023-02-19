@@ -58,6 +58,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -171,7 +172,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                                     )
                                   : const Center(
                                       child: Text(
-                                        tLogin,
+                                        tSignUp,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),

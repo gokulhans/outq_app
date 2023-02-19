@@ -1,10 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/service/view/owner_view_service.dart';
-import 'package:outq_new_app/screens/owner/store/Edit/Edit_store.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -12,50 +12,70 @@ import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class EditServicePage extends StatefulWidget {
-  const EditServicePage({super.key});
+void onload() {
+  dynamic argumentData = Get.arguments;
+  service.name = argumentData.name;
+  service.description = argumentData.description;
+  service.price = argumentData.price;
+  service.ogprice = argumentData.ogprice;
+  service.img = argumentData.img;
+  service.ownerid = argumentData.ownerid;
+  service.id = argumentData.id;
+}
 
+Future save(BuildContext context) async {
+   SharedPreferences pref = await SharedPreferences.getInstance();
+  var storeid = pref.getString("storeid")??" ";
+
+  dynamic argumentData = Get.arguments;
+  http.post(
+      Uri.parse(
+        "${apidomain}service/edit/${service.id}",
+      ),
+      headers: <String, String>{
+        'Context-Type': 'application/json; charset=UTF-8',
+      },
+      body: <String, String>{
+        'name': service.name,
+        'description': service.description,
+        'price': service.price,
+        'ogprice': service.ogprice,
+        'img': service.img,
+        'storeid': storeid,
+        'ownerid': service.ownerid,
+        'id': service.id,
+      });
+  // Get.to(() => {OwnerHomePage(currentIndex:0)});
+  // Navigator.of(context).pop();
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+          builder: (BuildContext context) => OwnerHomePage(
+                currentIndex: 2,
+              )),
+      (Route<dynamic> route) => false);
+}
+
+class EditServicePage extends StatefulWidget {
+  dynamic argumentData = Get.arguments;
+  EditServicePage({super.key});
   @override
   State<EditServicePage> createState() => _EditServicePageState();
 }
 
 class _EditServicePageState extends State<EditServicePage> {
-  Future save(BuildContext context) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    var storeid = pref.getString("storeid") ?? "null";
-    var ownerid = pref.getString("ownerid") ?? "null";
-
-    http.post(
-        Uri.parse(
-          "${apidomain}service/Edit/",
-        ),
-        headers: <String, String>{
-          'Context-Type': 'application/json; charset=UTF-8',
-        },
-        body: <String, String>{
-          'name': service.name,
-          'description': service.description,
-          'price': service.price,
-          'ownerid': ownerid,
-          'storeid': storeid,
-        });
-    // Get.to(() => {OwnerHomePage(currentIndex:0)});
-    // Navigator.of(context).pop();
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (BuildContext context) => OwnerHomePage(
-                  currentIndex: 2,
-                )),
-        (Route<dynamic> route) => false);
+  @override
+  void initState() {
+    super.initState();
+    onload();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: OwnerAppBarWithBack(
-          title: "",
+          title: widget.argumentData.name,
         ),
       ),
       body: Container(
@@ -73,19 +93,19 @@ class _EditServicePageState extends State<EditServicePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Fill Your Service Details',
+                      'Edit Service Details',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headline3,
                     ),
-                    Text(
-                      'This data will be displayed in your account profile.',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.subtitle2,
-                    ),
+                    // Text(
+                    //   'This data will be displayed in your account profile.',
+                    //   textAlign: TextAlign.left,
+                    //   style: Theme.of(context).textTheme.subtitle2,
+                    // ),
                   ],
                 ),
               ),
-              const EditServiceForm(),
+              EditServiceForm(),
             ],
           ),
         ),
@@ -95,13 +115,14 @@ class _EditServicePageState extends State<EditServicePage> {
 }
 
 class EditServiceForm extends StatefulWidget {
-  const EditServiceForm({super.key});
+  dynamic argumentData = Get.arguments;
+  EditServiceForm({super.key});
 
   @override
   State<EditServiceForm> createState() => _EditServiceFormState();
 }
 
-ServiceModel service = ServiceModel('', '', '', '', '', '', '');
+GetServiceModel service = GetServiceModel('', '', '', '', '', '', '', '', '');
 
 class _EditServiceFormState extends State<EditServiceForm> {
   @override
@@ -123,7 +144,8 @@ class _EditServiceFormState extends State<EditServiceForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
+                child: TextFormField(
+                  initialValue: widget.argumentData.name,
                   onChanged: (val) {
                     service.name = val;
                   },
@@ -145,7 +167,8 @@ class _EditServiceFormState extends State<EditServiceForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
+                child: TextFormField(
+                  initialValue: widget.argumentData.description,
                   onChanged: (val) {
                     service.description = val;
                   },
@@ -167,13 +190,61 @@ class _EditServiceFormState extends State<EditServiceForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
+                child: TextFormField(
+                  initialValue: widget.argumentData.price,
                   onChanged: (val) {
                     service.price = val;
                   },
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                    labelText: 'Price',
+                    labelText: 'Discounted Price',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myservice..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextFormField(
+                  initialValue: widget.argumentData.ogprice,
+                  onChanged: (val) {
+                    service.ogprice = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Original Price',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myservice..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextFormField(
+                  initialValue: widget.argumentData.img,
+                  onChanged: (val) {
+                    service.img = val;
+                  },
+                  decoration: const InputDecoration(
+                    labelText: 'Image Link',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,

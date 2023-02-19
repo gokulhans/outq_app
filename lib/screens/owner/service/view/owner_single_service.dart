@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
+import 'package:outq_new_app/screens/owner/service/edit/edit_service.dart';
 import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -27,7 +28,6 @@ class OwnerSingleServicePage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FutureBuilder(
@@ -74,14 +74,55 @@ class OwnerSingleServicePage extends StatelessWidget {
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
+                                      TextButton(
+                                          onPressed: () {
+                                            Get.to(
+                                                () => EditServicePage(),
+                                                arguments: snapshot.data[i]);
+                                          },
+                                          child: Text(
+                                            'Edit',
+                                            style: GoogleFonts.poppins(
+                                              color: const Color(0xFFFF7B32),
+                                              fontSize: 12,
+                                              // height: 1.5,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ))
+                                    ],
+                                  ),
+                                  addVerticalSpace(20),
+                                  Text(
+                                    'Name',
+                                    style: GoogleFonts.poppins(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15,
+                                      // height: 1.5,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  addVerticalSpace(10),
+                                  Text(
+                                    snapshot.data[i].name,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                  addVerticalSpace(20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Description',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF09041B),
+                                          fontSize: 15,
+                                          // height: 1.5,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
                                       // TextButton(
-                                      //     onPressed: () {
-                                      //       Get.to(
-                                      //           () => EditStorePage(
-                                      //               ownerid:
-                                      //                   snapshot.data[i].name),
-                                      //           arguments: snapshot.data[i]);
-                                      //     },
+                                      //     onPressed: () {},
                                       //     child: Text(
                                       //       'Edit',
                                       //       style: GoogleFonts.poppins(
@@ -93,213 +134,105 @@ class OwnerSingleServicePage extends StatelessWidget {
                                       //     ))
                                     ],
                                   ),
-                                  // addVerticalSpace(20),
-                                  // Text(
-                                  //   'Name',
-                                  //   style: GoogleFonts.poppins(
-                                  //     color: const Color(0xFF09041B),
-                                  //     fontSize: 15,
-                                  //     // height: 1.5,
-                                  //     fontWeight: FontWeight.w500,
-                                  //   ),
-                                  // ),
-                                  // addVerticalSpace(10),
-                                  // Text(
-                                  //   snapshot.data[i].name,
-                                  //   style:
-                                  //       Theme.of(context).textTheme.subtitle2,
-                                  // ),
-                                  // addVerticalSpace(20),
-                                  // Text(
-                                  //   'Image',
-                                  //   style: GoogleFonts.poppins(
-                                  //     color: const Color(0xFF09041B),
-                                  //     fontSize: 15,
-                                  //     // height: 1.5,
-                                  //     fontWeight: FontWeight.w500,
-                                  //   ),
-                                  // ),
-                                  // addVerticalSpace(20),
-                                  // Center(
-                                  //   child: SizedBox(
-                                  //     width: double.infinity,
-                                  //     height: 200,
-                                  //     child: ClipRRect(
-                                  //       borderRadius: const BorderRadius.all(
-                                  //           Radius.circular(4)),
-                                  //       child: Image(
-                                  //         fit: BoxFit.cover,
-                                  //         image: NetworkImage(
-                                  //             snapshot.data[i].img),
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // addVerticalSpace(20),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   children: [
-                                  //     Text(
-                                  //       'Description',
-                                  //       style: GoogleFonts.poppins(
-                                  //         color: const Color(0xFF09041B),
-                                  //         fontSize: 15,
-                                  //         // height: 1.5,
-                                  //         fontWeight: FontWeight.w500,
-                                  //       ),
-                                  //     ),
-                                  //     // TextButton(
-                                  //     //     onPressed: () {},
-                                  //     //     child: Text(
-                                  //     //       'Edit',
-                                  //     //       style: GoogleFonts.poppins(
-                                  //     //         color: const Color(0xFFFF7B32),
-                                  //     //         fontSize: 12,
-                                  //     //         // height: 1.5,
-                                  //     //         fontWeight: FontWeight.w500,
-                                  //     //       ),
-                                  //     //     ))
-                                  //   ],
-                                  // ),
-                                  // addVerticalSpace(10),
-                                  // Text(
-                                  //   snapshot.data[i].description,
-                                  //   style:
-                                  //       Theme.of(context).textTheme.subtitle2,
-                                  // ),
-                                  // addVerticalSpace(20),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   children: [
-                                  //     Text(
-                                  //       'Location',
-                                  //       style: GoogleFonts.poppins(
-                                  //         color: const Color(0xFF09041B),
-                                  //         fontSize: 15,
-                                  //         // height: 1.5,
-                                  //         fontWeight: FontWeight.w500,
-                                  //       ),
-                                  //     ),
-                                  //     // TextButton(
-                                  //     //     onPressed: () {},
-                                  //     //     child: Text(
-                                  //     //       'Edit',
-                                  //     //       style: GoogleFonts.poppins(
-                                  //     //         color: const Color(0xFFFF7B32),
-                                  //     //         fontSize: 12,
-                                  //     //         // height: 1.5,
-                                  //     //         fontWeight: FontWeight.w500,
-                                  //     //       ),
-                                  //     //     ))
-                                  //   ],
-                                  // ),
-                                  // addVerticalSpace(10),
-                                  // Text(
-                                  //   snapshot.data[i].location,
-                                  //   style:
-                                  //       Theme.of(context).textTheme.subtitle2,
-                                  // ),
-                                  // addVerticalSpace(20),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   children: [
-                                  //     Text(
-                                  //       'Opening Time',
-                                  //       style: GoogleFonts.poppins(
-                                  //         color: const Color(0xFF09041B),
-                                  //         fontSize: 15,
-                                  //         // height: 1.5,
-                                  //         fontWeight: FontWeight.w500,
-                                  //       ),
-                                  //     ),
-                                  //     // TextButton(
-                                  //     //     onPressed: () {},
-                                  //     //     child: Text(
-                                  //     //       'Edit',
-                                  //     //       style: GoogleFonts.poppins(
-                                  //     //         color: const Color(0xFFFF7B32),
-                                  //     //         fontSize: 12,
-                                  //     //         // height: 1.5,
-                                  //     //         fontWeight: FontWeight.w500,
-                                  //     //       ),
-                                  //     //     ))
-                                  //   ],
-                                  // ),
-                                  // addVerticalSpace(10),
-                                  // Text(
-                                  //   snapshot.data[i].start,
-                                  //   style:
-                                  //       Theme.of(context).textTheme.subtitle2,
-                                  // ),
-                                  // addVerticalSpace(20),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   children: [
-                                  //     Text(
-                                  //       'Closing Time',
-                                  //       style: GoogleFonts.poppins(
-                                  //         color: const Color(0xFF09041B),
-                                  //         fontSize: 15,
-                                  //         // height: 1.5,
-                                  //         fontWeight: FontWeight.w500,
-                                  //       ),
-                                  //     ),
-                                  //     // TextButton(
-                                  //     //     onPressed: () {},
-                                  //     //     child: Text(
-                                  //     //       'Edit',
-                                  //     //       style: GoogleFonts.poppins(
-                                  //     //         color: const Color(0xFFFF7B32),
-                                  //     //         fontSize: 12,
-                                  //     //         // height: 1.5,
-                                  //     //         fontWeight: FontWeight.w500,
-                                  //     //       ),
-                                  //     //     ))
-                                  //   ],
-                                  // ),
-                                  // addVerticalSpace(10),
-                                  // Text(
-                                  //   snapshot.data[i].end,
-                                  //   style:
-                                  //       Theme.of(context).textTheme.subtitle2,
-                                  // ),
-                                  // addVerticalSpace(20),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   children: [
-                                  //     Text(
-                                  //       'Employees',
-                                  //       style: GoogleFonts.poppins(
-                                  //         color: const Color(0xFF09041B),
-                                  //         fontSize: 15,
-                                  //         // height: 1.5,
-                                  //         fontWeight: FontWeight.w500,
-                                  //       ),
-                                  //     ),
-                                  //     // TextButton(
-                                  //     //     onPressed: () {},
-                                  //     //     child: Text(
-                                  //     //       'Edit',
-                                  //     //       style: GoogleFonts.poppins(
-                                  //     //         color: const Color(0xFFFF7B32),
-                                  //     //         fontSize: 12,
-                                  //     //         // height: 1.5,
-                                  //     //         fontWeight: FontWeight.w500,
-                                  //     //       ),
-                                  //     //     ))
-                                  //   ],
-                                  // ),
-                                  // addVerticalSpace(10),
-                                  // Text(
-                                  //   snapshot.data[i].employees,
-                                  //   style:
-                                  //       Theme.of(context).textTheme.subtitle2,
-                                  // ),
+                                  addVerticalSpace(10),
+                                  Text(
+                                    snapshot.data[i].description,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                  addVerticalSpace(20),
+                                  Text(
+                                    'Image',
+                                    style: GoogleFonts.poppins(
+                                      color: const Color(0xFF09041B),
+                                      fontSize: 15,
+                                      // height: 1.5,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  addVerticalSpace(20),
+                                  Center(
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      height: 200,
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(4)),
+                                        child: Image(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                              snapshot.data[i].img),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  addVerticalSpace(20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Discounted Price',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF09041B),
+                                          fontSize: 15,
+                                          // height: 1.5,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      // TextButton(
+                                      //     onPressed: () {},
+                                      //     child: Text(
+                                      //       'Edit',
+                                      //       style: GoogleFonts.poppins(
+                                      //         color: const Color(0xFFFF7B32),
+                                      //         fontSize: 12,
+                                      //         // height: 1.5,
+                                      //         fontWeight: FontWeight.w500,
+                                      //       ),
+                                      //     ))
+                                    ],
+                                  ),
+                                  addVerticalSpace(10),
+                                  Text(
+                                    snapshot.data[i].price,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                  addVerticalSpace(20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Original Price',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF09041B),
+                                          fontSize: 15,
+                                          // height: 1.5,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      // TextButton(
+                                      //     onPressed: () {},
+                                      //     child: Text(
+                                      //       'Edit',
+                                      //       style: GoogleFonts.poppins(
+                                      //         color: const Color(0xFFFF7B32),
+                                      //         fontSize: 12,
+                                      //         // height: 1.5,
+                                      //         fontWeight: FontWeight.w500,
+                                      //       ),
+                                      //     ))
+                                    ],
+                                  ),
+                                  addVerticalSpace(10),
+                                  Text(
+                                    snapshot.data[i].ogprice,
+                                    style:
+                                        Theme.of(context).textTheme.subtitle2,
+                                  ),
+                                  addVerticalSpace(20),
                                 ],
                               );
                             }));

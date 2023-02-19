@@ -103,7 +103,6 @@ Future getSingleServiceDetails(var serviceid) async {
 }
 
 Future deleteService(var serviceid) async {
-  print('jdbfbj');
   var response =
       await http.get(Uri.parse('${apidomain}service/del/$serviceid'));
   return true;
