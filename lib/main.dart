@@ -2,17 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/api/api.dart';
-import 'package:outq_new_app/Backend/models/user_models.dart';
-import 'package:outq_new_app/screens/owner/auth/login/login.dart';
-import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
-import 'package:outq_new_app/screens/owner/home/owner_home.dart';
-import 'package:outq_new_app/screens/shared/splash/splash_screen.dart';
+import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
-import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
-import 'package:outq_new_app/screens/user/auth/login/login.dart';
-import 'package:outq_new_app/screens/user/home/user_home.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geolocator_android/geolocator_android.dart';
 
 Future<void> main() async {
@@ -88,7 +79,7 @@ class _MyAppState extends State<MyApp> {
             ),
           )),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const Exithome(),
     );
   }
 }
