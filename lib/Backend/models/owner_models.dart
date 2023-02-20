@@ -21,16 +21,34 @@ class Store {
 }
 
 class ServiceModel {
-  String name, description, price, ogprice, img, ownerid, storeid;
+  String name, description, price, ogprice, img, ownerid, storeid, duration;
 
   ServiceModel(this.name, this.description, this.price, this.ogprice, this.img,
-      this.ownerid, this.storeid);
+      this.ownerid, this.storeid, this.duration);
 }
 
 class GetServiceModel {
-  String _id, name, description, price, ogprice, img, ownerid, storeid, id;
-  GetServiceModel(this._id, this.name, this.description, this.price,
-      this.ogprice, this.img, this.ownerid, this.storeid, this.id);
+  String _id,
+      name,
+      description,
+      price,
+      ogprice,
+      img,
+      ownerid,
+      storeid,
+      duration,
+      id;
+  GetServiceModel(
+      this._id,
+      this.name,
+      this.description,
+      this.price,
+      this.ogprice,
+      this.img,
+      this.ownerid,
+      this.storeid,
+      this.duration,
+      this.id);
 }
 
 class idModel {

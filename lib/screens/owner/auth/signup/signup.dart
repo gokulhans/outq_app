@@ -122,7 +122,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       TextField(
-                        controller: nameController,
+                        //controller: nameController,
                         onChanged: (val) {
                           owners.name = val;
                         },
@@ -137,7 +137,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                       ),
                       const SizedBox(height: 10.0),
                       // TextField(
-                      //   controller: emailController,
+                      //   //controller: emailController,
                       //   onChanged: (val) {
                       //     owners.email = val;
                       //   },
@@ -163,7 +163,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                             return 'Please enter a valid email address';
                           }
                         },
-                        controller: emailController,
+                        //controller: emailController,
                         onChanged: (val) {
                           owners.email = val;
                         },
@@ -180,7 +180,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                       ),
                       const SizedBox(height: 10.0),
                       TextField(
-                        controller: pswdController,
+                        //controller: pswdController,
                         onChanged: (val) {
                           owners.pswd = val;
                         },
@@ -218,7 +218,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                                   isLoading = true;
                                 });
                                 print("saved");
-                                if (owners.email!.isEmpty ||
+                                if (owners.email.isEmpty ||
                                     !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                                         .hasMatch(owners.email)) {
                                   Get.snackbar(

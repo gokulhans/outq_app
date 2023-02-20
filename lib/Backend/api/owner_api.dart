@@ -42,15 +42,17 @@ Future getStoreServices() async {
 
   for (var u in jsonData) {
     GetServiceModel service = GetServiceModel(
-        u["_id"],
-        u["name"],
-        u["description"],
-        u["price"],
-        u["ogprice"],
-        u["img"],
-        u["storeid"],
-        u["ownerid"],
-        u["id"]);
+      u["_id"],
+      u["name"],
+      u["description"],
+      u["price"],
+      u["ogprice"],
+      u["img"],
+      u["storeid"],
+      u["ownerid"],
+      u["duration"],
+      u["id"],
+    );
     print("service");
     services.add(service);
   }
@@ -65,15 +67,17 @@ Future getSingleStoreServices(var storeid) async {
 
   for (var u in jsonData) {
     GetServiceModel service = GetServiceModel(
-        u["_id"],
-        u["name"],
-        u["description"],
-        u["price"],
-        u["ogprice"],
-        u["img"],
-        u["storeid"],
-        u["ownerid"],
-        u["id"]);
+      u["_id"],
+      u["name"],
+      u["description"],
+      u["price"],
+      u["ogprice"],
+      u["img"],
+      u["storeid"],
+      u["ownerid"],
+      u["duration"],
+      u["id"],
+    );
     services.add(service);
   }
   return services;
@@ -87,15 +91,17 @@ Future getSingleServiceDetails(var serviceid) async {
 
   for (var u in jsonData) {
     GetServiceModel service = GetServiceModel(
-        u["_id"],
-        u["name"],
-        u["description"],
-        u["price"],
-        u["ogprice"],
-        u["img"],
-        u["storeid"],
-        u["ownerid"],
-        u["id"]);
+      u["_id"],
+      u["name"],
+      u["description"],
+      u["price"],
+      u["ogprice"],
+      u["img"],
+      u["storeid"],
+      u["ownerid"],
+      u["duration"],
+      u["id"],
+    );
     services.add(service);
   }
   print(services);

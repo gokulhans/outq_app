@@ -124,7 +124,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                     children: <Widget>[
                       const SizedBox(height: 10.0),
                       TextField(
-                        controller: emailController,
+                        // //controller: emailController,
                         onChanged: (val) {
                           users.email = val;
                         },
@@ -141,7 +141,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                       ),
                       const SizedBox(height: 10.0),
                       TextField(
-                        controller: pswdController,
+                        //controller: pswdController,
                         onChanged: (val) {
                           users.pswd = val;
                         },

@@ -112,9 +112,12 @@ class CreateServiceForm extends StatefulWidget {
   State<CreateServiceForm> createState() => _CreateServiceFormState();
 }
 
-ServiceModel service = ServiceModel('', '', '', '', '', '', '');
+ServiceModel service = ServiceModel('', '', '', '', '', '', '','');
 
 class _CreateServiceFormState extends State<CreateServiceForm> {
+
+ 
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -239,6 +242,29 @@ class _CreateServiceFormState extends State<CreateServiceForm> {
                   ),
                 ),
               ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextField(
+                  onChanged: (val) {
+                    service.duration = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Service Duration',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myservice..',
+                  ),
+                ),
+              ),
               addVerticalSpace(20),
               Container(
                 width: 150,
@@ -261,7 +287,8 @@ class _CreateServiceFormState extends State<CreateServiceForm> {
                           service.description.isEmpty ||
                           service.price.isEmpty ||
                           service.img.isEmpty ||
-                          service.ogprice.isEmpty) {
+                          service.ogprice.isEmpty||
+                          service.duration.isEmpty) {
                         Get.snackbar(
                           "Fill Every Field",
                           "Fill every fields to continue",

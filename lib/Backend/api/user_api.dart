@@ -21,7 +21,8 @@ Future getAllStores() async {
         u["img"],
         u["start"],
         u["end"],
-        u["employees"]);
+        u["employees"]
+        );
     stores.add(store);
   }
   // print(stores);

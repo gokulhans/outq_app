@@ -134,6 +134,25 @@ class _CreateStorePageState extends State<CreateStorePage> {
     });
   }
 
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked_s = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+
+    if (picked_s != null && picked_s != selectedTime)
+      setState(() {
+        selectedTime = picked_s;
+        final localizations = MaterialLocalizations.of(context);
+        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
+        var start = formattedTimeOfDay;
+        var end = formattedTimeOfDay;
+        print(start);
+      });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -158,6 +177,15 @@ class _CreateStorePageState extends State<CreateStorePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: TextButton(
+                  onPressed: () {
+                    _selectTime(context);
+                  },
+                  child: const Text('Choose Time'),
+                ),
+              ),
               Container(
                 height: 100,
                 padding: const EdgeInsets.only(right: 60),
@@ -251,7 +279,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  // controller: nameController,
+                  // //controller: nameController,
                   onChanged: (val) {
                     shop.name = val;
                   },
@@ -275,7 +303,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextFormField(
-                  // controller: locationController,
+                  // //controller: locationController,
                   initialValue: widget.location,
                   onChanged: (val) {
                     shop.location = val;
@@ -300,7 +328,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  // controller: descriptionController,
+                  // //controller: descriptionController,
                   onChanged: (val) {
                     shop.description = val;
                   },
@@ -324,7 +352,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  // controller: descriptionController,
+                  // //controller: descriptionController,
                   onChanged: (val) {
                     shop.img = val;
                   },
@@ -348,7 +376,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  // controller: descriptionController,
+                  // //controller: descriptionController,
                   onChanged: (val) {
                     shop.start = val;
                   },
@@ -373,7 +401,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  // controller: descriptionController,
+                  // //controller: descriptionController,
                   onChanged: (val) {
                     shop.end = val;
                   },
@@ -398,7 +426,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: TextField(
-                  // controller: descriptionController,
+                  // //controller: descriptionController,
                   onChanged: (val) {
                     shop.employees = val;
                   },
@@ -423,7 +451,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
               //     borderRadius: BorderRadius.circular(22),
               //   ),
               //   child: TextField(
-              //     // controller: descriptionController,
+              //     // //controller: descriptionController,
               //     onChanged: (val) {
               //       shop.description = val;
               //     },

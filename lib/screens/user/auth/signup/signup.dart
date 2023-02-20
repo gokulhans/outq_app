@@ -188,8 +188,9 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      TextField(
-                        controller: nameController,
+                      TextFormField(
+                        initialValue: "",
+                        // //controller: nameController,
                         onChanged: (val) {
                           users.name = val;
                         },
@@ -214,7 +215,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                             return 'Please enter a valid email address';
                           }
                         },
-                        controller: emailController,
+                        // //controller: emailController,
                         onChanged: (val) {
                           users.email = val;
                         },
@@ -230,7 +231,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
                       TextField(
-                        // controller: emailController,
+                        // //controller: emailController,
                         onChanged: (val) {
                           users.phone = val;
                         },
@@ -247,8 +248,8 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
                       TextFormField(
-                        // controller: emailController,
-                        initialValue: users.location,
+                        // //controller: emailController,
+                        // initialValue: users.location,
                         onChanged: (val) {
                           users.location = val;
                         },
@@ -264,8 +265,8 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
                       TextFormField(
-                        // controller: emailController,
-                        initialValue: users.location,
+                        // //controller: emailController,
+                        // initialValue: users.location,
                         onChanged: (val) {
                           users.pincode = val;
                         },
@@ -283,7 +284,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                       ),
                       const SizedBox(height: 10.0),
                       TextField(
-                        controller: pswdController,
+                        // //controller: pswdController,
                         onChanged: (val) {
                           users.pswd = val;
                         },
@@ -316,7 +317,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                   isLoading = true;
                                 });
                                 print("saved");
-                                if (users.email!.isEmpty ||
+                                if (users.email.isEmpty ||
                                     !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                                         .hasMatch(users.email)) {
                                   Get.snackbar(

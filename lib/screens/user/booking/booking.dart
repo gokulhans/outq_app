@@ -131,23 +131,23 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   String? token; //get token for insert booking date and time into database
 
   // Time
-  TimeOfDay selectedTime = TimeOfDay.now();
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked_s = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-    );
+  // TimeOfDay selectedTime = TimeOfDay.now();
+  // Future<void> _selectTime(BuildContext context) async {
+  //   final TimeOfDay? picked_s = await showTimePicker(
+  //     context: context,
+  //     initialTime: selectedTime,
+  //   );
 
-    if (picked_s != null && picked_s != selectedTime)
-      setState(() {
-        selectedTime = picked_s;
-        final localizations = MaterialLocalizations.of(context);
-        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
-        booking.start = formattedTimeOfDay;
-        booking.end = formattedTimeOfDay;
-        // print(booking.date);
-      });
-  }
+  //   if (picked_s != null && picked_s != selectedTime)
+  //     setState(() {
+  //       selectedTime = picked_s;
+  //       final localizations = MaterialLocalizations.of(context);
+  //       final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
+  //       booking.start = formattedTimeOfDay;
+  //       booking.end = formattedTimeOfDay;
+  //       // print(booking.date);
+  //     });
+  // }
 
   // Future<void> getToken() async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();

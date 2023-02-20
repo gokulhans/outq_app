@@ -127,7 +127,7 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       TextField(
-                        controller: emailController,
+                        //controller: emailController,
                         onChanged: (val) {
                           owners.email = val;
                         },
@@ -144,7 +144,7 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                       ),
                       const SizedBox(height: 10.0),
                       TextField(
-                        controller: pswdController,
+                        //controller: pswdController,
                         onChanged: (val) {
                           owners.pswd = val;
                         },

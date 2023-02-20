@@ -6,6 +6,7 @@ import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
 import 'package:outq_new_app/screens/user/notifications/user_notifications.dart';
 import 'package:outq_new_app/screens/user/profile/myprofile.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
+import 'package:outq_new_app/utils/widget_functions.dart';
 
 class UserAppBar extends StatelessWidget {
   final String title;
@@ -66,14 +67,14 @@ class UserAppBar extends StatelessWidget {
       foregroundColor: Colors.black,
       // centerTitle: true,
       actions: [
-        IconButton(
-            icon: const Icon(
-              Icons.notifications_active,
-              size: 30,
-            ),
-            onPressed: () {
-              Get.to(() => const UserNotifications());
-            }),
+        // IconButton(
+        //     icon: const Icon(
+        //       Icons.notifications_active,
+        //       size: 30,
+        //     ),
+        //     onPressed: () {
+        //       Get.to(() => const UserNotifications());
+        //     }),
         IconButton(
             icon: const Icon(
               Icons.account_circle_outlined,
@@ -82,6 +83,7 @@ class UserAppBar extends StatelessWidget {
             onPressed: () {
               Get.to(() => const UserMyProfilePage());
             }),
+        addHorizontalSpace(10)
       ],
 
       // Container(

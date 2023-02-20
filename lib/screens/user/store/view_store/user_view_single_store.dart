@@ -24,6 +24,8 @@ class _UserViewSingleStorePageState extends State<UserViewSingleStorePage> {
   dynamic argumentData = Get.arguments;
   bool isChecked = false;
   bool isFollowed = false;
+
+  final followers = 5;
   // bool cmbscritta = false;
 
   @override
@@ -92,38 +94,38 @@ class _UserViewSingleStorePageState extends State<UserViewSingleStorePage> {
                                   snapshot.data[i].location,
                                   style: Theme.of(context).textTheme.subtitle2,
                                 ),
-                                Column(
-                                  children: [
-                                    Text("1 followers"),
-                                    addVerticalSpace(10),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Container(
-                                          width: 100,
-                                          height: 40,
-                                          color: isFollowed
-                                              ? Colors.blue
-                                              : Colors.grey,
-                                          child: TextButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  isFollowed = !isFollowed;
-                                                });
-                                              },
-                                              child: isFollowed
-                                                  ? const Text(
-                                                      "Follow",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    )
-                                                  : const Text(
-                                                      "Unfollow",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ))),
-                                    ),
-                                  ],
-                                )
+                                // Column(
+                                //   children: [
+                                //     Text("snapshot.data[i].followerscount"),
+                                //     addVerticalSpace(10),
+                                //     ClipRRect(
+                                //       borderRadius: BorderRadius.circular(12),
+                                //       child: Container(
+                                //           width: 100,
+                                //           height: 40,
+                                //           color: isFollowed
+                                //               ? Colors.blue
+                                //               : Colors.grey,
+                                //           child: TextButton(
+                                //               onPressed: () {
+                                //                 setState(() {
+                                //                   isFollowed = !isFollowed;
+                                //                 });
+                                //               },
+                                //               child: isFollowed
+                                //                   ? const Text(
+                                //                       "Follow",
+                                //                       style: TextStyle(
+                                //                           color: Colors.white),
+                                //                     )
+                                //                   : const Text(
+                                //                       "Unfollow",
+                                //                       style: TextStyle(
+                                //                           color: Colors.white),
+                                //                     ))),
+                                //     ),
+                                //   ],
+                                // )
                                 // addVerticalSpace(30),
                               ],
                             );

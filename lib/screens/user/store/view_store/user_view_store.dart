@@ -27,10 +27,10 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(50),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
           child: UserAppBarWithBack(
-            title: "",
+            title: argumentData[1],
           ),
         ),
         body: Container(
@@ -86,42 +86,43 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                   snapshot.data[i].name,
                                   style: Theme.of(context).textTheme.headline4,
                                 ),
+                                addVerticalSpace(10),
                                 Text(
                                   snapshot.data[i].location,
                                   style: Theme.of(context).textTheme.subtitle2,
                                 ),
-                                Column(
-                                  children: [
-                                    Text("1 followers"),
-                                    addVerticalSpace(10),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Container(
-                                          width: 100,
-                                          height: 40,
-                                          color: isFollowed
-                                              ? Colors.grey
-                                              : Colors.blue,
-                                          child: TextButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  isFollowed = !isFollowed;
-                                                });
-                                              },
-                                              child: isFollowed
-                                                  ? const Text(
-                                                      "UnFollow",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    )
-                                                  : const Text(
-                                                      "Follow",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ))),
-                                    ),
-                                  ],
-                                )
+                                // Column(
+                                //   children: [
+                                //     Text("1 followers"),
+                                //     addVerticalSpace(10),
+                                //     ClipRRect(
+                                //       borderRadius: BorderRadius.circular(12),
+                                //       child: Container(
+                                //           width: 100,
+                                //           height: 40,
+                                //           color: isFollowed
+                                //               ? Colors.grey
+                                //               : Colors.blue,
+                                //           child: TextButton(
+                                //               onPressed: () {
+                                //                 setState(() {
+                                //                   isFollowed = !isFollowed;
+                                //                 });
+                                //               },
+                                //               child: isFollowed
+                                //                   ? const Text(
+                                //                       "UnFollow",
+                                //                       style: TextStyle(
+                                //                           color: Colors.white),
+                                //                     )
+                                //                   : const Text(
+                                //                       "Follow",
+                                //                       style: TextStyle(
+                                //                           color: Colors.white),
+                                //                     ))),
+                                //     ),
+                                //   ],
+                                // )
                                 // addVerticalSpace(30),
                               ],
                             );
@@ -147,13 +148,16 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                     ));
                   } else {
                     if (snapshot.data.length == 0) {
-                      return const Center(
-                          child: Text(
-                        'No Content is available right now.',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ));
+                      return const Expanded(
+                        flex: 3,
+                        child: Center(
+                            child: Text(
+                          'No Content is available right now.',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                          ),
+                        )),
+                      );
                     } else {
                       return Expanded(
                         flex: 3,

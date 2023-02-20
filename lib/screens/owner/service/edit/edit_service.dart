@@ -20,12 +20,13 @@ void onload() {
   service.ogprice = argumentData.ogprice;
   service.img = argumentData.img;
   service.ownerid = argumentData.ownerid;
+  service.duration = argumentData.duration;
   service.id = argumentData.id;
 }
 
 Future save(BuildContext context) async {
-   SharedPreferences pref = await SharedPreferences.getInstance();
-  var storeid = pref.getString("storeid")??" ";
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  var storeid = pref.getString("storeid") ?? " ";
 
   dynamic argumentData = Get.arguments;
   http.post(
@@ -43,6 +44,7 @@ Future save(BuildContext context) async {
         'img': service.img,
         'storeid': storeid,
         'ownerid': service.ownerid,
+        'duration': service.duration,
         'id': service.id,
       });
   // Get.to(() => {OwnerHomePage(currentIndex:0)});
@@ -123,7 +125,8 @@ class EditServiceForm extends StatefulWidget {
   State<EditServiceForm> createState() => _EditServiceFormState();
 }
 
-GetServiceModel service = GetServiceModel('', '', '', '', '', '', '', '', '');
+GetServiceModel service =
+    GetServiceModel('', '', '', '', '', '', '', '', '', '');
 
 class _EditServiceFormState extends State<EditServiceForm> {
   @override
@@ -246,6 +249,30 @@ class _EditServiceFormState extends State<EditServiceForm> {
                   },
                   decoration: const InputDecoration(
                     labelText: 'Image Link',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myservice..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextFormField(
+                  initialValue: widget.argumentData.duration,
+                  onChanged: (val) {
+                    service.duration = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Service Duration',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,

@@ -155,7 +155,7 @@ class _PinputExampleState extends State<PinputExample> {
               // Specify direction if desired
               textDirection: TextDirection.ltr,
               child: Pinput(
-                controller: pinController,
+                //controller: pinController,
                 focusNode: focusNode,
                 androidSmsAutofillMethod:
                     AndroidSmsAutofillMethod.smsUserConsentApi,
