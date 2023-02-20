@@ -134,25 +134,6 @@ class _CreateStorePageState extends State<CreateStorePage> {
     });
   }
 
-  TimeOfDay selectedTime = TimeOfDay.now();
-
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? picked_s = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-    );
-
-    if (picked_s != null && picked_s != selectedTime)
-      setState(() {
-        selectedTime = picked_s;
-        final localizations = MaterialLocalizations.of(context);
-        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
-        var start = formattedTimeOfDay;
-        var end = formattedTimeOfDay;
-        print(start);
-      });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -177,15 +158,6 @@ class _CreateStorePageState extends State<CreateStorePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: TextButton(
-                  onPressed: () {
-                    _selectTime(context);
-                  },
-                  child: const Text('Choose Time'),
-                ),
-              ),
               Container(
                 height: 100,
                 padding: const EdgeInsets.only(right: 60),
@@ -259,6 +231,44 @@ class CreateStoreForm extends StatefulWidget {
 StoreModel shop = StoreModel('', '', '', '', '', '', '', ' ');
 
 class _CreateStoreFormState extends State<CreateStoreForm> {
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+  Future<void> _selectOpeningTime(BuildContext context) async {
+    final TimeOfDay? picked_s = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+    if (picked_s != null && picked_s != selectedTime) {
+      setState(() {
+        selectedTime = picked_s;
+        final localizations = MaterialLocalizations.of(context);
+        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
+        var start = formattedTimeOfDay;
+        var end = formattedTimeOfDay;
+        shop.start = start;
+        print(start);
+      });
+    }
+  }
+
+  Future<void> _selectClosingTime(BuildContext context) async {
+    final TimeOfDay? picked_s = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+    if (picked_s != null && picked_s != selectedTime) {
+      setState(() {
+        selectedTime = picked_s;
+        final localizations = MaterialLocalizations.of(context);
+        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
+        var start = formattedTimeOfDay;
+        var end = formattedTimeOfDay;
+        shop.end = end;
+        print(start);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -370,54 +380,91 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
               ),
               Container(
                 height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                // padding: const EdgeInsets.symmetric(vertical: 12.0),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
-                  // //controller: descriptionController,
-                  onChanged: (val) {
-                    shop.start = val;
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Store Start time',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                child: Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        _selectOpeningTime(context);
+                      },
+                      child: Container(
+                        color: Colors.blue,
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Chose Opening Time',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
                     ),
-                    // hintText: 'myshop..',
-                  ),
+                    Text(
+                      shop.start,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    )
+                  ],
                 ),
               ),
               Container(
                 height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                // padding: const EdgeInsets.symmetric(vertical: 6.0),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
-                  // //controller: descriptionController,
-                  onChanged: (val) {
-                    shop.end = val;
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Closing Time',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                child: Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        _selectClosingTime(context);
+                      },
+                      child: Container(
+                        color: Colors.blue,
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Chose Closing Time',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
                     ),
-                    // hintText: 'myshop..',
-                  ),
+                    Text(
+                      shop.end,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    )
+                  ],
                 ),
               ),
+              // Container(
+              //   height: 80,
+              //   padding: const EdgeInsets.symmetric(vertical: 12.0),
+              //   clipBehavior: Clip.antiAlias,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(22),
+              //   ),
+              //   child: TextField(
+              //     // //controller: descriptionController,
+              //     onChanged: (val) {
+              //       shop.end = val;
+              //     },
+              //     keyboardType: TextInputType.number,
+              //     decoration: const InputDecoration(
+              //       labelText: 'Closing Time',
+              //       labelStyle: TextStyle(
+              //         fontFamily: 'Montserrat',
+              //         fontSize: 14,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.grey,
+              //       ),
+              //       // hintText: 'myshop..',
+              //     ),
+              //   ),
+              // ),
               Container(
                 height: 80,
                 padding: const EdgeInsets.symmetric(vertical: 12.0),

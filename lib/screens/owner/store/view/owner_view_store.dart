@@ -291,6 +291,7 @@ class OwnerViewStorePage extends StatelessWidget {
                                     style:
                                         Theme.of(context).textTheme.subtitle2,
                                   ),
+                                  addVerticalSpace(30)
                                 ],
                               );
                             }));

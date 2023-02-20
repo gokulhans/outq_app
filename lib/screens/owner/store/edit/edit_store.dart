@@ -105,7 +105,7 @@ class _EditStorePageState extends State<EditStorePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Fill Your Shop Details',
+                      'Edit Your Shop Details',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.headline3,
                     ),
@@ -137,6 +137,44 @@ class EditStoreForm extends StatefulWidget {
 Store shop = Store('', '', '', '', '', '', '', '', '', '');
 
 class _EditStoreFormState extends State<EditStoreForm> {
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+  Future<void> _selectOpeningTime(BuildContext context) async {
+    final TimeOfDay? picked_s = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+    if (picked_s != null && picked_s != selectedTime) {
+      setState(() {
+        selectedTime = picked_s;
+        final localizations = MaterialLocalizations.of(context);
+        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
+        var start = formattedTimeOfDay;
+        var end = formattedTimeOfDay;
+        shop.start = start;
+        print(start);
+      });
+    }
+  }
+
+  Future<void> _selectClosingTime(BuildContext context) async {
+    final TimeOfDay? picked_s = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+    if (picked_s != null && picked_s != selectedTime) {
+      setState(() {
+        selectedTime = picked_s;
+        final localizations = MaterialLocalizations.of(context);
+        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
+        var start = formattedTimeOfDay;
+        var end = formattedTimeOfDay;
+        shop.end = end;
+        print(start);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -241,58 +279,121 @@ class _EditStoreFormState extends State<EditStoreForm> {
                   ),
                 ),
               ),
+
               Container(
                 height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                // padding: const EdgeInsets.symmetric(vertical: 12.0),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextFormField(
-                  initialValue: widget.argumentData.start,
-                  // controller: descriptionController,
-                  onChanged: (val) {
-                    shop.start = val;
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Store Start time',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                child: Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        _selectOpeningTime(context);
+                      },
+                      child: Container(
+                        color: Colors.blue,
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Edit Opening Time',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
                     ),
-                    // hintText: 'myshop..',
-                  ),
+                    Text(
+                      shop.start,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    )
+                  ],
                 ),
               ),
               Container(
                 height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                // padding: const EdgeInsets.symmetric(vertical: 6.0),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextFormField(
-                  initialValue: widget.argumentData.end,
-                  // controller: descriptionController,
-                  onChanged: (val) {
-                    shop.end = val;
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Closing Time',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                child: Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        _selectClosingTime(context);
+                      },
+                      child: Container(
+                        color: Colors.blue,
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Edit Closing Time',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
                     ),
-                    // hintText: 'myshop..',
-                  ),
+                    Text(
+                      shop.end,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    )
+                  ],
                 ),
               ),
+              // Container(
+              //   height: 80,
+              //   padding: const EdgeInsets.symmetric(vertical: 12.0),
+              //   clipBehavior: Clip.antiAlias,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(22),
+              //   ),
+              //   child: TextFormField(
+              //     initialValue: widget.argumentData.start,
+              //     // controller: descriptionController,
+              //     onChanged: (val) {
+              //       shop.start = val;
+              //     },
+              //     keyboardType: TextInputType.number,
+              //     decoration: const InputDecoration(
+              //       labelText: 'Store Start time',
+              //       labelStyle: TextStyle(
+              //         fontFamily: 'Montserrat',
+              //         fontSize: 14,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.grey,
+              //       ),
+              //       // hintText: 'myshop..',
+              //     ),
+              //   ),
+              // ),
+              // Container(
+              //   height: 80,
+              //   padding: const EdgeInsets.symmetric(vertical: 12.0),
+              //   clipBehavior: Clip.antiAlias,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(22),
+              //   ),
+              //   child: TextFormField(
+              //     initialValue: widget.argumentData.end,
+              //     // controller: descriptionController,
+              //     onChanged: (val) {
+              //       shop.end = val;
+              //     },
+              //     keyboardType: TextInputType.number,
+              //     decoration: const InputDecoration(
+              //       labelText: 'Closing Time',
+              //       labelStyle: TextStyle(
+              //         fontFamily: 'Montserrat',
+              //         fontSize: 14,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.grey,
+              //       ),
+              //       // hintText: 'myshop..',
+              //     ),
+              //   ),
+              // ),
               Container(
                 height: 80,
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
