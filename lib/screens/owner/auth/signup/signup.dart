@@ -15,7 +15,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 bool isLoading = false;
 
-
 class OwnerSignUpPage extends StatefulWidget {
   const OwnerSignUpPage({super.key});
 
@@ -136,7 +135,33 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
                       const SizedBox(height: 10.0),
-                      TextField(
+                      // TextField(
+                      //   controller: emailController,
+                      //   onChanged: (val) {
+                      //     owners.email = val;
+                      //   },
+                      //   decoration: const InputDecoration(
+                      //       labelText: 'Email',
+                      //       labelStyle: TextStyle(
+                      //           fontFamily: 'Montserrat',
+                      //           fontWeight: FontWeight.bold,
+                      //           color: Colors.grey),
+                      //       // hintText: 'EMAIL',
+                      //       // hintStyle: ,
+                      //       focusedBorder: UnderlineInputBorder(
+                      //           borderSide: BorderSide(color: Colors.green))),
+                      // ),
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          // Check if the entered text is a valid email address using a regex pattern
+                          if (value!.isEmpty ||
+                              !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                  .hasMatch(value)) {
+                            return 'Please enter a valid email address';
+                          }
+                        },
                         controller: emailController,
                         onChanged: (val) {
                           owners.email = val;
@@ -192,7 +217,52 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                                   isLoading = true;
                                 });
                                 print("saved");
-                                save();
+                                if (owners.email!.isEmpty ||
+                                    !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                        .hasMatch(owners.email)) {
+                                  Get.snackbar(
+                                    "Invalid Email",
+                                    "Enter Valid Email Address",
+                                    icon: const Icon(Icons.person,
+                                        color: Colors.white),
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    borderRadius: 12,
+                                    margin: const EdgeInsets.all(15),
+                                    colorText: Colors.white,
+                                    duration: const Duration(seconds: 3),
+                                    isDismissible: true,
+                                    dismissDirection:
+                                        DismissDirection.horizontal,
+                                    forwardAnimationCurve: Curves.bounceIn,
+                                  );
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                } else if (owners.name.isEmpty ||
+                                    owners.pswd.isEmpty) {
+                                  Get.snackbar(
+                                    "Fill Every Field",
+                                    "Fill every fields to continue",
+                                    icon: const Icon(Icons.person,
+                                        color: Colors.white),
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    borderRadius: 12,
+                                    margin: const EdgeInsets.all(15),
+                                    colorText: Colors.white,
+                                    duration: const Duration(seconds: 3),
+                                    isDismissible: true,
+                                    dismissDirection:
+                                        DismissDirection.horizontal,
+                                    forwardAnimationCurve: Curves.bounceIn,
+                                  );
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                } else {
+                                  save();
+                                }
                               },
                               child: isLoading
                                   ? const Center(

@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
@@ -16,7 +18,7 @@ Future save(BuildContext context) async {
   var storeid = pref.getString("storeid") ?? "null";
   var ownerid = pref.getString("ownerid") ?? "null";
 
-  http.post(
+  final response = await http.post(
       Uri.parse(
         "${apidomain}service/create/",
       ),
@@ -34,10 +36,19 @@ Future save(BuildContext context) async {
       });
   // Get.to(() => {OwnerHomePage(currentIndex:0)});
   // Navigator.of(context).pop();
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-          builder: (BuildContext context) => OwnerHomePage(currentIndex: 2)),
-      (Route<dynamic> route) => false);
+
+  if (response.statusCode == 201) {
+    var jsonData = jsonDecode(response.body);
+    print(jsonData);
+    print(jsonData["success"]);
+    if (jsonData["success"]) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  OwnerHomePage(currentIndex: 2)),
+          (Route<dynamic> route) => false);
+    }
+  }
 }
 
 class CreateServicePage extends StatefulWidget {
@@ -245,7 +256,28 @@ class _CreateServiceFormState extends State<CreateServiceForm> {
                 child: Center(
                   child: TextButton(
                     onPressed: () {
-                      save(context);
+                      if (service.name.isEmpty ||
+                          service.description.isEmpty ||
+                          service.price.isEmpty ||
+                          service.img.isEmpty ||
+                          service.ogprice.isEmpty) {
+                        Get.snackbar(
+                          "Fill Every Field",
+                          "Fill every fields to continue",
+                          icon: const Icon(Icons.person, color: Colors.white),
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.red,
+                          borderRadius: 12,
+                          margin: const EdgeInsets.all(15),
+                          colorText: Colors.white,
+                          duration: const Duration(seconds: 3),
+                          isDismissible: true,
+                          dismissDirection: DismissDirection.horizontal,
+                          forwardAnimationCurve: Curves.bounceIn,
+                        );
+                      } else {
+                        save(context);
+                      }
                     },
                     child: Text(
                       "Save",

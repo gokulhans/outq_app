@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -26,7 +27,7 @@ Future save(BuildContext context) async {
   }
 
   print({shop.name, shop.type, shop.description, shop.location});
-  http.post(
+  final response = await http.post(
       Uri.parse(
         apidomain + "store/register/",
       ),
@@ -45,9 +46,17 @@ Future save(BuildContext context) async {
         'employees': shop.employees,
       });
 
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (BuildContext context) => OwnerExithome()),
-      (Route<dynamic> route) => false);
+  if (response.statusCode == 201) {
+    var jsonData = jsonDecode(response.body);
+    print(jsonData);
+    print(jsonData["success"]);
+    if (jsonData["success"]) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => OwnerExithome()),
+          (Route<dynamic> route) => false);
+    }
+  }
+
 }
 
 class CreateStorePage extends StatefulWidget {
@@ -432,7 +441,31 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                     ),
                     onPressed: () {
                       shop.type = "null";
-                      save(context);
+                      if (shop.name.isEmpty ||
+                          shop.description.isEmpty ||
+                          shop.type.isEmpty ||
+                          shop.img.isEmpty ||
+                          shop.start.isEmpty ||
+                          shop.end.isEmpty ||
+                          shop.location.isEmpty ||
+                          shop.employees.isEmpty) {
+                        Get.snackbar(
+                          "Fill Every Field",
+                          "Fill every fields to continue",
+                          icon: const Icon(Icons.person, color: Colors.white),
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor: Colors.red,
+                          borderRadius: 12,
+                          margin: const EdgeInsets.all(15),
+                          colorText: Colors.white,
+                          duration: const Duration(seconds: 3),
+                          isDismissible: true,
+                          dismissDirection: DismissDirection.horizontal,
+                          forwardAnimationCurve: Curves.bounceIn,
+                        );
+                      } else {
+                        save(context);
+                      }
                     },
                   ),
                 ),

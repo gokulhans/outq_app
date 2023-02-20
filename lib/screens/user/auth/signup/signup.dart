@@ -87,11 +87,9 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("userid", str);
-    // Get.to(() => {UserExitHome(currentIndex:0)});
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-            builder: (BuildContext context) => const UserExithome()),
-        (Route<dynamic> route) => false);
+    // Get.offAll(() => {UserExithome()});
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (BuildContext context) => const UserExithome()));
   }
 
   String _currentAddress = "";
@@ -204,7 +202,17 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
                       const SizedBox(height: 10.0),
-                      TextField(
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (value) {
+                          // Check if the entered text is a valid email address using a regex pattern
+                          if (value!.isEmpty ||
+                              !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                  .hasMatch(value)) {
+                            return 'Please enter a valid email address';
+                          }
+                        },
                         controller: emailController,
                         onChanged: (val) {
                           users.email = val;
@@ -237,23 +245,23 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
-                      // TextFormField(
-                      //   // controller: emailController,
-                      //   initialValue: users.location,
-                      //   onChanged: (val) {
-                      //     users.location = val;
-                      //   },
-                      //   decoration: const InputDecoration(
-                      //       labelText: 'Address',
-                      //       labelStyle: TextStyle(
-                      //           fontFamily: 'Montserrat',
-                      //           fontWeight: FontWeight.bold,
-                      //           color: Colors.grey),
-                      //       // hintText: 'EMAIL',
-                      //       // hintStyle: ,
-                      //       focusedBorder: UnderlineInputBorder(
-                      //           borderSide: BorderSide(color: Colors.green))),
-                      // ),
+                      TextFormField(
+                        // controller: emailController,
+                        initialValue: users.location,
+                        onChanged: (val) {
+                          users.location = val;
+                        },
+                        decoration: const InputDecoration(
+                            labelText: 'Address',
+                            labelStyle: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey),
+                            // hintText: 'EMAIL',
+                            // hintStyle: ,
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.green))),
+                      ),
                       TextFormField(
                         // controller: emailController,
                         initialValue: users.location,
@@ -307,7 +315,55 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                   isLoading = true;
                                 });
                                 print("saved");
-                                signup_save(context);
+                                if (users.email!.isEmpty ||
+                                    !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                        .hasMatch(users.email)) {
+                                  Get.snackbar(
+                                    "Invalid Email",
+                                    "Enter Valid Email Address",
+                                    icon: const Icon(Icons.person,
+                                        color: Colors.white),
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    borderRadius: 12,
+                                    margin: const EdgeInsets.all(15),
+                                    colorText: Colors.white,
+                                    duration: const Duration(seconds: 3),
+                                    isDismissible: true,
+                                    dismissDirection:
+                                        DismissDirection.horizontal,
+                                    forwardAnimationCurve: Curves.bounceIn,
+                                  );
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                } else if (users.name.isEmpty ||
+                                    users.pswd.isEmpty ||
+                                    users.phone.isEmpty ||
+                                    users.location.isEmpty ||
+                                    users.pincode.isEmpty) {
+                                  Get.snackbar(
+                                    "Fill Every Field",
+                                    "Fill every fields to continue",
+                                    icon: const Icon(Icons.person,
+                                        color: Colors.white),
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    borderRadius: 12,
+                                    margin: const EdgeInsets.all(15),
+                                    colorText: Colors.white,
+                                    duration: const Duration(seconds: 3),
+                                    isDismissible: true,
+                                    dismissDirection:
+                                        DismissDirection.horizontal,
+                                    forwardAnimationCurve: Curves.bounceIn,
+                                  );
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                } else {
+                                  signup_save(context);
+                                }
                               },
                               child: isLoading
                                   ? const Center(
