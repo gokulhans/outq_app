@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,9 @@ import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geocoding/geocoding.dart';
+
+bool isVisible = false;
+bool isButtonVisible = true;
 
 Future save(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -56,7 +60,6 @@ Future save(BuildContext context) async {
           (Route<dynamic> route) => false);
     }
   }
-
 }
 
 class CreateStorePage extends StatefulWidget {
@@ -124,6 +127,8 @@ class _CreateStorePageState extends State<CreateStorePage> {
       });
       print(_currentAddress);
       shop.location = _currentAddress;
+      isVisible = true;
+      isButtonVisible = false;
     }).catchError((e) {
       debugPrint(e);
     });
@@ -149,6 +154,7 @@ class _CreateStorePageState extends State<CreateStorePage> {
         color: Colors.white,
         height: double.infinity,
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -171,22 +177,36 @@ class _CreateStorePageState extends State<CreateStorePage> {
                   ],
                 ),
               ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Text('LAT: ${_currentPosition?.latitude ?? ""}'),
-                    // Text('LNG: ${_currentPosition?.longitude ?? ""}'),
-                    // Text('ADDRESS: ${_currentAddress ?? ""}'),
-                    const SizedBox(height: 32),
-                    ElevatedButton(
-                      onPressed: _getCurrentPosition,
-                      child: const Text("Get Current Location"),
+              isButtonVisible
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Text('LAT: ${_currentPosition?.latitude ?? ""}'),
+                          // Text('LNG: ${_currentPosition?.longitude ?? ""}'),
+                          // Text('ADDRESS: ${_currentAddress ?? ""}'),
+                          const SizedBox(height: 32),
+                          ElevatedButton(
+                            onPressed: _getCurrentPosition,
+                            child: const Text(
+                                "Fetch Your Current Location to Continue"),
+                          )
+                        ],
+                      ),
                     )
-                  ],
-                ),
-              ),
-              CreateStoreForm(location: _currentAddress),
+                  : Container(),
+              isVisible
+                  ? CreateStoreForm(location: _currentAddress)
+                  : Column(
+                      children: [
+                        addVerticalSpace(100),
+                        const Center(
+                            child: SpinKitCircle(
+                          color: Colors.blue,
+                          size: 50.0,
+                        )),
+                      ],
+                    ),
             ],
           ),
         ),

@@ -163,6 +163,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(tDefaultSize),
           child: Column(

@@ -96,6 +96,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(tDefaultSize),
             child:

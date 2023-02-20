@@ -73,6 +73,7 @@ class _CreateServicePageState extends State<CreateServicePage> {
         color: Colors.white,
         height: double.infinity,
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

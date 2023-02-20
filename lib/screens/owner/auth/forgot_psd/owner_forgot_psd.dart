@@ -49,6 +49,7 @@ class _OwnerForgotPsdPageState extends State<OwnerForgotPsdPage> {
         color: Colors.white,
         height: double.infinity,
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

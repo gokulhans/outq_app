@@ -97,6 +97,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(tDefaultSize),
             child:

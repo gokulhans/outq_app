@@ -48,6 +48,7 @@ class _UserOtpPageState extends State<UserOtpPage> {
         color: Colors.white,
         height: double.infinity,
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
