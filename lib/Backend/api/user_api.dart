@@ -61,6 +61,7 @@ Future getUserBookings() async {
   var response =
       await http.get(Uri.parse('${apidomain}booking/viewall/$userid'));
   var jsonData = jsonDecode(response.body);
+  print("object");
   print(jsonData);
 
   List<GetBookingModel> bookings = [];
@@ -77,6 +78,8 @@ Future getUserBookings() async {
       u["date"],
       u["servicename"],
       u["storename"],
+      u["img"],
+      u["username"],
     );
 
     bookings.add(booking);

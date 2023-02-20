@@ -46,8 +46,7 @@ Future save(BuildContext context) async {
       });
 
   Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-          builder: (BuildContext context) => OwnerExithome()),
+      MaterialPageRoute(builder: (BuildContext context) => OwnerExithome()),
       (Route<dynamic> route) => false);
 }
 
@@ -119,6 +118,12 @@ class _CreateStorePageState extends State<CreateStorePage> {
     }).catchError((e) {
       debugPrint(e);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentPosition();
   }
 
   @override

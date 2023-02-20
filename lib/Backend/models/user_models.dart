@@ -23,9 +23,21 @@ class BookingModel {
       price,
       date,
       servicename,
-      storename;
-  BookingModel(this.start, this.end, this.storeid, this.serviceid, this.userid,
-      this.price, this.date, this.servicename, this.storename);
+      storename,
+      img,
+      username;
+  BookingModel(
+      this.start,
+      this.end,
+      this.storeid,
+      this.serviceid,
+      this.userid,
+      this.price,
+      this.date,
+      this.servicename,
+      this.storename,
+      this.img,
+      this.username);
 }
 
 class GetBookingModel {
@@ -39,7 +51,9 @@ class GetBookingModel {
       price,
       date,
       servicename,
-      storename;
+      storename,
+      img,
+      username;
   GetBookingModel(
       this._id,
       this.start,
@@ -51,7 +65,9 @@ class GetBookingModel {
       this.price,
       this.date,
       this.servicename,
-      this.storename);
+      this.storename,
+      this.img,
+      this.username);
 }
 
 class TimeSlots {

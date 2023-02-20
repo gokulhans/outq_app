@@ -100,8 +100,8 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                           width: 100,
                                           height: 40,
                                           color: isFollowed
-                                              ? Colors.blue
-                                              : Colors.grey,
+                                              ? Colors.grey
+                                              : Colors.blue,
                                           child: TextButton(
                                               onPressed: () {
                                                 setState(() {
@@ -110,12 +110,12 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                               },
                                               child: isFollowed
                                                   ? const Text(
-                                                      "Follow",
+                                                      "UnFollow",
                                                       style: TextStyle(
                                                           color: Colors.white),
                                                     )
                                                   : const Text(
-                                                      "Unfollow",
+                                                      "Follow",
                                                       style: TextStyle(
                                                           color: Colors.white),
                                                     ))),
@@ -252,6 +252,7 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                                   argumentData[1],
                                                   argumentData[2],
                                                   argumentData[3],
+                                                  snapshot.data[i].img,
                                                 ]);
                                           },
                                           child: Text(

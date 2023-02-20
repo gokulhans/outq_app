@@ -15,35 +15,7 @@ import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future signup_save(BuildContext context) async {
-  print({users.name, users.email, users.pswd});
-  final response = await http.post(
-      Uri.parse(
-        "${apidomain}auth/user/register",
-      ),
-      headers: <String, String>{
-        'Context-Type': 'application/json; charset=UTF-8',
-      },
-      body: <String, String>{
-        'name': users.name,
-        'email': users.email,
-        'pswd': users.pswd,
-        'phone': users.phone,
-        'location': users.location,
-        'pincode': users.pincode,
-      });
-
-  var jsonData = jsonDecode(response.body);
-  var str = jsonData[0]["id"];
-
-  SharedPreferences pref = await SharedPreferences.getInstance();
-  pref.setString("userid", str);
-  // Get.to(() => {UserExitHome(currentIndex:0)});
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-          builder: (BuildContext context) => const UserExithome()),
-      (Route<dynamic> route) => false);
-}
+bool isLoading = false;
 
 class UserSignUpPage extends StatefulWidget {
   const UserSignUpPage({super.key});
@@ -59,6 +31,69 @@ class UserSignUpPage extends StatefulWidget {
 UserSignUpModel users = UserSignUpModel('', '', '', '', '', '');
 
 class _UserSignUpPageState extends State<UserSignUpPage> {
+  Future signup_save(BuildContext context) async {
+    print({users.name, users.email, users.pswd});
+    final response = await http.post(
+        Uri.parse(
+          "${apidomain}auth/user/register",
+        ),
+        headers: <String, String>{
+          'Context-Type': 'application/json; charset=UTF-8',
+        },
+        body: <String, String>{
+          'name': users.name,
+          'email': users.email,
+          'pswd': users.pswd,
+          'phone': users.phone,
+          'location': users.location,
+          'pincode': users.pincode,
+        });
+
+    Color? msgclr;
+    String? msg;
+    String? msgdesc;
+    var str;
+
+    if (response.statusCode == 201) {
+      var jsonData = jsonDecode(response.body);
+      str = jsonData[0]["id"];
+
+      msgclr = Colors.green[400];
+      msg = "Signup Success";
+      msgdesc = "User Signed Successfully";
+    } else {
+      msgclr = Colors.red[400];
+      msg = "Signup Failed";
+      msgdesc = "Email already in use";
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+    Get.snackbar(
+      msg,
+      msgdesc,
+      icon: const Icon(Icons.person, color: Colors.white),
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: msgclr,
+      borderRadius: 12,
+      margin: const EdgeInsets.all(15),
+      colorText: Colors.white,
+      duration: const Duration(seconds: 3),
+      isDismissible: true,
+      dismissDirection: DismissDirection.horizontal,
+      forwardAnimationCurve: Curves.bounceIn,
+    );
+
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("userid", str);
+    // Get.to(() => {UserExitHome(currentIndex:0)});
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (BuildContext context) => const UserExithome()),
+        (Route<dynamic> route) => false);
+  }
+
   String _currentAddress = "";
   String _pinCode = "";
   Position? _currentPosition;

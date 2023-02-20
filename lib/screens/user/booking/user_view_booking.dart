@@ -21,11 +21,11 @@ Future cancelBooking(BuildContext context) async {
   var response = await http.get(
     Uri.parse('${apidomain}booking/cancel/${argumentData[3]}'),
   );
-  Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-          builder: (BuildContext context) => const UserHomePage()),
-      (Route<dynamic> route) => false);
-  // Get.offAll(() => const UserHomePage());
+  // Navigator.of(context).pushAndRemoveUntil(
+  //     MaterialPageRoute(
+  //         builder: (BuildContext context) => const UserHomePage()),
+  //     (Route<dynamic> route) => false);
+  Get.to(() => const UserHomePage());
 }
 
 class UserSingleAppoinmentInfoPage extends StatefulWidget {

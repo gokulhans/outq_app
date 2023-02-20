@@ -15,6 +15,8 @@ import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+bool isLoading = false;
+
 class OwnerLoginPage extends StatefulWidget {
   const OwnerLoginPage({super.key});
 
@@ -43,11 +45,44 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
           'pswd': owners.pswd,
         });
 
-    var jsonData = jsonDecode(response.body);
-    var ownerid = jsonData[0]["id"];
-    var storeid = jsonData[0]["storeid"];
+    Color? msgclr;
+    String? msg;
+    String? msgdesc;
+    var str;
+    var ownerid, storeid;
     print(storeid);
     print(ownerid);
+
+    if (response.statusCode == 201) {
+      var jsonData = jsonDecode(response.body);
+      ownerid = jsonData[0]["id"];
+      storeid = jsonData[0]["storeid"];
+      msgclr = Colors.green[400];
+      msg = "Login Success";
+      msgdesc = "User Logined Successfully";
+    } else {
+      msgclr = Colors.red[400];
+      msg = "Login Failed";
+      msgdesc = "Incorrect Email or Password";
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+    Get.snackbar(
+      msg,
+      msgdesc,
+      icon: const Icon(Icons.person, color: Colors.white),
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: msgclr,
+      borderRadius: 12,
+      margin: const EdgeInsets.all(15),
+      colorText: Colors.white,
+      duration: const Duration(seconds: 3),
+      isDismissible: true,
+      dismissDirection: DismissDirection.horizontal,
+      forwardAnimationCurve: Curves.bounceIn,
+    );
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("ownerid", ownerid);

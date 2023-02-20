@@ -236,6 +236,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                                 snapshot.data[i].storename,
                                 snapshot.data[i].price,
                                 snapshot.data[i].bookingid,
+                                snapshot.data[i].username,
                               ]),
                           child: Row(
                             children: [
@@ -250,9 +251,9 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                                     child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(12.0),
-                                        child: const Image(
-                                            image: AssetImage(
-                                                'assets/images/userImage.png'))),
+                                        child: Image(
+                                            image: NetworkImage(
+                                                snapshot.data[i].img))),
                                   ),
                                 ),
                               ),
@@ -274,7 +275,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                                               .subtitle1,
                                         ),
                                         Text(
-                                          snapshot.data[i].price,
+                                          snapshot.data[i].username,
                                           textAlign: TextAlign.left,
                                           style: Theme.of(context)
                                               .textTheme

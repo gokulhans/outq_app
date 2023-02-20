@@ -131,6 +131,8 @@ Future getStoreServiceBooking() async {
       u["date"],
       u["servicename"],
       u["storename"],
+      u["img"],
+      u["username"],
     );
     bookings.add(booking);
   }

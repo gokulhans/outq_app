@@ -100,9 +100,9 @@ class _UserViewBookingsPageState extends State<UserViewBookingsPage> {
                                     child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(12.0),
-                                        child: const Image(
-                                            image: AssetImage(
-                                                'assets/images/userImage.png'))),
+                                        child: Image(
+                                            image: NetworkImage(
+                                                snapshot.data[i].img))),
                                   ),
                                 ),
                               ),

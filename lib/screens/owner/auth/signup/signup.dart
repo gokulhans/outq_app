@@ -13,6 +13,9 @@ import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+bool isLoading = false;
+
+
 class OwnerSignUpPage extends StatefulWidget {
   const OwnerSignUpPage({super.key});
 
@@ -42,8 +45,41 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
           'pswd': owners.pswd,
         });
 
-    var jsonData = jsonDecode(response.body);
-    var str = jsonData[0]["id"];
+    Color? msgclr;
+    String? msg;
+    String? msgdesc;
+    var str;
+
+    if (response.statusCode == 201) {
+      var jsonData = jsonDecode(response.body);
+      str = jsonData[0]["id"];
+
+      msgclr = Colors.green[400];
+      msg = "Signup Success";
+      msgdesc = "User Signed Successfully";
+    } else {
+      msgclr = Colors.red[400];
+      msg = "Signup Failed";
+      msgdesc = "Email already in use";
+      setState(() {
+        isLoading = false;
+      });
+    }
+
+    Get.snackbar(
+      msg,
+      msgdesc,
+      icon: const Icon(Icons.person, color: Colors.white),
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: msgclr,
+      borderRadius: 12,
+      margin: const EdgeInsets.all(15),
+      colorText: Colors.white,
+      duration: const Duration(seconds: 3),
+      isDismissible: true,
+      dismissDirection: DismissDirection.horizontal,
+      forwardAnimationCurve: Curves.bounceIn,
+    );
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setString("ownerid", str);

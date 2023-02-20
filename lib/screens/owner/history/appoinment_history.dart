@@ -64,13 +64,18 @@ class _OwnerAppoinmentHistoryPageState
                 ));
               } else {
                 if (snapshot.data.length == 0) {
-                  return const Center(
-                      child: Text(
-                    'No Booking is available right now.',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ));
+                  return Column(
+                    children: [
+                      addVerticalSpace(50),
+                      const Center(
+                          child: Text(
+                        'No Appoinment is Done.',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                        ),
+                      )),
+                    ],
+                  );
                 } else {
                   return Expanded(
                     flex: 3,

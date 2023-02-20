@@ -32,10 +32,10 @@ Future save(BuildContext context) async {
   }
 
   getTimeSlots(booking.serviceid, booking.date);
-  // print({shop.name, shop.type, shop.description, shop.location});
+  print({booking.start});
   final response = await http.post(
       Uri.parse(
-        apidomain + "booking/",
+        "${apidomain}booking/",
       ),
       headers: <String, String>{
         'Context-Type': 'application/json; charset=UTF-8',
@@ -50,6 +50,8 @@ Future save(BuildContext context) async {
         'date': booking.date,
         'servicename': argumentData[3],
         'storename': argumentData[5],
+        'img': argumentData[8],
+        'username': userid,
       });
   print(response);
   var jsonData = jsonDecode(response.body);
@@ -67,7 +69,7 @@ Future save(BuildContext context) async {
   }
 }
 
-BookingModel booking = BookingModel('', '', '', '', '', '', '', '', ' ');
+BookingModel booking = BookingModel('', '', '', '', '', '', '', '', '', '', '');
 
 class Button extends StatelessWidget {
   const Button(
@@ -168,9 +170,9 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   @override
   Widget build(BuildContext context) {
     dynamic argumentData = Get.arguments;
-    int start = 12 - int.parse(argumentData[6]);
-    int end = int.parse(argumentData[7]);
-    int hours = start + end + 1;
+    // int start = 12 - int.parse(argumentData[6]);
+    // int end = int.parse(argumentData[7]);
+    // int hours = start + end + 1;
     // Config().init(context);
     // final doctor = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
@@ -310,7 +312,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                             ),
                                             alignment: Alignment.center,
                                             child: Text(
-                                              argumentData[6],
+                                              snapshot.data[index].start,
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.bold,
@@ -348,13 +350,13 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 4, childAspectRatio: 1.6),
-                              itemCount: hours,
+                              itemCount: 10,
                               itemBuilder: (BuildContext context, int index) {
                                 return InkWell(
                                   splashColor: Colors.transparent,
                                   onTap: () {
                                     booking.start =
-                                        "${index + argumentData[6]}:00 ${index + 9 > 11 ? "PM" : "AM"}";
+                                        "${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}";
                                     print(booking.start);
                                     setState(() {
                                       _currentIndex = index;
@@ -543,7 +545,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                 booking.serviceid = argumentData[0];
                                 booking.storeid = argumentData[2];
                                 booking.price = argumentData[4];
-                                // booking.price = argumentData[2];
+                                booking.img = argumentData[8];
                                 save(context);
                               },
                             ),
