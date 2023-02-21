@@ -45,8 +45,8 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
           'email': users.email,
           'pswd': users.pswd,
           'phone': users.phone,
-          'location': users.location,
-          'pincode': users.pincode,
+          'location': "",
+          'pincode': "",
         });
 
     Color? msgclr;
@@ -92,69 +92,69 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
         builder: (BuildContext context) => const UserExithome()));
   }
 
-  String _currentAddress = "";
-  String _pinCode = "";
-  Position? _currentPosition;
+  // String _currentAddress = "";
+  // String _pinCode = "";
+  // Position? _currentPosition;
 
-  Future<bool> _handleLocationPermission() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+  // Future<bool> _handleLocationPermission() async {
+  //   bool serviceEnabled;
+  //   LocationPermission permission;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location services are disabled. Please enable the services')));
-      return false;
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
-        return false;
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.')));
-      return false;
-    }
-    return true;
-  }
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         content: Text(
+  //             'Location services are disabled. Please enable the services')));
+  //     return false;
+  //   }
+  //   permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.denied) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //           const SnackBar(content: Text('Location permissions are denied')));
+  //       return false;
+  //     }
+  //   }
+  //   if (permission == LocationPermission.deniedForever) {
+  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         content: Text(
+  //             'Location permissions are permanently denied, we cannot request permissions.')));
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
-  Future<void> _getCurrentPosition() async {
-    final hasPermission = await _handleLocationPermission();
+  // Future<void> _getCurrentPosition() async {
+  //   final hasPermission = await _handleLocationPermission();
 
-    if (!hasPermission) return;
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      setState(() => _currentPosition = position);
-      _getAddressFromLatLng(_currentPosition!);
-    }).catchError((e) {
-      debugPrint(e);
-    });
-  }
+  //   if (!hasPermission) return;
+  //   await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+  //       .then((Position position) {
+  //     setState(() => _currentPosition = position);
+  //     _getAddressFromLatLng(_currentPosition!);
+  //   }).catchError((e) {
+  //     debugPrint(e);
+  //   });
+  // }
 
-  Future<void> _getAddressFromLatLng(Position position) async {
-    await placemarkFromCoordinates(
-            _currentPosition!.latitude, _currentPosition!.longitude)
-        .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
-      print(place.country);
-      setState(() {
-        _pinCode = '${place.postalCode}';
-        _currentAddress =
-            '${place.administrativeArea}, ${place.locality}, ${place.thoroughfare}, ${place.postalCode}';
-      });
-      print(_currentAddress);
-      users.location = _currentAddress;
-    }).catchError((e) {
-      debugPrint(e);
-    });
-  }
+  // Future<void> _getAddressFromLatLng(Position position) async {
+  //   await placemarkFromCoordinates(
+  //           _currentPosition!.latitude, _currentPosition!.longitude)
+  //       .then((List<Placemark> placemarks) {
+  //     Placemark place = placemarks[0];
+  //     print(place.country);
+  //     setState(() {
+  //       _pinCode = '${place.postalCode}';
+  //       _currentAddress =
+  //           '${place.administrativeArea}, ${place.locality}, ${place.thoroughfare}, ${place.postalCode}';
+  //     });
+  //     print(_currentAddress);
+  //     users.location = _currentAddress;
+  //   }).catchError((e) {
+  //     debugPrint(e);
+  //   });
+  // }
 
   bool isLoading = false;
 
@@ -247,41 +247,66 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                             focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.green))),
                       ),
-                      TextFormField(
-                        // //controller: emailController,
-                        // initialValue: users.location,
-                        onChanged: (val) {
-                          users.location = val;
-                        },
-                        decoration: const InputDecoration(
-                            labelText: 'Address',
-                            labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                            // hintText: 'EMAIL',
-                            // hintStyle: ,
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green))),
-                      ),
-                      TextFormField(
-                        // //controller: emailController,
-                        // initialValue: users.location,
-                        onChanged: (val) {
-                          users.pincode = val;
-                        },
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                            labelText: 'Pincode',
-                            labelStyle: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                            // hintText: 'EMAIL',
-                            // hintStyle: ,
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.green))),
-                      ),
+                      //          Container(
+                      //   height: 80,
+                      //   padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      //   clipBehavior: Clip.antiAlias,
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(22),
+                      //   ),
+                      //   child: TextFormField(
+                      //     // //controller: locationController,
+                      //     // initialValue: widget.location,
+                      //     onChanged: (val) {
+                      //       users.location = val;
+                      //     },
+                      //     decoration: const InputDecoration(
+                      //       labelText: 'Location',
+                      //       labelStyle: TextStyle(
+                      //         fontSize: 14,
+                      //         fontFamily: 'Montserrat',
+                      //         fontWeight: FontWeight.bold,
+                      //         color: Colors.grey,
+                      //       ),
+                      //       // hintText: 'myshop..',
+                      //     ),
+                      //   ),
+                      // ),
+                      // TextFormField(
+                      //   // //controller: emailController,
+                      //   // initialValue: users.location,
+                      //   onChanged: (val) {
+                      //     users.location = val;
+                      //   },
+                      //   decoration: const InputDecoration(
+                      //       labelText: 'Address',
+                      //       labelStyle: TextStyle(
+                      //           fontFamily: 'Montserrat',
+                      //           fontWeight: FontWeight.bold,
+                      //           color: Colors.grey),
+                      //       // hintText: 'EMAIL',
+                      //       // hintStyle: ,
+                      //       focusedBorder: UnderlineInputBorder(
+                      //           borderSide: BorderSide(color: Colors.green))),
+                      // ),
+                      // TextFormField(
+                      //   // //controller: emailController,
+                      //   // initialValue: users.location,
+                      //   onChanged: (val) {
+                      //     users.pincode = val;
+                      //   },
+                      //   keyboardType: TextInputType.number,
+                      //   decoration: const InputDecoration(
+                      //       labelText: 'Pincode',
+                      //       labelStyle: TextStyle(
+                      //           fontFamily: 'Montserrat',
+                      //           fontWeight: FontWeight.bold,
+                      //           color: Colors.grey),
+                      //       // hintText: 'EMAIL',
+                      //       // hintStyle: ,
+                      //       focusedBorder: UnderlineInputBorder(
+                      //           borderSide: BorderSide(color: Colors.green))),
+                      // ),
                       const SizedBox(height: 10.0),
                       TextField(
                         // //controller: pswdController,
@@ -341,9 +366,10 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                   });
                                 } else if (users.name.isEmpty ||
                                     users.pswd.isEmpty ||
-                                    users.phone.isEmpty ||
-                                    users.location.isEmpty ||
-                                    users.pincode.isEmpty) {
+                                    users.phone.isEmpty
+                                    // users.location.isEmpty ||
+                                    // users.pincode.isEmpty
+                                    ) {
                                   Get.snackbar(
                                     "Fill Every Field",
                                     "Fill every fields to continue",

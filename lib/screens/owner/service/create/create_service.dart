@@ -33,6 +33,7 @@ Future save(BuildContext context) async {
         'img': service.img,
         'storeid': storeid,
         'ownerid': ownerid,
+        'duration': service.duration,
       });
   // Get.to(() => {OwnerHomePage(currentIndex:0)});
   // Navigator.of(context).pop();
@@ -255,11 +256,11 @@ class _CreateServiceFormState extends State<CreateServiceForm> {
                   },
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                    labelText: 'Service Duration',
+                    labelText: 'Service Duration in Minutes',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: Colors.red,
                     ),
                     // hintText: 'myservice..',
                   ),

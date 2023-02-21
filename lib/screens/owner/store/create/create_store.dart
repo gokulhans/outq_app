@@ -48,6 +48,9 @@ Future save(BuildContext context) async {
         'start': shop.start,
         'end': shop.end,
         'employees': shop.employees,
+        'longitude': shop.longitude,
+        'latitude': shop.latitude,
+        'pincode': shop.pincode,
       });
 
   if (response.statusCode == 201) {
@@ -88,8 +91,9 @@ class _CreateStorePageState extends State<CreateStorePage> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content:
+                Text('Location permissions are denied. Enable to Continue')));
         return false;
       }
     }
@@ -105,7 +109,10 @@ class _CreateStorePageState extends State<CreateStorePage> {
   Future<void> _getCurrentPosition() async {
     final hasPermission = await _handleLocationPermission();
 
-    if (!hasPermission) return;
+    if (!hasPermission) {
+      Geolocator.openLocationSettings();
+    }
+    // return;
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
       setState(() => _currentPosition = position);
@@ -125,8 +132,11 @@ class _CreateStorePageState extends State<CreateStorePage> {
         _currentAddress =
             '${place.administrativeArea}, ${place.locality}, ${place.thoroughfare}, ${place.postalCode}';
       });
-      print(_currentAddress);
+      print({_currentAddress, _currentPosition});
       shop.location = _currentAddress;
+      shop.longitude = _currentPosition!.longitude.toString();
+      shop.latitude = _currentPosition!.latitude.toString();
+      shop.pincode = place.postalCode.toString();
       isVisible = true;
       isButtonVisible = false;
     }).catchError((e) {
@@ -228,7 +238,7 @@ class CreateStoreForm extends StatefulWidget {
 // TextEditingController descriptionController = TextEditingController(text: '');
 // TextEditingController locationController = TextEditingController(text: '');
 
-StoreModel shop = StoreModel('', '', '', '', '', '', '', ' ');
+StoreModel shop = StoreModel('', '', '', '', '', '', '', ' ', '', '', '');
 
 class _CreateStoreFormState extends State<CreateStoreForm> {
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -288,7 +298,8 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
+                child: TextFormField(
+                  initialValue: shop.name,
                   // //controller: nameController,
                   onChanged: (val) {
                     shop.name = val;
@@ -337,7 +348,8 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
+                child: TextFormField(
+                  initialValue: shop.description,
                   // //controller: descriptionController,
                   onChanged: (val) {
                     shop.description = val;
@@ -361,13 +373,40 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                 ),
-                child: TextField(
+                child: TextFormField(
+                  initialValue: shop.img,
                   // //controller: descriptionController,
                   onChanged: (val) {
                     shop.img = val;
                   },
                   decoration: const InputDecoration(
                     labelText: 'Image Link',
+                    labelStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                    // hintText: 'myshop..',
+                  ),
+                ),
+              ),
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: TextFormField(
+                  initialValue: shop.employees,
+                  // //controller: descriptionController,
+                  onChanged: (val) {
+                    shop.employees = val;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'No. of employees ',
                     labelStyle: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 14,
@@ -465,31 +504,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
               //     ),
               //   ),
               // ),
-              Container(
-                height: 80,
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: TextField(
-                  // //controller: descriptionController,
-                  onChanged: (val) {
-                    shop.employees = val;
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'No. of employees ',
-                    labelStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                    // hintText: 'myshop..',
-                  ),
-                ),
-              ),
+
               // Container(
               //   height: 80,
               //   padding: const EdgeInsets.symmetric(vertical: 12.0),

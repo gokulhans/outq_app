@@ -14,8 +14,46 @@ import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:http/http.dart' as http;
 
+
+//  Container(
+//                 padding: EdgeInsets.symmetric(horizontal: tDefaultSize),
+//                 child: Column(
+//                   children: [
+//                     TextField(
+//                       onChanged: (val) {
+//                         setState(() {
+//                           query = val;
+//                           print(query);
+//                         });
+//                       },
+//                       decoration: InputDecoration(
+//                         hintText: "Search",
+//                         hintStyle: TextStyle(color: Colors.grey[500]),
+//                         border: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(8.0),
+//                           borderSide: const BorderSide(
+//                             color: Colors.grey,
+//                             width: 2.0,
+//                           ),
+//                         ),
+//                         contentPadding: const EdgeInsets.symmetric(
+//                             horizontal: 20, vertical: 14),
+//                         suffixIcon: Icon(
+//                           Icons.search,
+//                           color: Colors.grey[800],
+//                         ),
+//                       ),
+//                     ),
+//                     TextButton(
+//                         onPressed: () {
+//                           Get.to(() => SearchStorePage(), arguments: [query]);
+//                         },
+//                         child: const Text("Search")),
+//                   ],
+//                 ),
+//               ),
 class SearchStorePage extends StatelessWidget {
-  dynamic argumentData = Get.arguments;
+  dynamic argumentData = Get.arguments;  
   SearchStorePage({super.key});
 
   @override

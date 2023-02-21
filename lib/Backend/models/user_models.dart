@@ -71,6 +71,6 @@ class GetBookingModel {
 }
 
 class TimeSlots {
-  String start, date;
-  TimeSlots(this.start, this.date);
+  String start, end,date;
+  TimeSlots(this.start, this.end,this.date);
 }

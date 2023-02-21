@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/screens/user/booking/booking.dart';
+import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
 import 'package:outq_new_app/screens/user/store/view_store/user_view_single_store.dart';
 import 'package:outq_new_app/screens/user/store/view_store/user_view_store.dart';
 import 'package:outq_new_app/utils/constants.dart';
@@ -14,12 +15,20 @@ import 'package:outq_new_app/utils/sizes.dart';
 import 'package:http/http.dart' as http;
 
 class UserSearchServicesPage extends StatelessWidget {
-  const UserSearchServicesPage({super.key});
+  dynamic argumentData = Get.arguments;  
+
+   UserSearchServicesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
+    return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: UserAppBarWithBack(
+          title: "Search Results",
+        ),
+      ),
+      body: Container(
         // padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
         color: Colors.white,
         height: double.infinity,
@@ -27,39 +36,10 @@ class UserSearchServicesPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: tDefaultSize),
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.grey[100],
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Search",
-                          hintStyle: TextStyle(color: Colors.grey[500]),
-                          border: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 14),
-                          suffixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey[800],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            
             FutureBuilder(
               future: http.get(Uri.parse(
-                  '${apidomain}service/getall')),
+                  '${apidomain}service/search/${argumentData[0]}')),
               builder: (BuildContext context,
                   AsyncSnapshot<http.Response> snapshot) {
                 if (snapshot.hasData) {
@@ -119,7 +99,7 @@ class UserSearchServicesPage extends StatelessWidget {
                                             .subtitle1,
                                       ),
                                       Text(
-                                        data[i]['description'],
+                                        data[i]['storename'],
                                         textAlign: TextAlign.left,
                                         style: Theme.of(context)
                                             .textTheme
@@ -161,10 +141,23 @@ class UserSearchServicesPage extends StatelessWidget {
                                   child: Center(
                                       child: TextButton(
                                     onPressed: () {
-                                      Get.to(() => UserViewSingleStorePage(),
-                                          arguments: [
-                                            data[i]['storeid'],
-                                          ]);
+                                      // Get.to(() => UserViewSingleStorePage(),
+                                      //     arguments: [
+                                      //       data[i]['storeid'],
+                                      //     ]);
+                                        Get.to(
+                                                () => const ShopBookingPage(),
+                                                arguments: [
+                                                  data[i]['id'], 
+                                                  data[i]['storeid'],
+                                                  data[i]['type'],
+                                                  data[i]['name'],
+                                                  data[i]['price'],
+                                                  data[i]['storename'],
+                                                  data[i]['start'],
+                                                  data[i]['end'],
+                                                  data[i]['img'],
+                                                ]);
                                     },
                                     child: Text(
                                       "Book",

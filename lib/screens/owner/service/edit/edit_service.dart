@@ -126,7 +126,7 @@ class EditServiceForm extends StatefulWidget {
 }
 
 GetServiceModel service =
-    GetServiceModel('', '', '', '', '', '', '', '', '', '');
+    GetServiceModel('', '', '', '', '', '', '', '', '', '','','','');
 
 class _EditServiceFormState extends State<EditServiceForm> {
   @override

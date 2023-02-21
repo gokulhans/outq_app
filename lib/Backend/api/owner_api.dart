@@ -51,6 +51,9 @@ Future getStoreServices() async {
       u["storeid"],
       u["ownerid"],
       u["duration"],
+        u["start"],
+      u["end"],
+      u["storename"],
       u["id"],
     );
     print("service");
@@ -76,6 +79,9 @@ Future getSingleStoreServices(var storeid) async {
       u["storeid"],
       u["ownerid"],
       u["duration"],
+      u["start"],
+      u["end"],
+      u["storename"],
       u["id"],
     );
     services.add(service);
@@ -100,6 +106,9 @@ Future getSingleServiceDetails(var serviceid) async {
       u["storeid"],
       u["ownerid"],
       u["duration"],
+        u["start"],
+      u["end"],
+      u["storename"],
       u["id"],
     );
     services.add(service);

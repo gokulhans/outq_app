@@ -248,7 +248,7 @@ class _UserViewStorePageState extends State<UserViewStorePage> {
                                             Get.to(
                                                 () => const ShopBookingPage(),
                                                 arguments: [
-                                                  snapshot.data[i].id,
+                                                  snapshot.data[i].id, 
                                                   snapshot.data[i].storeid,
                                                   argumentData[0],
                                                   snapshot.data[i].name,

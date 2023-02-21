@@ -9,9 +9,9 @@ class OwnerLoginModel {
 }
 
 class StoreModel {
-  String name, location, description, type, img, start, end, employees;
+  String name, location, description, type, img, start, end, employees,longitude,latitude,pincode;
   StoreModel(this.name, this.location, this.description, this.type, this.img,
-      this.start, this.end, this.employees);
+      this.start, this.end, this.employees,this.longitude,this.latitude,this.pincode);
 }
 
 class Store {
@@ -37,6 +37,9 @@ class GetServiceModel {
       ownerid,
       storeid,
       duration,
+      start,
+      end,
+      storename,
       id;
   GetServiceModel(
       this._id,
@@ -48,6 +51,9 @@ class GetServiceModel {
       this.ownerid,
       this.storeid,
       this.duration,
+      this.start,
+      this.end,
+      this.storename,
       this.id);
 }
 

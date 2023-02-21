@@ -101,7 +101,7 @@ Future getTimeSlots(var serviceid, var date) async {
 
   List<TimeSlots> slots = [];
   for (var u in jsonData) {
-    TimeSlots slot = TimeSlots(u["start"], u["date"]);
+    TimeSlots slot = TimeSlots(u["start"], u["end"],u["date"]);
 
     slots.add(slot);
   }
