@@ -569,7 +569,6 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                       if (shop.name.isEmpty ||
                           shop.description.isEmpty ||
                           shop.type.isEmpty ||
-                          shop.img.isEmpty ||
                           shop.start.isEmpty ||
                           shop.end.isEmpty ||
                           shop.location.isEmpty ||

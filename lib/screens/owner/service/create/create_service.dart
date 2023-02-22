@@ -284,7 +284,6 @@ class _CreateServiceFormState extends State<CreateServiceForm> {
                       if (service.name.isEmpty ||
                           service.description.isEmpty ||
                           service.price.isEmpty ||
-                          service.img.isEmpty ||
                           service.ogprice.isEmpty ||
                           service.duration.isEmpty) {
                         Get.snackbar(

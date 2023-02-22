@@ -323,7 +323,7 @@ class ServiceListTile extends StatelessWidget {
             ),
             addHorizontalSpace(20),
             Text(
-              '10\$',
+              '10₹',
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ],

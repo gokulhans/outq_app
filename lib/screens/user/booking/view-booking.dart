@@ -130,7 +130,7 @@ class _UserViewBookingsPageState extends State<UserViewBookingsPage> {
                                               .textTheme
                                               .subtitle2,
                                         ),
-                                        // Text('\$7',
+                                        // Text('₹7',
                                         //     textAlign: TextAlign.left,
                                         //     style: Theme.of(context)
                                         //         .textTheme

@@ -121,7 +121,7 @@ class _UserSearchServicesPageState extends State<UserSearchServicesPage> {
                                             .textTheme
                                             .subtitle2,
                                       ),
-                                      // Text('\$7',
+                                      // Text('₹7',
                                       //     textAlign: TextAlign.left,
                                       //     style: Theme.of(context)
                                       //         .textTheme
@@ -194,8 +194,8 @@ class _UserSearchServicesPageState extends State<UserSearchServicesPage> {
                       },
                     ),
                   );
-                } else if (snapshot.hasData) {
-                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasError) {
+                  return Text('No services Found ');
                 } else {
                   return Container(
                       height: 200,

@@ -101,7 +101,7 @@ class _UserSingleServicePageState extends State<UserSingleServicePage> {
                                   child: TextButton(
                                 onPressed: () {},
                                 child: Text(
-                                  "100 \$",
+                                  "100 ₹",
                                   textAlign: TextAlign.right,
                                   style: GoogleFonts.poppins(
                                     color: Colors.blue,
