@@ -13,14 +13,32 @@ import 'package:outq_new_app/screens/user/store/view_store/user_view_store.dart'
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class UserSearchServicesPage extends StatelessWidget {
-  dynamic argumentData = Get.arguments;  
+String? userid;
+Future getUserId(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  userid = prefs.getString("userid")!;
+  print(userid);
+}
 
-   UserSearchServicesPage({super.key});
+class UserSearchServicesPage extends StatefulWidget {
+  UserSearchServicesPage({super.key});
+
+  @override
+  State<UserSearchServicesPage> createState() => _UserSearchServicesPageState();
+}
+
+class _UserSearchServicesPageState extends State<UserSearchServicesPage> {
+  dynamic argumentData = Get.arguments;
+  // @override
+  // void initState() async {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    getUserId(context);
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
@@ -36,10 +54,9 @@ class UserSearchServicesPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            
             FutureBuilder(
               future: http.get(Uri.parse(
-                  '${apidomain}service/search/${argumentData[0]}')),
+                  '${apidomain}service/search/${argumentData[0]}/$userid')),
               builder: (BuildContext context,
                   AsyncSnapshot<http.Response> snapshot) {
                 if (snapshot.hasData) {
@@ -145,19 +162,18 @@ class UserSearchServicesPage extends StatelessWidget {
                                       //     arguments: [
                                       //       data[i]['storeid'],
                                       //     ]);
-                                        Get.to(
-                                                () => const ShopBookingPage(),
-                                                arguments: [
-                                                  data[i]['id'], 
-                                                  data[i]['storeid'],
-                                                  data[i]['type'],
-                                                  data[i]['name'],
-                                                  data[i]['price'],
-                                                  data[i]['storename'],
-                                                  data[i]['start'],
-                                                  data[i]['end'],
-                                                  data[i]['img'],
-                                                ]);
+                                      Get.to(() => const ShopBookingPage(),
+                                          arguments: [
+                                            data[i]['ownerid'],
+                                            data[i]['type'],
+                                            data[i]['storeid'],
+                                            data[i]['name'],
+                                            data[i]['price'],
+                                            data[i]['storename'],
+                                            data[i]['start'],
+                                            data[i]['end'],
+                                            data[i]['img'],
+                                          ]);
                                     },
                                     child: Text(
                                       "Book",

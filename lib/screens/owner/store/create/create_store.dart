@@ -20,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:geocoding/geocoding.dart';
 
 bool isVisible = false;
+bool isLoading = false;
 bool isButtonVisible = true;
 
 Future save(BuildContext context) async {
@@ -545,11 +546,25 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                 ),
                 child: Center(
                   child: TextButton(
-                    child: Text(
-                      "Save",
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
+                    child: isLoading
+                        ? const Center(
+                            child: SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 3,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        : Text(
+                            "Save",
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
                     onPressed: () {
+                      setState(() {
+                        isLoading = true;
+                      });
                       shop.type = "null";
                       if (shop.name.isEmpty ||
                           shop.description.isEmpty ||
@@ -573,7 +588,13 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
                           dismissDirection: DismissDirection.horizontal,
                           forwardAnimationCurve: Curves.bounceIn,
                         );
+                        setState(() {
+                          isLoading = false;
+                        });
                       } else {
+                        setState(() {
+                          isLoading = true;
+                        });
                         save(context);
                       }
                     },

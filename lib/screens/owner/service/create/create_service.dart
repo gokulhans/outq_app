@@ -113,12 +113,9 @@ class CreateServiceForm extends StatefulWidget {
   State<CreateServiceForm> createState() => _CreateServiceFormState();
 }
 
-ServiceModel service = ServiceModel('', '', '', '', '', '', '','');
+ServiceModel service = ServiceModel('', '', '', '', '', '', '', '');
 
 class _CreateServiceFormState extends State<CreateServiceForm> {
-
- 
-
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -288,7 +285,7 @@ class _CreateServiceFormState extends State<CreateServiceForm> {
                           service.description.isEmpty ||
                           service.price.isEmpty ||
                           service.img.isEmpty ||
-                          service.ogprice.isEmpty||
+                          service.ogprice.isEmpty ||
                           service.duration.isEmpty) {
                         Get.snackbar(
                           "Fill Every Field",

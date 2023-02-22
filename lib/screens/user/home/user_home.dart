@@ -35,22 +35,24 @@ String? userlatitude;
 String? userpincode;
 bool isVisible = true;
 
+
+
 Future updateuser(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String userid = prefs.getString("userid") ?? "null";
 
   http.post(
       Uri.parse(
-        "${apidomain}users/update/$userid",
+        "${apidomain}auth/user/update/$userid",
       ),
       headers: <String, String>{
         'Context-Type': 'application/json; charset=UTF-8',
       },
       body: <String, String>{
         'location': userlocation ?? "",
+        'pincode': userpincode ?? "",
         'longitude': userlongitude ?? "",
         'latitude': userlatitude ?? "",
-        'pincode': userpincode ?? "",
       });
 
   // if (response.statusCode == 201) {
@@ -138,9 +140,8 @@ class _UserHomePageState extends State<UserHomePage> {
       userlatitude = _currentPosition!.latitude.toString();
       userpincode = place.postalCode.toString();
       updateuser(context);
-        isVisible = true;
-      setState(() {
-      });
+      isVisible = true;
+      setState(() {});
       print("object");
       print(isVisible);
     }).catchError((e) {
@@ -166,10 +167,10 @@ class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(55),
         child: UserAppBar(
-          title: "OutQ",
+          title: _currentAddress,
         ),
       ),
       // drawer: const UserDrawer(),
@@ -328,9 +329,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                   onTap: (() => {
                                         Get.to(() => const ShopBookingPage(),
                                             arguments: [
-                                              data[index]['id'],
-                                              data[index]['storeid'],
+                                              data[index]['ownerid'],
                                               data[index]['type'],
+                                              data[index]['storeid'],
                                               data[index]['name'],
                                               data[index]['price'],
                                               data[index]['storename'],

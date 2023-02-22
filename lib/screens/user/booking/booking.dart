@@ -23,6 +23,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 
+bool isLoading = false;
+
 Future save(BuildContext context) async {
   dynamic argumentData = Get.arguments;
   SharedPreferences pref = await SharedPreferences.getInstance();
@@ -31,7 +33,7 @@ Future save(BuildContext context) async {
     Get.to(() => const Exithome());
   }
 
-  getTimeSlots(booking.storeid, booking.date);
+  getTimeSlots(argumentData[2], booking.date);
   print({booking.start});
   final response = await http.post(
       Uri.parse(
@@ -66,6 +68,7 @@ Future save(BuildContext context) async {
   } else {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Slot Already Booked')));
+    isLoading = false;
   }
 }
 
@@ -164,10 +167,10 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   @override
   void initState() {
     super.initState();
-    _future = getTimeSlots(booking.storeid, booking.date);
+    _future = getTimeSlots(argumentData[2], booking.date);
   }
 
- TimeOfDay selectedTime = TimeOfDay.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
 
   Future<void> _selectBookingTime(BuildContext context) async {
     final TimeOfDay? picked_s = await showTimePicker(
@@ -185,7 +188,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
       });
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     dynamic argumentData = Get.arguments;
@@ -269,6 +272,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           ),
                         ),
                       ),
+                      addVerticalSpace(10),
                       FutureBuilder(
                         future: _future,
                         builder: (context, AsyncSnapshot snapshot) {
@@ -293,16 +297,16 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               );
                             } else {
                               return SizedBox(
-                                height: 100,
+                                height: 150,
                                 child: Center(
                                   child: GridView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
+                                      // physics:
+                                      //     const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
                                       shrinkWrap: true,
                                       gridDelegate:
                                           const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 4,
-                                              childAspectRatio: 1.6),
+                                              crossAxisCount: 3,
+                                              childAspectRatio: 2.8),
                                       itemCount: snapshot.data.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
@@ -331,9 +335,11 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                             ),
                                             alignment: Alignment.center,
                                             child: Text(
-                                              snapshot.data[index].start +"to" + snapshot.data[index].end,
+                                              snapshot.data[index].start +
+                                                  " to " +
+                                                  snapshot.data[index].end,
                                               style: TextStyle(
-                                                  fontSize: 12,
+                                                  fontSize: 8,
                                                   fontWeight: FontWeight.bold,
                                                   color: _currentIndex == index
                                                       ? Colors.white
@@ -359,37 +365,37 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           ),
                         ),
                       ),
-                       Container(
-                height: 80,
-                // padding: const EdgeInsets.symmetric(vertical: 12.0),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        _selectBookingTime(context);
-                      },
-                      child: Container(
-                        color: Colors.blue,
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'Chose Booking Time',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                      Container(
+                        height: 80,
+                        // padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                        ),
+                        child: Row(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                _selectBookingTime(context);
+                              },
+                              child: Container(
+                                color: Colors.blue,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Chose Booking Time',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              booking.start,
+                              style: Theme.of(context).textTheme.subtitle1,
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                    Text(
-                      booking.start,
-                      style: Theme.of(context).textTheme.subtitle1,
-                    )
-                  ],
-                ),
-              ),
                       // SizedBox(
                       //   height: 200,
                       //   child: Center(
@@ -587,15 +593,37 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           ),
                           child: Center(
                             child: TextButton(
-                              child: Text(
+                              child:
+                                  // isLoading ?
+                                  // const Center(
+                                  //     child: SizedBox(
+                                  //       height: 15,
+                                  //       width: 15,
+                                  //       child: CircularProgressIndicator(
+                                  //         strokeWidth: 3,
+                                  //         color: Colors.white,
+                                  //       ),
+                                  //     ),
+                                  //   )
+                                  Text(
                                 "Book",
                                 style: Theme.of(context).textTheme.headline6,
                               ),
                               onPressed: () {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                print('booking 1');
+                                print(booking);
+                                print({booking.serviceid,booking.storeid,booking.price,booking.img});
+                                print('booking 2');
+                                print({argumentData[0],argumentData[2]});
+                                print('booking 3');
                                 booking.serviceid = argumentData[0];
                                 booking.storeid = argumentData[2];
                                 booking.price = argumentData[4];
                                 booking.img = argumentData[8];
+                                print('booking');
                                 save(context);
                               },
                             ),

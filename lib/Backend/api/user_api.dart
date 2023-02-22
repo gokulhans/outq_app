@@ -21,8 +21,7 @@ Future getAllStores() async {
         u["img"],
         u["start"],
         u["end"],
-        u["employees"]
-        );
+        u["employees"]);
     stores.add(store);
   }
   // print(stores);
@@ -91,6 +90,7 @@ Future getUserBookings() async {
 
 Future getTimeSlots(var serviceid, var date) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
+  print(serviceid);
 
   var userid = pref.getString("userid");
 
@@ -101,7 +101,7 @@ Future getTimeSlots(var serviceid, var date) async {
 
   List<TimeSlots> slots = [];
   for (var u in jsonData) {
-    TimeSlots slot = TimeSlots(u["start"], u["end"],u["date"]);
+    TimeSlots slot = TimeSlots(u["start"], u["end"], u["date"]);
 
     slots.add(slot);
   }

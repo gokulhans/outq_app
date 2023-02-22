@@ -17,8 +17,8 @@ import 'package:http/http.dart' as http;
 Future cancelBooking() async {
   dynamic argumentData = Get.arguments;
   print(argumentData[6]);
-  var response = await http
-      .get(Uri.parse('${apidomain}order/done/${argumentData[6]}'));
+  var response =
+      await http.get(Uri.parse('${apidomain}order/done/${argumentData[6]}'));
   Get.to(() => OwnerHomePage(
         currentIndex: 0,
       ));
