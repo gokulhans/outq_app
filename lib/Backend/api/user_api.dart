@@ -97,7 +97,7 @@ Future getTimeSlots(var serviceid, var date) async {
   var response = await http
       .get(Uri.parse('${apidomain}booking/timeslots/$serviceid/$date'));
   var jsonData = jsonDecode(response.body);
-  print(jsonData);
+  print({"jsonData is   gfh ", jsonData});
 
   List<TimeSlots> slots = [];
   for (var u in jsonData) {

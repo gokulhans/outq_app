@@ -60,16 +60,9 @@ class _UserSearchServicesPageState extends State<UserSearchServicesPage> {
                   AsyncSnapshot<http.Response> snapshot) {
                 if (snapshot.hasData) {
                   var data = jsonDecode(snapshot.data!.body);
-                  // return Expanded(
-                  //   child: ListView.builder(
-                  //     itemCount: data.length,
-                  //     itemBuilder: (BuildContext context, int index) {
-                  //       return ListTile(
-                  //         title: Text(data[index]['name']),
-                  //       );
-                  //     },
-                  //   ),
-                  // );
+                  if (data.length == 0) {
+                    return Text('No services Found ');
+                  }
                   return Expanded(
                     flex: 3,
                     child: ListView.builder(
