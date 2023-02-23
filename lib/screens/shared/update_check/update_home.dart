@@ -15,7 +15,7 @@ class _UpdateHomeState extends State<UpdateHome> {
   @override
   void initState() {
     final newVersion = NewVersion(
-      androidId: 'com.gbroz.studygram',
+      androidId: 'com.outq.app',
     );
 
     Timer(const Duration(milliseconds: 800), () {
