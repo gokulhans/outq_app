@@ -1,14 +1,9 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:outq_new_app/Backend/api/user_api.dart';
-import 'package:outq_new_app/screens/user/booking/booking.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
-import 'package:outq_new_app/screens/user/store/view_store/user_view_single_store.dart';
 import 'package:outq_new_app/screens/user/store/view_store/user_view_store.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -210,7 +205,7 @@ class SearchStorePage extends StatelessWidget {
                                     child: Center(
                                         child: TextButton(
                                       onPressed: () {
-                                        Get.to(() => UserViewStorePage(),
+                                        Get.to(() => const UserViewStorePage(),
                                             arguments: [
                                               data[i]['type'],
                                               data[i]['name'],
@@ -241,11 +236,11 @@ class SearchStorePage extends StatelessWidget {
                   } else if (snapshot.hasData) {
                     return Text('Error: ${snapshot.error}');
                   } else {
-                    return Container(
+                    return const SizedBox(
                         height: 200,
                         width: 200,
                         child:
-                            const Center(child: CircularProgressIndicator()));
+                            Center(child: CircularProgressIndicator()));
                   }
                 },
               ),

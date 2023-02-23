@@ -2,18 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
-import 'package:outq_new_app/Backend/api/user_api.dart';
-import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
-import 'package:outq_new_app/screens/user/booking/booking.dart';
 import 'package:outq_new_app/screens/user/booking/user_view_booking.dart';
-import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
-import 'package:outq_new_app/screens/user/service/view_service/user_view_service.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class OwnerAppoinmentHistoryPage extends StatefulWidget {
   const OwnerAppoinmentHistoryPage({super.key});
@@ -153,7 +145,7 @@ class _OwnerAppoinmentHistoryPageState
                                   padding: const EdgeInsets.all(4.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(12),
-                                    child: Container(
+                                    child: SizedBox(
                                       width: 100,
                                       height: 25,
                                       // color: Colors.blue[700],

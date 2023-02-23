@@ -1,12 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
-import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
-import 'package:outq_new_app/screens/user/home/user_home.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

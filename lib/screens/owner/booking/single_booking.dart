@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
-import 'package:outq_new_app/screens/owner/home/owner_home.dart';
-import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 
 

@@ -1,11 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.outq_new_app">
    <application
-<<<<<<< HEAD
         android:label="Outq"
-=======
-        android:label="outq_new_app"
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

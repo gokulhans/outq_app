@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/api/api.dart';
-import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:geolocator_android/geolocator_android.dart';
 import 'package:outq_new_app/screens/shared/splash/splash_screen.dart';

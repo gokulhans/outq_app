@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
-import 'package:outq_new_app/screens/owner/service/view/owner_view_service.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -75,7 +74,7 @@ class _EditServicePageState extends State<EditServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
+        preferredSize: const Size.fromHeight(60),
         child: OwnerAppBarWithBack(
           title: widget.argumentData.name,
         ),

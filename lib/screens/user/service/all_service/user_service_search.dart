@@ -54,37 +54,37 @@ class _UserServiceSearchPageState extends State<UserServiceSearchPage> {
             InkWell(
               child: const SearchListView(),
               onTap: () {
-                Get.to(() => UserSingleServicePage());
+                Get.to(() => const UserSingleServicePage());
               },
             ),
             InkWell(
               child: const SearchListView(),
               onTap: () {
-                Get.to(() => UserSingleServicePage());
+                Get.to(() => const UserSingleServicePage());
               },
             ),
             InkWell(
               child: const SearchListView(),
               onTap: () {
-                Get.to(() => UserSingleServicePage());
+                Get.to(() => const UserSingleServicePage());
               },
             ),
             InkWell(
               child: const SearchListView(),
               onTap: () {
-                Get.to(() => UserSingleServicePage());
+                Get.to(() => const UserSingleServicePage());
               },
             ),
             InkWell(
               child: const SearchListView(),
               onTap: () {
-                Get.to(() => UserSingleServicePage());
+                Get.to(() => const UserSingleServicePage());
               },
             ),
             InkWell(
               child: const SearchListView(),
               onTap: () {
-                Get.to(() => UserSingleServicePage());
+                Get.to(() => const UserSingleServicePage());
               },
             ),
           ],

@@ -1,14 +1,9 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/screens/user/booking/booking.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
-import 'package:outq_new_app/screens/user/store/view_store/user_view_single_store.dart';
-import 'package:outq_new_app/screens/user/store/view_store/user_view_store.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +17,7 @@ Future getUserId(BuildContext context) async {
 }
 
 class UserSearchServicesPage extends StatefulWidget {
-  UserSearchServicesPage({super.key});
+  const UserSearchServicesPage({super.key});
 
   @override
   State<UserSearchServicesPage> createState() => _UserSearchServicesPageState();
@@ -61,7 +56,7 @@ class _UserSearchServicesPageState extends State<UserSearchServicesPage> {
                 if (snapshot.hasData) {
                   var data = jsonDecode(snapshot.data!.body);
                   if (data.length == 0) {
-                    return Text('No services Found ');
+                    return const Text('No services Found ');
                   }
                   return Expanded(
                     flex: 3,
@@ -188,12 +183,12 @@ class _UserSearchServicesPageState extends State<UserSearchServicesPage> {
                     ),
                   );
                 } else if (snapshot.hasError) {
-                  return Text('No services Found ');
+                  return const Text('No services Found ');
                 } else {
-                  return Container(
+                  return const SizedBox(
                       height: 200,
                       width: 200,
-                      child: const Center(child: CircularProgressIndicator()));
+                      child: Center(child: CircularProgressIndicator()));
                 }
               },
             ),

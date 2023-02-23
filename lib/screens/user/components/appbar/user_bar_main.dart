@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
-import 'package:outq_new_app/screens/user/notifications/user_notifications.dart';
 import 'package:outq_new_app/screens/user/profile/myprofile.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';

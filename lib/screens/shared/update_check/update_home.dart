@@ -52,6 +52,6 @@ class _UpdateHomeState extends State<UpdateHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Exithome());
+    return const Scaffold(body: Exithome());
   }
 }

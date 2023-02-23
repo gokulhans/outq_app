@@ -12,11 +12,7 @@
          running.
 
          This Theme is only used starting with V2 of Flutter's Android embedding. -->
-<<<<<<< HEAD
     <style name="NormalTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-=======
-    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
 </resources>

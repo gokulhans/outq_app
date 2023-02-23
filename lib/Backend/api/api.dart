@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'dart:convert';
 import 'package:outq_new_app/Backend/models/user_models.dart';
-import 'package:outq_new_app/main.dart';
 
 // {"name":"govind","pswd":"1234"}
 
@@ -19,12 +16,10 @@ Future getUsers() async {
     Users user = Users(u["name"], u["pswd"]);
     users.add(user);
   }
-  print(users);
   return users;
 }
 
 Future getOwnerId(var response) async {
-  print(response);
 
   var jsonData = jsonDecode(response.body);
 
@@ -34,6 +29,5 @@ Future getOwnerId(var response) async {
     idModel id = idModel(u["id"]);
     ids.add(id);
   }
-  print(ids);
   return ids;
 }

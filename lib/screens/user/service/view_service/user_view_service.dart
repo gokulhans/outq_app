@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:horizontal_calendar/horizontal_calendar.dart';
-import 'package:outq_new_app/Backend/api/owner_api.dart';
-import 'package:outq_new_app/Backend/api/user_api.dart';
-import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
-import 'package:outq_new_app/screens/user/booking/booking.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
-import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
 
 class UserSingleServicePage extends StatefulWidget {

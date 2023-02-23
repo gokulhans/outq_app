@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/models/user_models.dart';
 import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
 import 'package:outq_new_app/screens/user/auth/login/login.dart';
-import 'package:outq_new_app/screens/user/home/user_home.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/text_strings.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
@@ -214,6 +211,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                   .hasMatch(value)) {
                             return 'Please enter a valid email address';
                           }
+                          return null;
                         },
                         // //controller: emailController,
                         onChanged: (val) {

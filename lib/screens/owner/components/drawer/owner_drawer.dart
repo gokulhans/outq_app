@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:outq_new_app/main.dart';
-import 'package:outq_new_app/screens/owner/auth/login/login.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/feedback_screen.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/help_screen.dart';
 import 'package:outq_new_app/screens/shared/drawer_pages/invite_friend_screen.dart';
 import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
-import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/utils/image_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,8 +63,8 @@ class OwnerDrawer extends StatelessWidget {
             //   // onTap: () => {Get.to(()=> InviteFriend())},
             // ),
             ListTile(
-              leading: Icon(Icons.info),
-              title: Text('Logout'),
+              leading: const Icon(Icons.info),
+              title: const Text('Logout'),
               onTap: () async {
                 SharedPreferences pref = await SharedPreferences.getInstance();
                 pref.remove("ownerid");

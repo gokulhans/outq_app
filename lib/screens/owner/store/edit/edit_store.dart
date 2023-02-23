@@ -4,9 +4,7 @@ import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
-import 'package:outq_new_app/screens/owner/store/view/owner_view_store.dart';
 import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
-import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -81,6 +79,7 @@ class _EditStorePageState extends State<EditStorePage> {
     onload();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
@@ -140,13 +139,13 @@ class _EditStoreFormState extends State<EditStoreForm> {
   TimeOfDay selectedTime = TimeOfDay.now();
 
   Future<void> _selectOpeningTime(BuildContext context) async {
-    final TimeOfDay? picked_s = await showTimePicker(
+    final TimeOfDay? pickedS = await showTimePicker(
       context: context,
       initialTime: selectedTime,
     );
-    if (picked_s != null && picked_s != selectedTime) {
+    if (pickedS != null && pickedS != selectedTime) {
       setState(() {
-        selectedTime = picked_s;
+        selectedTime = pickedS;
         final localizations = MaterialLocalizations.of(context);
         final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
         var start = formattedTimeOfDay;
@@ -158,13 +157,13 @@ class _EditStoreFormState extends State<EditStoreForm> {
   }
 
   Future<void> _selectClosingTime(BuildContext context) async {
-    final TimeOfDay? picked_s = await showTimePicker(
+    final TimeOfDay? pickedS = await showTimePicker(
       context: context,
       initialTime: selectedTime,
     );
-    if (picked_s != null && picked_s != selectedTime) {
+    if (pickedS != null && pickedS != selectedTime) {
       setState(() {
-        selectedTime = picked_s;
+        selectedTime = pickedS;
         final localizations = MaterialLocalizations.of(context);
         final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
         var start = formattedTimeOfDay;

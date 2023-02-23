@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
-import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/service/create/create_service.dart';
 import 'package:outq_new_app/screens/owner/service/view/owner_single_service.dart';
-import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OwnerViewServicePage extends StatelessWidget {
   const OwnerViewServicePage({super.key});
@@ -88,10 +84,10 @@ class OwnerViewServicePage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(8),
                                   child: Container(
                                     // color: Colors.grey[200],
-                                    padding: EdgeInsets.symmetric(vertical: 8),
+                                    padding: const EdgeInsets.symmetric(vertical: 8),
                                     child: Row(
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           height: 60,
                                           child: Padding(
                                             padding: const EdgeInsets.all(2.0),
@@ -126,9 +122,7 @@ class OwnerViewServicePage extends StatelessWidget {
                                                         .subtitle1,
                                                   ),
                                                   Text(
-                                                      snapshot.data[i].price
-                                                              .toString() +
-                                                          " ₹",
+                                                      "${snapshot.data[i].price} ₹",
                                                       textAlign: TextAlign.left,
                                                       style: Theme.of(context)
                                                           .textTheme

@@ -8,13 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/Backend/models/user_models.dart';
-import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
-import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/screens/user/booking/success_booked.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
-import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
-import 'package:outq_new_app/screens/user/home/user_home.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -63,7 +59,7 @@ Future save(BuildContext context) async {
         const SnackBar(content: Text('Slot Successfully Booked')));
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-            builder: (BuildContext context) => AppointmentBooked()),
+            builder: (BuildContext context) => const AppointmentBooked()),
         (Route<dynamic> route) => false);
   } else {
     ScaffoldMessenger.of(context)
@@ -124,13 +120,13 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   dynamic argumentData = Get.arguments;
 
   //declaration
-  CalendarFormat _format = CalendarFormat.month;
-  DateTime _focusDay = DateTime.now();
-  DateTime _currentDay = DateTime.now();
+  final CalendarFormat _format = CalendarFormat.month;
+  final DateTime _focusDay = DateTime.now();
+  final DateTime _currentDay = DateTime.now();
   int? _currentIndex;
-  bool _isWeekend = false;
-  bool _dateSelected = false;
-  bool _timeSelected = false;
+  final bool _isWeekend = false;
+  final bool _dateSelected = false;
+  final bool _timeSelected = false;
   String? token; //get token for insert booking date and time into database
 
   // Time
@@ -174,13 +170,13 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   TimeOfDay selectedTime = TimeOfDay.now();
 
   Future<void> _selectBookingTime(BuildContext context) async {
-    final TimeOfDay? picked_s = await showTimePicker(
+    final TimeOfDay? pickedS = await showTimePicker(
       context: context,
       initialTime: selectedTime,
     );
-    if (picked_s != null && picked_s != selectedTime) {
+    if (pickedS != null && pickedS != selectedTime) {
       setState(() {
-        selectedTime = picked_s;
+        selectedTime = pickedS;
         final localizations = MaterialLocalizations.of(context);
         final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
         var start = formattedTimeOfDay;
@@ -200,7 +196,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
     // final doctor = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55),
+        preferredSize: const Size.fromHeight(55),
         child: UserAppBarWithBack(
           title: argumentData[3],
         ),
@@ -242,7 +238,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           // print(argumentData);
                           booking.date = date.toString();
                           print(booking.date);
-                          Get.to(() => ShopBookingPage());
+                          Get.to(() => const ShopBookingPage());
                           setState(() {
                             _future =
                                 getTimeSlots(booking.storeid, booking.date);
@@ -459,7 +455,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       'Store',
                                       style: TextStyle(
@@ -501,7 +497,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       'Service',
                                       style: TextStyle(
@@ -543,10 +539,10 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       "Price",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
                                       ),

@@ -6,26 +6,14 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:outq_new_app/Backend/api/owner_api.dart';
-import 'package:outq_new_app/Backend/api/user_api.dart';
-import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/user/booking/booking.dart';
 import 'package:outq_new_app/screens/user/booking/view-booking.dart';
-import 'package:outq_new_app/screens/user/chat/user_chat_list.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
-import 'package:outq_new_app/screens/user/components/drawer/user_drawer.dart';
-import 'package:outq_new_app/screens/user/home/searchbar.dart';
-import 'package:outq_new_app/screens/user/profile/myprofile.dart';
 import 'package:outq_new_app/screens/user/search/user_search.dart';
-import 'package:outq_new_app/screens/user/service/all_service/user_service_search.dart';
-import 'package:outq_new_app/screens/user/service/view_service/user_view_service.dart';
-import 'package:outq_new_app/screens/user/store/view_store/user_view_single_store.dart';
 import 'package:outq_new_app/screens/user/store/view_store/user_view_store.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
-import 'package:outq_new_app/utils/sizes.dart';
 import 'package:outq_new_app/utils/widget_functions.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -157,7 +145,7 @@ class _UserHomePageState extends State<UserHomePage> {
 
   int currentIndex = 0;
   List tabScreens = [
-    Center(child: UserHomeScreen()),
+    const Center(child: UserHomeScreen()),
     // Center(child: UserSearchServicesPage()),
     const Center(child: UserViewBookingsPage()),
     // Center(child: UserServiceSearchPage()),
@@ -168,7 +156,7 @@ class _UserHomePageState extends State<UserHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55),
+        preferredSize: const Size.fromHeight(55),
         child: UserAppBar(
           title: _currentAddress,
         ),
@@ -219,7 +207,7 @@ class _UserHomePageState extends State<UserHomePage> {
 }
 
 class UserHomeScreen extends StatefulWidget {
-  UserHomeScreen({super.key});
+  const UserHomeScreen({super.key});
 
   @override
   State<UserHomeScreen> createState() => _UserHomeScreenState();
@@ -272,7 +260,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           ),
                           TextButton(
                               onPressed: () {
-                                Get.to(() => UserSearchServicesPage(),
+                                Get.to(() => const UserSearchServicesPage(),
                                     arguments: [query]);
                               },
                               child: const Text("Search")),
@@ -317,7 +305,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                         if (snapshot.hasData) {
                           var data = jsonDecode(snapshot.data!.body);
                           print(data);
-                          return Container(
+                          return SizedBox(
                             height: 180,
                             child: ListView.builder(
                               physics: const BouncingScrollPhysics(),
@@ -340,7 +328,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                               data[index]['img'],
                                             ])
                                       }),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 150,
                                     height: 200,
                                     child: Card(
@@ -373,7 +361,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                               children: [
                                                 Text(
                                                   data[index]['name'],
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w700),
@@ -471,7 +459,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                               itemBuilder: (BuildContext context, int index) {
                                 return InkWell(
                                   onTap: () {
-                                    Get.to(() => UserViewStorePage(),
+                                    Get.to(() => const UserViewStorePage(),
                                         arguments: [
                                           data[index]['type'],
                                           data[index]['name'],
@@ -479,7 +467,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                           data[index]['end']
                                         ]);
                                   },
-                                  child: Container(
+                                  child: SizedBox(
                                     width: 150,
                                     height: 200,
                                     child: Card(
@@ -512,7 +500,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                               children: [
                                                 Text(
                                                   data[index]['name'],
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w700),
@@ -550,7 +538,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 ),
               ),
             )
-          : SpinKitCircle(
+          : const SpinKitCircle(
               color: Colors.blue,
               size: 50.0,
             ),

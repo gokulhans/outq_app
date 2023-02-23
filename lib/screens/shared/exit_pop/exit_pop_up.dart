@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:outq_new_app/screens/owner/home/owner_home.dart';
-import 'package:outq_new_app/screens/shared/splash/splash_screen.dart';
 import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/screens/user/home/user_home.dart';
 

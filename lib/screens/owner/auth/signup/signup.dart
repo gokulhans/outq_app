@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:outq_new_app/Backend/models/owner_models.dart';
 import 'package:outq_new_app/screens/owner/auth/login/login.dart';
-import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/text_strings.dart';
@@ -162,6 +161,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                                   .hasMatch(value)) {
                             return 'Please enter a valid email address';
                           }
+                          return null;
                         },
                         //controller: emailController,
                         onChanged: (val) {

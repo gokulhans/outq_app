@@ -1,29 +1,15 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:getwidget/components/search_bar/gf_search_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
-import 'package:outq_new_app/Backend/api/user_api.dart';
-import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_forgot_psd.dart';
-import 'package:outq_new_app/screens/owner/auth/forgot_psd/owner_reset_password.dart';
-import 'package:outq_new_app/screens/owner/auth/otp/owner_otp.dart';
 import 'package:outq_new_app/screens/owner/booking/view-booking.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_bar_main.dart';
 import 'package:outq_new_app/screens/owner/components/drawer/owner_drawer.dart';
 import 'package:outq_new_app/screens/owner/history/appoinment_history.dart';
-import 'package:outq_new_app/screens/owner/profile/settings/settings.dart';
-import 'package:outq_new_app/screens/owner/profile/user_profile/user_profile.dart';
 import 'package:outq_new_app/screens/owner/service/view/owner_view_service.dart';
-import 'package:outq_new_app/screens/owner/store/create/create_store.dart';
 import 'package:get/get.dart';
-import 'package:outq_new_app/screens/owner/service/create/create_service.dart';
-import 'package:outq_new_app/screens/owner/service/edit/edit_service.dart';
-import 'package:outq_new_app/screens/owner/store/edit/edit_store.dart';
 import 'package:outq_new_app/screens/owner/store/view/owner_view_store.dart';
-import 'package:outq_new_app/screens/owner/success/success.dart';
 import 'package:outq_new_app/utils/sizes.dart';
-import 'package:http/http.dart' as http;
 
 class OwnerHomePage extends StatefulWidget {
   OwnerHomePage({super.key, required this.currentIndex});
@@ -246,7 +232,7 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 12.0,
                                   ),
-                                  child: Container(
+                                  child: SizedBox(
                                     height: 60,
                                     child: ClipRRect(
                                         borderRadius:

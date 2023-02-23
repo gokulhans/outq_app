@@ -1,8 +1,4 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:outq_new_app/screens/owner/components/appbar/owner_appbar.dart';
-import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 
 class UserChatListPage extends StatelessWidget {
