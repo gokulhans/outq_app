@@ -1,4 +1,8 @@
 import 'dart:convert';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -60,9 +64,22 @@ class _UserSearchServicesPageState extends State<UserSearchServicesPage> {
                   AsyncSnapshot<http.Response> snapshot) {
                 if (snapshot.hasData) {
                   var data = jsonDecode(snapshot.data!.body);
+<<<<<<< HEAD
                   if (data.length == 0) {
                     return Text('No services Found ');
                   }
+=======
+                  // return Expanded(
+                  //   child: ListView.builder(
+                  //     itemCount: data.length,
+                  //     itemBuilder: (BuildContext context, int index) {
+                  //       return ListTile(
+                  //         title: Text(data[index]['name']),
+                  //       );
+                  //     },
+                  //   ),
+                  // );
+>>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
                   return Expanded(
                     flex: 3,
                     child: ListView.builder(
@@ -114,7 +131,11 @@ class _UserSearchServicesPageState extends State<UserSearchServicesPage> {
                                             .textTheme
                                             .subtitle2,
                                       ),
+<<<<<<< HEAD
                                       // Text('₹7',
+=======
+                                      // Text('\$7',
+>>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
                                       //     textAlign: TextAlign.left,
                                       //     style: Theme.of(context)
                                       //         .textTheme
@@ -187,8 +208,13 @@ class _UserSearchServicesPageState extends State<UserSearchServicesPage> {
                       },
                     ),
                   );
+<<<<<<< HEAD
                 } else if (snapshot.hasError) {
                   return Text('No services Found ');
+=======
+                } else if (snapshot.hasData) {
+                  return Text('Error: ${snapshot.error}');
+>>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
                 } else {
                   return Container(
                       height: 200,
