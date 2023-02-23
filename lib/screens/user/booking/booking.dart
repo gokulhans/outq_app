@@ -34,10 +34,6 @@ Future save(BuildContext context) async {
   }
 
   getTimeSlots(argumentData[2], booking.date);
-<<<<<<< HEAD
-
-=======
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
   print({booking.start});
   final response = await http.post(
       Uri.parse(
@@ -171,12 +167,8 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   @override
   void initState() {
     super.initState();
-<<<<<<< HEAD
     _future = getTimeSlots(argumentData[2], DateTime.now());
     print(DateTime.now());
-=======
-    _future = getTimeSlots(argumentData[2], booking.date);
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
   }
 
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -624,7 +616,6 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                 });
                                 print('booking 1');
                                 print(booking);
-<<<<<<< HEAD
                                 print({
                                   booking.serviceid,
                                   booking.storeid,
@@ -633,11 +624,6 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                 });
                                 print('booking 2');
                                 print({argumentData[0], argumentData[2]});
-=======
-                                print({booking.serviceid,booking.storeid,booking.price,booking.img});
-                                print('booking 2');
-                                print({argumentData[0],argumentData[2]});
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
                                 print('booking 3');
                                 booking.serviceid = argumentData[0];
                                 booking.storeid = argumentData[2];
