@@ -382,11 +382,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                                 Row(
                                                   children: [
                                                     Text(
-<<<<<<< HEAD
                                                       "${data[index]['price']} ₹",
-=======
-                                                      data[index]['price'],
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
                                                       // data[index]['location'],
                                                       style: TextStyle(
                                                           decoration:
@@ -400,17 +396,10 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                                     ),
                                                     addHorizontalSpace(5),
                                                     Text(
-<<<<<<< HEAD
                                                       "${data[index]['ogprice']} ₹",
                                                       // data[index]['location'],
                                                       style: TextStyle(
                                                           fontSize: 12,
-=======
-                                                      data[index]['price'],
-                                                      // data[index]['location'],
-                                                      style: TextStyle(
-                                                          fontSize: 10,
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
                                                           fontWeight:
                                                               FontWeight.w700,
                                                           color: Colors

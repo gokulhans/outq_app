@@ -14,10 +14,6 @@ import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
 import 'package:http/http.dart' as http;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
 //  Container(
 //                 padding: EdgeInsets.symmetric(horizontal: tDefaultSize),
 //                 child: Column(
@@ -56,11 +52,7 @@ import 'package:http/http.dart' as http;
 //                 ),
 //               ),
 class SearchStorePage extends StatelessWidget {
-<<<<<<< HEAD
   dynamic argumentData = Get.arguments;
-=======
-  dynamic argumentData = Get.arguments;  
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
   SearchStorePage({super.key});
 
   @override
@@ -182,11 +174,7 @@ class SearchStorePage extends StatelessWidget {
                                               .textTheme
                                               .subtitle2,
                                         ),
-<<<<<<< HEAD
                                         // Text('₹7',
-=======
-                                        // Text('\$7',
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
                                         //     textAlign: TextAlign.left,
                                         //     style: Theme.of(context)
                                         //         .textTheme

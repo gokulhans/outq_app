@@ -51,10 +51,6 @@ class _UserServiceSearchPageState extends State<UserServiceSearchPage> {
                 ),
               ),
             ),
-<<<<<<< HEAD
-=======
-
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
             InkWell(
               child: const SearchListView(),
               onTap: () {
@@ -91,10 +87,6 @@ class _UserServiceSearchPageState extends State<UserServiceSearchPage> {
                 Get.to(() => UserSingleServicePage());
               },
             ),
-<<<<<<< HEAD
-=======
-           
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
           ],
         ),
       ),
@@ -151,11 +143,7 @@ class SearchListView extends StatelessWidget {
                         textAlign: TextAlign.left,
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
-<<<<<<< HEAD
                       Text('₹7',
-=======
-                      Text('\$7',
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.headline5),
                     ]),

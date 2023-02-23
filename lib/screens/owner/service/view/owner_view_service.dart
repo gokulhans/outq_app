@@ -128,11 +128,7 @@ class OwnerViewServicePage extends StatelessWidget {
                                                   Text(
                                                       snapshot.data[i].price
                                                               .toString() +
-<<<<<<< HEAD
                                                           " ₹",
-=======
-                                                          " \$",
->>>>>>> 70b7d353b23bb5fcfe6dd13bf66fa44fdb0cf191
                                                       textAlign: TextAlign.left,
                                                       style: Theme.of(context)
                                                           .textTheme
