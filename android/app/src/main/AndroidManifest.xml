@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.outq_new_app">
+    package="com.outq.app">
    <application
         android:label="Outq"
         android:name="${applicationName}"

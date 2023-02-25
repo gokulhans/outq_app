@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geocoding/geocoding.dart';
@@ -229,30 +228,32 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   children: [
                     addVerticalSpace(10),
                     Container(
-                      child: Column(
+                      child: Row(
                         children: [
-                          TextField(
-                            onChanged: (val) {
-                              setState(() {
-                                query = val;
-                                // print(query);
-                              });
-                            },
-                            decoration: InputDecoration(
-                              hintText: "Search",
-                              hintStyle: TextStyle(color: Colors.grey[500]),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.grey,
-                                  width: 2.0,
+                          Expanded(
+                            child: TextField(
+                              onChanged: (val) {
+                                setState(() {
+                                  query = val;
+                                  // print(query);
+                                });
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Search",
+                                hintStyle: TextStyle(color: Colors.grey[500]),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: const BorderSide(
+                                    color: Colors.grey,
+                                    width: 2.0,
+                                  ),
                                 ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 14),
-                              suffixIcon: Icon(
-                                Icons.search,
-                                color: Colors.grey[800],
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 14),
+                                // suffixIcon: Icon(
+                                //   Icons.search,
+                                //   color: Colors.grey[800],
+                                // ),
                               ),
                             ),
                           ),
@@ -261,11 +262,36 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                                 Get.to(() => const UserSearchServicesPage(),
                                     arguments: [query]);
                               },
-                              child: const Text("Search")),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 16, horizontal: 20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.blue,
+                                ),
+                                child: const Text(
+                                  "Search",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )),
                         ],
                       ),
                     ),
-                    // addVerticalSpace(20),
+                    addVerticalSpace(20),
+                    Container(
+                      height: 180,
+                      margin: const EdgeInsets.all(6.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        image: const DecorationImage(
+                          image: AssetImage("assets/images/ad.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    addVerticalSpace(20),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(

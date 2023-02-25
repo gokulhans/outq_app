@@ -1,4 +1,4 @@
-package com.example.outq_new_app
+package com.outq.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:outq_new_app/Backend/api/owner_api.dart';
+import 'package:outq_new_app/screens/owner/analytics/owner_analytics.dart';
 import 'package:outq_new_app/screens/owner/booking/view-booking.dart';
 import 'package:outq_new_app/screens/owner/components/appbar/owner_bar_main.dart';
 import 'package:outq_new_app/screens/owner/components/drawer/owner_drawer.dart';
@@ -24,6 +25,7 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
     OwnerHomeScreen(),
     OwnerViewStorePage(),
     OwnerViewServicePage(),
+    OwnerStoreAnalyticsPage(),
     OwnerAppoinmentHistoryPage(),
   ];
   @override
@@ -58,19 +60,23 @@ class _OwnerHomePageState extends State<OwnerHomePage> {
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded),
+              icon: Icon(Icons.home_rounded,size: 20),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.store),
+              icon: Icon(Icons.store,size: 20),
               label: 'Store',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.design_services_outlined),
+              icon: Icon(Icons.design_services_outlined,size: 20),
               label: 'Services',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.history),
+              icon: Icon(Icons.analytics,size: 20,),
+              label: 'Analytics',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.history,size: 20),
               label: 'History',
             ),
           ]),

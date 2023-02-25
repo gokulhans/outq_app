@@ -8,13 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:horizontal_calendar/horizontal_calendar.dart';
 import 'package:outq_new_app/Backend/api/user_api.dart';
 import 'package:outq_new_app/Backend/models/user_models.dart';
-import 'package:outq_new_app/screens/owner/home/owner_home.dart';
 import 'package:outq_new_app/screens/shared/exit_pop/exit_pop_up.dart';
-import 'package:outq_new_app/screens/shared/welcome_screen/welcome_screen.dart';
 import 'package:outq_new_app/screens/user/booking/success_booked.dart';
 import 'package:outq_new_app/screens/user/components/appbar/user_appbar.dart';
-import 'package:outq_new_app/screens/user/components/appbar/user_bar_main.dart';
-import 'package:outq_new_app/screens/user/home/user_home.dart';
 import 'package:outq_new_app/utils/color_constants.dart';
 import 'package:outq_new_app/utils/constants.dart';
 import 'package:outq_new_app/utils/sizes.dart';
@@ -22,6 +18,8 @@ import 'package:outq_new_app/utils/widget_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
+
+bool isLoading = false;
 
 Future save(BuildContext context) async {
   dynamic argumentData = Get.arguments;
@@ -31,11 +29,11 @@ Future save(BuildContext context) async {
     Get.to(() => const Exithome());
   }
 
-  getTimeSlots(booking.serviceid, booking.date);
+  getTimeSlots(argumentData[2], booking.date);
   // print({booking.start});
   final response = await http.post(
       Uri.parse(
-        "${apidomain}booking/",
+        "${apidomain}booking/book",
       ),
       headers: <String, String>{
         'Context-Type': 'application/json; charset=UTF-8',
@@ -61,11 +59,12 @@ Future save(BuildContext context) async {
         const SnackBar(content: Text('Slot Successfully Booked')));
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-            builder: (BuildContext context) => AppointmentBooked()),
+            builder: (BuildContext context) => const AppointmentBooked()),
         (Route<dynamic> route) => false);
   } else {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Slot Already Booked')));
+    isLoading = false;
   }
 }
 
@@ -93,7 +92,7 @@ class Button extends StatelessWidget {
         // width: width,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.green,
             foregroundColor: Colors.white,
           ),
           onPressed: disable ? null : onPressed,
@@ -121,13 +120,13 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   dynamic argumentData = Get.arguments;
 
   //declaration
-  CalendarFormat _format = CalendarFormat.month;
-  DateTime _focusDay = DateTime.now();
-  DateTime _currentDay = DateTime.now();
+  final CalendarFormat _format = CalendarFormat.month;
+  final DateTime _focusDay = DateTime.now();
+  final DateTime _currentDay = DateTime.now();
   int? _currentIndex;
-  bool _isWeekend = false;
-  bool _dateSelected = false;
-  bool _timeSelected = false;
+  final bool _isWeekend = false;
+  final bool _dateSelected = false;
+  final bool _timeSelected = false;
   String? token; //get token for insert booking date and time into database
 
   // Time
@@ -164,7 +163,27 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   @override
   void initState() {
     super.initState();
-    _future = getTimeSlots(argumentData[0], booking.date);
+    _future = getTimeSlots(argumentData[2], DateTime.now());
+    // print(DateTime.now());
+  }
+
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+  Future<void> _selectBookingTime(BuildContext context) async {
+    final TimeOfDay? pickedS = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+    if (pickedS != null && pickedS != selectedTime) {
+      setState(() {
+        selectedTime = pickedS;
+        final localizations = MaterialLocalizations.of(context);
+        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
+        var start = formattedTimeOfDay;
+        booking.start = start;
+        // print(start);
+      });
+    }
   }
 
   @override
@@ -177,7 +196,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
     // final doctor = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55),
+        preferredSize: const Size.fromHeight(55),
         child: UserAppBarWithBack(
           title: argumentData[3],
         ),
@@ -197,18 +216,19 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                     children: [
                       // Text(argumentData[2]),
                       // addVerticalSpace(20),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
                         child: Text(
                           'Select Date',
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 16,
+                            color: Colors.blue,
                           ),
                         ),
                       ),
-                      addVerticalSpace(30),
+                      // addVerticalSpace(10),
                       HorizontalCalendar(
                         date: DateTime.now(),
                         textColor: Colors.black45,
@@ -219,14 +239,14 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           // // print(argumentData);
                           booking.date = date.toString();
                           // print(booking.date);
-                          Get.to(() => ShopBookingPage());
+                          Get.to(() => const ShopBookingPage());
                           setState(() {
                             _future =
-                                getTimeSlots(booking.serviceid, booking.date);
+                                getTimeSlots(booking.storeid, booking.date);
                           });
                         },
                       ),
-                      addVerticalSpace(50),
+                      addVerticalSpace(30),
 
                       // addVerticalSpace(30),
                       // Padding(
@@ -240,16 +260,154 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                       // ),
 
                       addVerticalSpace(20),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                      // const Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 10),
+                      //   child: Text(
+                      //     'Already Booked Time',
+                      //     style: TextStyle(
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: 20,
+                      //     ),
+                      //   ),
+                      // ),
+                      // addVerticalSpace(10),
+                      // FutureBuilder(
+                      //   future: _future,
+                      //   builder: (context, AsyncSnapshot snapshot) {
+                      //     if (snapshot.data == null) {
+                      //       return const Center(
+                      //           child: SpinKitCircle(
+                      //         color: Colors.blue,
+                      //         size: 50.0,
+                      //       ));
+                      //     } else {
+                      //       if (snapshot.data.length == 0) {
+                      //         return const Padding(
+                      //           padding: EdgeInsets.all(24.0),
+                      //           child: Center(
+                      //               child: Text(
+                      //             'No Appoinment Found Today',
+                      //             style: TextStyle(
+                      //               fontWeight: FontWeight.w800,
+                      //               color: Colors.red,
+                      //             ),
+                      //           )),
+                      //         );
+                      //       } else {
+                      //         return SizedBox(
+                      //           height: 150,
+                      //           child: Center(
+                      //             child: GridView.builder(
+                      //                 // physics:
+                      //                 //     const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
+                      //                 shrinkWrap: true,
+                      //                 gridDelegate:
+                      //                     const SliverGridDelegateWithFixedCrossAxisCount(
+                      //                         crossAxisCount: 3,
+                      //                         childAspectRatio: 2.8),
+                      //                 itemCount: snapshot.data.length,
+                      //                 itemBuilder:
+                      //                     (BuildContext context, int index) {
+                      //                   return InkWell(
+                      //                     splashColor: Colors.transparent,
+                      //                     onTap: () {
+                      //                       // setState(() {
+                      //                       //   // print(
+                      //                       //       "${index + 9}:${30} ${index + 9 > 11 ? "PM" : "AM"}");
+                      //                       //   _currentIndex = index;
+                      //                       //   _timeSelected = true;
+                      //                       // });
+                      //                     },
+                      //                     child: Container(
+                      //                       height: 50,
+                      //                       margin: const EdgeInsets.all(5),
+                      //                       decoration: BoxDecoration(
+                      //                         border: Border.all(
+                      //                           color: _currentIndex == index
+                      //                               ? Colors.white
+                      //                               : Colors.white,
+                      //                         ),
+                      //                         borderRadius:
+                      //                             BorderRadius.circular(15),
+                      //                         color: Colors.red,
+                      //                       ),
+                      //                       alignment: Alignment.center,
+                      //                       child: Text(
+                      //                         snapshot.data[index].start +
+                      //                             " to " +
+                      //                             snapshot.data[index].end,
+                      //                         style: TextStyle(
+                      //                             fontSize: 8,
+                      //                             fontWeight: FontWeight.bold,
+                      //                             color: _currentIndex == index
+                      //                                 ? Colors.white
+                      //                                 : Colors.white),
+                      //                       ),
+                      //                     ),
+                      //                   );
+                      //                 }),
+                      //           ),
+                      //         );
+                      //       }
+                      //     }
+                      //   },
+                      // ),
+                      // addVerticalSpace(30),
+                      // const Padding(
+                      //   padding: EdgeInsets.symmetric(horizontal: 10),
+                      //   child: Text(
+                      //     'Select Your Time',
+                      //     style: TextStyle(
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: 20,
+                      //     ),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   height: 80,
+                      //   // padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      //   clipBehavior: Clip.antiAlias,
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(22),
+                      //   ),
+                      //   child: Row(
+                      //     children: [
+                      //       TextButton(
+                      //         onPressed: () {
+                      //           _selectBookingTime(context);
+                      //         },
+                      //         child: Container(
+                      //           color: Colors.blue,
+                      //           child: const Padding(
+                      //             padding: EdgeInsets.all(8.0),
+                      //             child: Text(
+                      //               'Chose Booking Time',
+                      //               style: TextStyle(color: Colors.white),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Text(
+                      //         booking.start,
+                      //         style: Theme.of(context).textTheme.subtitle1,
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
+                      // addVerticalSpace(30),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          'Already Booked Time',
-                          style: TextStyle(
+                          'Book Your Time',
+                          style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 16,
+                            color: Colors.blue,
                           ),
                         ),
                       ),
+                      addVerticalSpace(20),
+
                       FutureBuilder(
                         future: _future,
                         builder: (context, AsyncSnapshot snapshot) {
@@ -273,125 +431,106 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                 )),
                               );
                             } else {
-                              return SizedBox(
-                                height: 100,
-                                child: Center(
-                                  child: GridView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
-                                      shrinkWrap: true,
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 4,
-                                              childAspectRatio: 1.6),
-                                      itemCount: snapshot.data.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return InkWell(
-                                          splashColor: Colors.transparent,
-                                          onTap: () {
-                                            // setState(() {
-                                            //   // print(
-                                            //       "${index + 9}:${30} ${index + 9 > 11 ? "PM" : "AM"}");
-                                            //   _currentIndex = index;
-                                            //   _timeSelected = true;
-                                            // });
-                                          },
-                                          child: Container(
-                                            height: 50,
-                                            margin: const EdgeInsets.all(5),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: _currentIndex == index
-                                                    ? Colors.white
-                                                    : Colors.white,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              color: Colors.red,
+                              return Container(
+                                padding: const EdgeInsets.only(
+                                    left: 8, right: 8, bottom: 16),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 1.0,
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16),
+                                      alignment: Alignment.center,
+                                      child: Center(
+                                        child: Container(
+                                          padding: const EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            border: Border.all(
+                                              color: Colors.blue,
+                                              width: 1.0,
                                             ),
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              snapshot.data[index].start,
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: _currentIndex == index
-                                                      ? Colors.white
-                                                      : Colors.white),
-                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5),
                                           ),
-                                        );
-                                      }),
+                                          width: 100,
+                                          child: const Text(
+                                            '10.00 AM',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Center(
+                                      child: GridView.builder(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
+                                          shrinkWrap: true,
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 3,
+                                                  childAspectRatio: 2.5),
+                                          itemCount: 6,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return InkWell(
+                                              splashColor: Colors.transparent,
+                                              onTap: () {
+                                                booking.start = "10:00 AM";
+                                                // print(booking.start);
+                                                setState(() {
+                                                  _currentIndex = index;
+                                                  // _timeSelected = true;
+                                                });
+                                              },
+                                              child: Container(
+                                                margin: const EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color:
+                                                        _currentIndex == index
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  color: _currentIndex == index
+                                                      ? Colors.blue
+                                                      : null,
+                                                ),
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  '10 AM',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:
+                                                        _currentIndex == index
+                                                            ? Colors.white
+                                                            : null,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                  ],
                                 ),
                               );
                             }
                           }
                         },
                       ),
-                      addVerticalSpace(30),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text(
-                          'Select Your Time',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 200,
-                        child: Center(
-                          child: GridView.builder(
-                              physics:
-                                  const NeverScrollableScrollPhysics(), // to disable GridView's scrolling
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 4, childAspectRatio: 1.6),
-                              itemCount: 10,
-                              itemBuilder: (BuildContext context, int index) {
-                                return InkWell(
-                                  splashColor: Colors.transparent,
-                                  onTap: () {
-                                    booking.start =
-                                        "${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}";
-                                    // print(booking.start);
-                                    setState(() {
-                                      _currentIndex = index;
-                                      _timeSelected = true;
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: _currentIndex == index
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                      borderRadius: BorderRadius.circular(15),
-                                      color: _currentIndex == index
-                                          ? Colors.blue
-                                          : null,
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      '${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: _currentIndex == index
-                                            ? Colors.white
-                                            : null,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                        ),
-                      ),
+
                       addVerticalSpace(30),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -402,7 +541,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       'Store',
                                       style: TextStyle(
@@ -444,7 +583,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       'Service',
                                       style: TextStyle(
@@ -486,10 +625,10 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                                  children: const [
                                     Text(
                                       "Price",
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
                                       ),
@@ -537,15 +676,42 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           ),
                           child: Center(
                             child: TextButton(
-                              child: Text(
+                              child:
+                                  // isLoading ?
+                                  // const Center(
+                                  //     child: SizedBox(
+                                  //       height: 15,
+                                  //       width: 15,
+                                  //       child: CircularProgressIndicator(
+                                  //         strokeWidth: 3,
+                                  //         color: Colors.white,
+                                  //       ),
+                                  //     ),
+                                  //   )
+                                  Text(
                                 "Book",
                                 style: Theme.of(context).textTheme.headline6,
                               ),
                               onPressed: () {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                // print('booking 1');
+                                // print(booking);
+                                // print({
+                                //   booking.serviceid,
+                                //   booking.storeid,
+                                //   booking.price,
+                                //   booking.img
+                                // });
+                                // print('booking 2');
+                                // print({argumentData[0], argumentData[2]});
+                                // print('booking 3');
                                 booking.serviceid = argumentData[0];
                                 booking.storeid = argumentData[2];
                                 booking.price = argumentData[4];
                                 booking.img = argumentData[8];
+                                // print('booking');
                                 save(context);
                               },
                             ),
@@ -602,4 +768,3 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
 //     );
 //   }
 }
-
