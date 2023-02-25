@@ -55,6 +55,7 @@ Future save(BuildContext context) async {
     // print(jsonData);
     // print(jsonData["success"]);
     if (jsonData["success"]) {
+      isLoading = false;
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
               builder: (BuildContext context) => const OwnerExithome()),
@@ -145,6 +146,8 @@ class _CreateStorePageState extends State<CreateStorePage> {
   @override
   void initState() {
     super.initState();
+    shop.start = "9:00 AM";
+    shop.end = "5:00 PM";
     _getCurrentPosition();
   }
 

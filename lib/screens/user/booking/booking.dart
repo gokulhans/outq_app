@@ -19,7 +19,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 
-bool isLoading = false;
+bool isLoadingBB = false;
 
 Future save(BuildContext context) async {
   dynamic argumentData = Get.arguments;
@@ -61,10 +61,11 @@ Future save(BuildContext context) async {
         MaterialPageRoute(
             builder: (BuildContext context) => const AppointmentBooked()),
         (Route<dynamic> route) => false);
+    isLoadingBB = false;
   } else {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Slot Already Booked')));
-    isLoading = false;
+    isLoadingBB = false;
   }
 }
 
@@ -163,6 +164,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   @override
   void initState() {
     super.initState();
+    booking.start = "10:00 AM";
     _future = getTimeSlots(argumentData[2], DateTime.now());
     // print(DateTime.now());
   }
@@ -590,25 +592,25 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                           ),
                           child: Center(
                             child: TextButton(
-                              child:
-                                  // isLoading ?
-                                  // const Center(
-                                  //     child: SizedBox(
-                                  //       height: 15,
-                                  //       width: 15,
-                                  //       child: CircularProgressIndicator(
-                                  //         strokeWidth: 3,
-                                  //         color: Colors.white,
-                                  //       ),
-                                  //     ),
-                                  //   )
-                                  Text(
-                                "Book",
-                                style: Theme.of(context).textTheme.headline6,
-                              ),
+                              child: isLoadingBB
+                                  ? const Center(
+                                      child: SizedBox(
+                                        height: 15,
+                                        width: 15,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 3,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  : Text(
+                                      "Book",
+                                      style:
+                                          Theme.of(context).textTheme.headline6,
+                                    ),
                               onPressed: () {
                                 setState(() {
-                                  isLoading = true;
+                                  isLoadingBB = true;
                                 });
                                 // print('booking 1');
                                 // print(booking);
