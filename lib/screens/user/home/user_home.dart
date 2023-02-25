@@ -23,8 +23,6 @@ String? userlatitude;
 String? userpincode;
 bool isVisible = true;
 
-
-
 Future updateuser(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String userid = prefs.getString("userid") ?? "null";
@@ -45,8 +43,8 @@ Future updateuser(BuildContext context) async {
 
   // if (response.statusCode == 201) {
   //   var jsonData = jsonDecode(response.body);
-  //   print(jsonData);
-  //   print(jsonData["success"]);
+  //   // print(jsonData);
+  //   // print(jsonData["success"]);
   //   if (jsonData["success"]) {
   //     Navigator.of(context).pushAndRemoveUntil(
   //         MaterialPageRoute(builder: (BuildContext context) => OwnerExithome()),
@@ -117,12 +115,12 @@ class _UserHomePageState extends State<UserHomePage> {
             _currentPosition!.latitude, _currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
-      print(place.country);
+      // print(place.country);
       setState(() {
         _currentAddress =
             '${place.administrativeArea}, ${place.locality}, ${place.thoroughfare}, ${place.postalCode}';
       });
-      print({_currentAddress, _currentPosition});
+      // print({_currentAddress, _currentPosition});
       userlocation = _currentAddress;
       userlongitude = _currentPosition!.longitude.toString();
       userlatitude = _currentPosition!.latitude.toString();
@@ -130,8 +128,8 @@ class _UserHomePageState extends State<UserHomePage> {
       updateuser(context);
       isVisible = true;
       setState(() {});
-      print("object");
-      print(isVisible);
+      // print("object");
+      // print(isVisible);
     }).catchError((e) {
       debugPrint(e);
     });
@@ -237,7 +235,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                             onChanged: (val) {
                               setState(() {
                                 query = val;
-                                print(query);
+                                // print(query);
                               });
                             },
                             decoration: InputDecoration(
@@ -304,7 +302,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           AsyncSnapshot<http.Response> snapshot) {
                         if (snapshot.hasData) {
                           var data = jsonDecode(snapshot.data!.body);
-                          print(data);
+                          // print(data);
                           return SizedBox(
                             height: 180,
                             child: ListView.builder(
@@ -449,7 +447,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           AsyncSnapshot<http.Response> snapshot) {
                         if (snapshot.hasData) {
                           var data = jsonDecode(snapshot.data!.body);
-                          print(data);
+                          // print(data);
                           return SizedBox(
                             height: 200,
                             child: ListView.builder(

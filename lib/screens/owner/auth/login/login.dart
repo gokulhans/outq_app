@@ -29,7 +29,7 @@ OwnerLoginModel owners = OwnerLoginModel('', '');
 
 class _OwnerLoginPageState extends State<OwnerLoginPage> {
   Future save() async {
-    print({owners.email, owners.pswd});
+    // print({owners.email, owners.pswd});
     final response = await http.post(
         Uri.parse(
           "${apidomain}auth/owner/login",
@@ -47,8 +47,8 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
     String? msgdesc;
     var str;
     var ownerid, storeid;
-    print(storeid);
-    print(ownerid);
+    // print(storeid);
+    // print(ownerid);
 
     if (response.statusCode == 201) {
       var jsonData = jsonDecode(response.body);
@@ -174,7 +174,7 @@ class _OwnerLoginPageState extends State<OwnerLoginPage> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                print("saved");
+                                // print("saved");
                                 save();
                               },
                               child: isLoading

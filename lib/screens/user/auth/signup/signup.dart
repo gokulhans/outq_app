@@ -29,7 +29,7 @@ UserSignUpModel users = UserSignUpModel('', '', '', '', '', '');
 
 class _UserSignUpPageState extends State<UserSignUpPage> {
   Future signup_save(BuildContext context) async {
-    print({users.name, users.email, users.pswd});
+    // print({users.name, users.email, users.pswd});
     final response = await http.post(
         Uri.parse(
           "${apidomain}auth/user/register",
@@ -140,13 +140,13 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
   //           _currentPosition!.latitude, _currentPosition!.longitude)
   //       .then((List<Placemark> placemarks) {
   //     Placemark place = placemarks[0];
-  //     print(place.country);
+  //     // print(place.country);
   //     setState(() {
   //       _pinCode = '${place.postalCode}';
   //       _currentAddress =
   //           '${place.administrativeArea}, ${place.locality}, ${place.thoroughfare}, ${place.postalCode}';
   //     });
-  //     print(_currentAddress);
+  //     // print(_currentAddress);
   //     users.location = _currentAddress;
   //   }).catchError((e) {
   //     debugPrint(e);
@@ -339,7 +339,7 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                print("saved");
+                                // print("saved");
                                 if (users.email.isEmpty ||
                                     !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                                         .hasMatch(users.email)) {
@@ -363,8 +363,8 @@ class _UserSignUpPageState extends State<UserSignUpPage> {
                                     isLoading = false;
                                   });
                                 } else if (users.name.isEmpty ||
-                                    users.pswd.isEmpty ||
-                                    users.phone.isEmpty
+                                        users.pswd.isEmpty ||
+                                        users.phone.isEmpty
                                     // users.location.isEmpty ||
                                     // users.pincode.isEmpty
                                     ) {

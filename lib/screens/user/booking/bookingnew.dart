@@ -21,7 +21,7 @@
 //     Get.to(() => const ExitHome());
 //   }
 
-//   // print({shop.name, shop.type, shop.description, shop.location});
+//   // // print({shop.name, shop.type, shop.description, shop.location});
 //   http.post(
 //       Uri.parse(
 //         apidomain + "booking/",
@@ -169,7 +169,7 @@
 //                       selectedColor: Colors.blue,
 //                       showMonth: true,
 //                       onDateSelected: (date) {
-//                         print(date.toString());
+//                         // print(date.toString());
 //                         booking.date = date.toString();
 //                       },
 //                     ),

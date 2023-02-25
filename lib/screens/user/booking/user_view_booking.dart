@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 Future cancelBooking(BuildContext context) async {
   dynamic argumentData = Get.arguments;
-  print(argumentData[3]);
+  // print(argumentData[3]);
   var response = await http.get(
     Uri.parse('${apidomain}booking/cancel/${argumentData[3]}'),
   );

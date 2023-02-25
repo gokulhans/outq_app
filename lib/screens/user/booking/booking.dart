@@ -30,7 +30,7 @@ Future save(BuildContext context) async {
   }
 
   getTimeSlots(argumentData[2], booking.date);
-  print({booking.start});
+  // print({booking.start});
   final response = await http.post(
       Uri.parse(
         "${apidomain}booking/book",
@@ -51,9 +51,9 @@ Future save(BuildContext context) async {
         'img': argumentData[8],
         'username': userid,
       });
-  print(response);
+  // print(response);
   var jsonData = jsonDecode(response.body);
-  print(jsonData["success"]);
+  // print(jsonData["success"]);
   if (jsonData["success"]) {
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Slot Successfully Booked')));
@@ -144,7 +144,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   //       final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
   //       booking.start = formattedTimeOfDay;
   //       booking.end = formattedTimeOfDay;
-  //       // print(booking.date);
+  //       // // print(booking.date);
   //     });
   // }
 
@@ -164,7 +164,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
   void initState() {
     super.initState();
     _future = getTimeSlots(argumentData[2], DateTime.now());
-    print(DateTime.now());
+    // print(DateTime.now());
   }
 
   TimeOfDay selectedTime = TimeOfDay.now();
@@ -181,7 +181,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
         final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime);
         var start = formattedTimeOfDay;
         booking.start = start;
-        print(start);
+        // print(start);
       });
     }
   }
@@ -235,9 +235,9 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                         selectedColor: Colors.blue,
                         showMonth: true,
                         onDateSelected: (date) {
-                          // print(argumentData);
+                          // // print(argumentData);
                           booking.date = date.toString();
-                          print(booking.date);
+                          // print(booking.date);
                           Get.to(() => const ShopBookingPage());
                           setState(() {
                             _future =
@@ -311,7 +311,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                           splashColor: Colors.transparent,
                                           onTap: () {
                                             // setState(() {
-                                            //   print(
+                                            //   // print(
                                             //       "${index + 9}:${30} ${index + 9 > 11 ? "PM" : "AM"}");
                                             //   _currentIndex = index;
                                             //   _timeSelected = true;
@@ -410,7 +410,7 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                       //             onTap: () {
                       //               booking.start =
                       //                   "${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}";
-                      //               print(booking.start);
+                      //               // print(booking.start);
                       //               setState(() {
                       //                 _currentIndex = index;
                       //                 _timeSelected = true;
@@ -610,22 +610,22 @@ class _ShopBookingPageState extends State<ShopBookingPage> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                print('booking 1');
-                                print(booking);
-                                print({
-                                  booking.serviceid,
-                                  booking.storeid,
-                                  booking.price,
-                                  booking.img
-                                });
-                                print('booking 2');
-                                print({argumentData[0], argumentData[2]});
-                                print('booking 3');
+                                // print('booking 1');
+                                // print(booking);
+                                // print({
+                                //   booking.serviceid,
+                                //   booking.storeid,
+                                //   booking.price,
+                                //   booking.img
+                                // });
+                                // print('booking 2');
+                                // print({argumentData[0], argumentData[2]});
+                                // print('booking 3');
                                 booking.serviceid = argumentData[0];
                                 booking.storeid = argumentData[2];
                                 booking.price = argumentData[4];
                                 booking.img = argumentData[8];
-                                print('booking');
+                                // print('booking');
                                 save(context);
                               },
                             ),

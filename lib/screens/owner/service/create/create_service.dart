@@ -39,8 +39,8 @@ Future save(BuildContext context) async {
 
   if (response.statusCode == 201) {
     var jsonData = jsonDecode(response.body);
-    print(jsonData);
-    print(jsonData["success"]);
+    // print(jsonData);
+    // print(jsonData["success"]);
     if (jsonData["success"]) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(

@@ -19,7 +19,7 @@ Future<void> main() async {
   // SharedPreferences prefs = await SharedPreferences.getInstance();
   // String? ownerid = prefs.getString("ownerid");
   // String? userid = prefs.getString("userid");
-  // print(ownerid);
+  // // print(ownerid);
   GeolocatorAndroid.registerWith();
   runApp(const MyApp());
 }

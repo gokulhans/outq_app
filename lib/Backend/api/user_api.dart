@@ -8,7 +8,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future getAllStores() async {
   var response = await http.get(Uri.parse('${apidomain}store/store/get'));
   var jsonData = jsonDecode(response.body);
-  print(jsonData);
+  // print(jsonData);
+  List<Store> stores = [];
+  for (var u in jsonData) {
+    Store store = Store(
+        u["_id"],
+        u["name"],
+        u["location"],
+        u["id"],
+        u["description"],
+        u["type"],
+        u["img"],
+        u["start"],
+        u["end"],
+        u["employees"]);
+    stores.add(store);
+  }
+  // // print(stores);
+  return stores;
+}
+
+Future getSingleStore(var storeid) async {
+  // print(storeid);
+  var response =
+      await http.get(Uri.parse('${apidomain}store/store/get/$storeid'));
+  var jsonData = jsonDecode(response.body);
+  // print(jsonData);
   List<Store> stores = [];
   for (var u in jsonData) {
     Store store = Store(
@@ -28,31 +53,6 @@ Future getAllStores() async {
   return stores;
 }
 
-Future getSingleStore(var storeid) async {
-  print(storeid);
-  var response =
-      await http.get(Uri.parse('${apidomain}store/store/get/$storeid'));
-  var jsonData = jsonDecode(response.body);
-  print(jsonData);
-  List<Store> stores = [];
-  for (var u in jsonData) {
-    Store store = Store(
-        u["_id"],
-        u["name"],
-        u["location"],
-        u["id"],
-        u["description"],
-        u["type"],
-        u["img"],
-        u["start"],
-        u["end"],
-        u["employees"]);
-    stores.add(store);
-  }
-  print(stores);
-  return stores;
-}
-
 Future getUserBookings() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
 
@@ -61,8 +61,8 @@ Future getUserBookings() async {
   var response =
       await http.get(Uri.parse('${apidomain}booking/viewall/$userid'));
   var jsonData = jsonDecode(response.body);
-  print("object");
-  print(jsonData);
+  // print("object");
+  // print(jsonData);
 
   List<GetBookingModel> bookings = [];
   for (var u in jsonData) {
@@ -84,20 +84,20 @@ Future getUserBookings() async {
 
     bookings.add(booking);
   }
-  print(bookings);
+  // print(bookings);
   return bookings;
 }
 
 Future getTimeSlots(var serviceid, var date) async {
   SharedPreferences pref = await SharedPreferences.getInstance();
-  print(serviceid);
+  // print(serviceid);
 
   var userid = pref.getString("userid");
 
   var response = await http
       .get(Uri.parse('${apidomain}booking/timeslots/$serviceid/$date'));
   var jsonData = jsonDecode(response.body);
-  print(jsonData);
+  // print(jsonData);
 
   List<TimeSlots> slots = [];
   for (var u in jsonData) {
@@ -105,6 +105,6 @@ Future getTimeSlots(var serviceid, var date) async {
 
     slots.add(slot);
   }
-  print(slots);
+  // print(slots);
   return slots;
 }

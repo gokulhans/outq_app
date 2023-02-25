@@ -120,7 +120,7 @@ class _PinputExampleState extends State<PinputExample> {
 
     // return TextField(
     //   contextMenuBuilder: (_, EditableTextState editableTextState) {
-    //     print('HEHE');
+    //     // print('HEHE');
     //     return AdaptiveTextSelectionToolbar(
     //       anchors: editableTextState.contextMenuAnchors,
     //       children: editableTextState.contextMenuButtonItems.map((ContextMenuButtonItem buttonItem) {

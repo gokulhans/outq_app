@@ -27,7 +27,7 @@ Future save(BuildContext context) async {
     Get.to(() => const Exithome());
   }
 
-  print({shop.name, shop.type, shop.description, shop.location});
+  // print({shop.name, shop.type, shop.description, shop.location});
   final response = await http.post(
       Uri.parse(
         "${apidomain}store/register/",
@@ -52,11 +52,12 @@ Future save(BuildContext context) async {
 
   if (response.statusCode == 201) {
     var jsonData = jsonDecode(response.body);
-    print(jsonData);
-    print(jsonData["success"]);
+    // print(jsonData);
+    // print(jsonData["success"]);
     if (jsonData["success"]) {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => const OwnerExithome()),
+          MaterialPageRoute(
+              builder: (BuildContext context) => const OwnerExithome()),
           (Route<dynamic> route) => false);
     }
   }
@@ -124,12 +125,12 @@ class _CreateStorePageState extends State<CreateStorePage> {
             _currentPosition!.latitude, _currentPosition!.longitude)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
-      print(place.country);
+      // print(place.country);
       setState(() {
         _currentAddress =
             '${place.administrativeArea}, ${place.locality}, ${place.thoroughfare}, ${place.postalCode}';
       });
-      print({_currentAddress, _currentPosition});
+      // print({_currentAddress, _currentPosition});
       shop.location = _currentAddress;
       shop.longitude = _currentPosition!.longitude.toString();
       shop.latitude = _currentPosition!.latitude.toString();
@@ -253,7 +254,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
         var start = formattedTimeOfDay;
         var end = formattedTimeOfDay;
         shop.start = start;
-        print(start);
+        // print(start);
       });
     }
   }
@@ -271,7 +272,7 @@ class _CreateStoreFormState extends State<CreateStoreForm> {
         var start = formattedTimeOfDay;
         var end = formattedTimeOfDay;
         shop.end = end;
-        print(start);
+        // print(start);
       });
     }
   }

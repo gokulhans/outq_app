@@ -29,7 +29,7 @@ UserLoginModel users = UserLoginModel('', '');
 
 class _UserLoginPageState extends State<UserLoginPage> {
   Future login_save(BuildContext context) async {
-    print({users.email, users.pswd});
+    // print({users.email, users.pswd});
     final response = await http.post(
         Uri.parse(
           "${apidomain}auth/user/login",
@@ -175,7 +175,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                print("saved");
+                                // print("saved");
                                 login_save(context);
                               },
                               child: isLoading

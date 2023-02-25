@@ -29,7 +29,7 @@ OwnerSignUpModel owners = OwnerSignUpModel('', '', '');
 
 class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
   Future save() async {
-    print({owners.name, owners.email, owners.pswd});
+    // print({owners.name, owners.email, owners.pswd});
     final response = await http.post(
         Uri.parse(
           "${apidomain}auth/owner/register",
@@ -217,7 +217,7 @@ class _OwnerSignUpPageState extends State<OwnerSignUpPage> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                print("saved");
+                                // print("saved");
                                 if (owners.email.isEmpty ||
                                     !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                                         .hasMatch(owners.email)) {

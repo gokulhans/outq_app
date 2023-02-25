@@ -370,7 +370,7 @@ class UserHomeScreen extends StatelessWidget {
                   AsyncSnapshot<http.Response> snapshot) {
                 if (snapshot.hasData) {
                   var data = jsonDecode(snapshot.data!.body);
-                  print(data);
+                  // print(data);
                   return Expanded(
                     child: ListView.builder(
                       itemCount: data.length,

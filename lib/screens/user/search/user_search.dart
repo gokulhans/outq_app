@@ -13,7 +13,7 @@ String? userid;
 Future getUserId(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   userid = prefs.getString("userid")!;
-  print(userid);
+  // print(userid);
 }
 
 class UserSearchServicesPage extends StatefulWidget {

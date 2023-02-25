@@ -21,8 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? ownerid = prefs.getString("ownerid");
       String? userid = prefs.getString("userid");
-      print(ownerid);
-      print(userid);
+      // print(ownerid);
+      // print(userid);
       if (ownerid != null) {
         Get.off(() => const OwnerExithome());
       } else if (userid != null) {

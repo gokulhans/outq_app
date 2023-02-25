@@ -14,8 +14,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void onload() {
   dynamic argumentData = Get.arguments;
-  print("test");
-  print(shop.name);
+  // print("test");
+  // print(shop.name);
   shop.name = argumentData.name;
   shop.location = argumentData.location;
   shop.id = argumentData.id;
@@ -36,7 +36,7 @@ Future save(BuildContext context) async {
     Get.to(() => const Exithome());
   }
 
-  print({shop.name, shop.type, shop.description, shop.location});
+  // print({shop.name, shop.type, shop.description, shop.location});
   http.post(
       Uri.parse(
         "${apidomain}store/edit/${shop.type}",
@@ -151,7 +151,7 @@ class _EditStoreFormState extends State<EditStoreForm> {
         var start = formattedTimeOfDay;
         var end = formattedTimeOfDay;
         shop.start = start;
-        print(start);
+        // print(start);
       });
     }
   }
@@ -169,7 +169,7 @@ class _EditStoreFormState extends State<EditStoreForm> {
         var start = formattedTimeOfDay;
         var end = formattedTimeOfDay;
         shop.end = end;
-        print(start);
+        // print(start);
       });
     }
   }

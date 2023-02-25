@@ -17,7 +17,7 @@ import 'package:http/http.dart' as http;
 //                       onChanged: (val) {
 //                         setState(() {
 //                           query = val;
-//                           print(query);
+//                           // print(query);
 //                         });
 //                       },
 //                       decoration: InputDecoration(
@@ -52,7 +52,7 @@ class SearchStorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(argumentData[0]);
+    // print(argumentData[0]);
 
     return Scaffold(
       appBar: const PreferredSize(
@@ -239,8 +239,7 @@ class SearchStorePage extends StatelessWidget {
                     return const SizedBox(
                         height: 200,
                         width: 200,
-                        child:
-                            Center(child: CircularProgressIndicator()));
+                        child: Center(child: CircularProgressIndicator()));
                   }
                 },
               ),

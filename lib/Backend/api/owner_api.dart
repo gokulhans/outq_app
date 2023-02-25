@@ -11,7 +11,7 @@ Future getOwnerStore() async {
   var response = await http.get(Uri.parse('${apidomain}store/$ownerid'));
   var jsonData = jsonDecode(response.body);
   pref.setString("storeid", jsonData[0]["type"]);
-  print(jsonData);
+  // print(jsonData);
 
   List<Store> stores = [];
 
@@ -29,7 +29,7 @@ Future getOwnerStore() async {
         u["employees"]);
     stores.add(store);
   }
-  print(stores);
+  // print(stores);
   return stores;
 }
 
@@ -51,15 +51,15 @@ Future getStoreServices() async {
       u["storeid"],
       u["ownerid"],
       u["duration"],
-        u["start"],
+      u["start"],
       u["end"],
       u["storename"],
       u["id"],
     );
-    print("service");
+    // print("service");
     services.add(service);
   }
-  print(services);
+  // print(services);
   return services;
 }
 
@@ -106,14 +106,14 @@ Future getSingleServiceDetails(var serviceid) async {
       u["storeid"],
       u["ownerid"],
       u["duration"],
-        u["start"],
+      u["start"],
       u["end"],
       u["storename"],
       u["id"],
     );
     services.add(service);
   }
-  print(services);
+  // print(services);
   return services;
 }
 
@@ -126,11 +126,11 @@ Future deleteService(var serviceid) async {
 Future getStoreServiceBooking() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   var storeid = pref.getString("storeid");
-  print(storeid);
+  // print(storeid);
   var response =
       await http.get(Uri.parse('${apidomain}booking/view/store/$storeid'));
   var jsonData = jsonDecode(response.body);
-  print(jsonData);
+  // print(jsonData);
 
   List<GetBookingModel> bookings = [];
   for (var u in jsonData) {
@@ -151,8 +151,8 @@ Future getStoreServiceBooking() async {
     );
     bookings.add(booking);
   }
-  print("bookings");
-  print(bookings);
+  // print("bookings");
+  // print(bookings);
   return bookings;
 }
 
@@ -164,7 +164,7 @@ Future getOwnerOrders() async {
   var response =
       await http.get(Uri.parse('${apidomain}order/view/store/$storeid'));
   var jsonData = jsonDecode(response.body);
-  print(jsonData);
+  // print(jsonData);
 
   List<GetOrderModel> orders = [];
   for (var u in jsonData) {
@@ -184,6 +184,6 @@ Future getOwnerOrders() async {
     );
     orders.add(order);
   }
-  print(orders);
+  // print(orders);
   return orders;
 }
